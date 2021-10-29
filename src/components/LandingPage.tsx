@@ -1,4 +1,5 @@
 import { PureComponent } from "react";
+import { Link } from "react-router-dom";
 import { Props } from "../types/TGlobal";
 import { State } from "../types/TLandingPage";
 import logo from "../logo.svg";
@@ -10,7 +11,7 @@ class LandingPage extends PureComponent<Props, State> {
         super(props);
         this.state = {
             colSize: "",
-            device: ""
+            device: "mobile"
         } as State;
 
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -20,8 +21,14 @@ class LandingPage extends PureComponent<Props, State> {
         this._isMounted = true;
 
         if (this._isMounted === true) {
+            window.addEventListener("reize", this.updateWindowDimensions);
             this.updateWindowDimensions();
         }
+    }
+
+    componentWillUnmount(): void {
+        window.removeEventListener("resize", this.updateWindowDimensions);
+        this._isMounted = false;
     }
 
     updateWindowDimensions(): void {
@@ -56,7 +63,44 @@ class LandingPage extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <div className="container">
+                    <div className="row">
+                        <h1 className={`col${this.state.colSize}-12 center-text`}></h1>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-12`}>
+                            <hr />
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-5 center-text middle-align`}>
+                            <Link to="/dashboard/my-collection">
+                                My collection
+                            </Link>
+                        </div>
+
+                        <div className={`col${this.state.colSize}-5 center-text middle-align`}>
+                            <Link to="/dashboard/profile">
+                            Profile
+                            </Link>
+                            
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-5 center-text middle-align`}>
+                            <Link to="/dashboard/scanner-js">
+                            Scan Plant
+                            </Link>
+                        </div>
+
+                        <div className={`col${this.state.colSize}-5 center-text middle-align`}>
+
+                        </div>
+                    </div>
+                </div>
             );
         }
 
@@ -64,7 +108,33 @@ class LandingPage extends PureComponent<Props, State> {
             return (
                 <div className="container">
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>Welcome</h1>
+                        <h1 className={`col${this.state.colSize}-12 center-text`}></h1>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-12`}>
+                            <hr />
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-5 center-text middle-align`}>
+                            My collection
+                        </div>
+
+                        <div className={`col${this.state.colSize}-5 center-text middle-align`}>
+                            Profile
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-5 center-text middle-align`}>
+                            Scan Plant
+                        </div>
+
+                        <div className={`col${this.state.colSize}-5 center-text middle-align`}>
+
+                        </div>
                     </div>
                 </div>
             );

@@ -25,8 +25,14 @@ class Scanner extends PureComponent<Props, State> {
         this._isMounted = true;
 
         if (this._isMounted === true) {
+            window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
         }
+    }
+
+    componentWillUnmount(): void {
+        window.removeEventListener("resize", this.updateWindowDimensions);
+        this._isMounted = false;
     }
 
     updateWindowDimensions(): void {

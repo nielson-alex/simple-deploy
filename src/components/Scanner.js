@@ -3,6 +3,25 @@ import BarcodeScannerComponent from "react-webcam-barcode-scanner";
 import "../css/GlobalCSS.css";
 import "../css/ScannerCSS.css";
 
+import balloonFlowers from "../media/images/flower-balloon-flowers-1592923522.jpg";
+
+
+const arr = [balloonFlowers
+    /* 
+        ,
+        cosmos,
+        flowerPhoto,
+        sulfurCosmos,
+        banyanTree,
+        treeImages,
+        treeImagess,
+        willow,
+        beets,
+        vegDownload,
+        vegDownloads
+    */
+];
+
 class Scanner extends PureComponent {
     _isMounted = false;
 
@@ -24,8 +43,14 @@ class Scanner extends PureComponent {
         this._isMounted = true;
 
         if (this._isMounted === true) {
+            window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
         }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateWindowDimensions);
+        this._isMounted = false;
     }
 
     updateWindowDimensions() {
@@ -76,7 +101,37 @@ class Scanner extends PureComponent {
     render() {
         const mobileRender = () => {
             return (
-                <></>
+                <div className="container">
+                    <div className="row">
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>Scan Plant</h1>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-12`}>
+                            <BarcodeScannerComponent
+                                width={500}
+                                height={500}
+                                onUpdate={(err, result) => {
+                                    if (result) {
+                                        this.setState({
+                                            data: result.text
+                                        });
+                                    } else {
+                                        this.setState({
+                                            data: "Not Found"
+                                        });
+                                    }
+                                }}
+                            />
+                            <p>
+                                {this.state.data === ""
+                                    ? "No image found"
+                                    : this.state.data
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
             );
         }
 
@@ -90,6 +145,7 @@ class Scanner extends PureComponent {
                     <div className="row">
                         <div className={`col${this.state.colSize}-12`}>
                             <hr />
+                            <img src={arr[1]} alt={"ooh la la"} />
                         </div>
                     </div>
 

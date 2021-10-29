@@ -23,8 +23,14 @@ class Home extends PureComponent<Props, State> {
         this._isMounted = true;
 
         if (this._isMounted === true) {
+            window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
         }
+    }
+
+    componentWillUnmount(): void {
+        window.removeEventListener("resize", this.updateWindowDimensions);
+        this._isMounted = false;
     }
 
     updateWindowDimensions(): void {
@@ -42,9 +48,13 @@ class Home extends PureComponent<Props, State> {
             return (
                 <div className="App">
                     <header className="App-header">
-                        <img src={logo} className="App-logo" alt="logo" />
-                        <Link className="btn btn-primary" to="/dashboard/landing-page">Enter</Link>
-                        <button
+                    <h2>Green Thumb</h2>
+                        <h4>Single Page Application Demo</h4>
+                        <Link to="/dashboard/landing-page">
+                            <img src={logo} className="App-logo" alt="logo" />
+                        </Link>
+                        <h4>Alex Nielson & Bekah</h4>
+                        {/* <button
                             onClick={async () => {
                                 fetch("/get_location_groups")
                                     .then((res: any): any => res.json())
@@ -61,7 +71,7 @@ class Home extends PureComponent<Props, State> {
                             rel="noopener noreferrer"
                         >
                             Learn React
-                        </a>
+                        </a> */}
                     </header>
                 </div>
             );

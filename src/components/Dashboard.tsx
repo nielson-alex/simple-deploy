@@ -23,8 +23,14 @@ class Dashboard extends PureComponent<Props, State> {
         this._isMounted = true;
 
         if (this._isMounted === true) {
+            window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
         }
+    }
+
+    componentWillUnmount(): void {
+        window.removeEventListener("resize", this.updateWindowDimensions);
+        this._isMounted = false;
     }
 
     updateWindowDimensions(): void {
@@ -59,7 +65,23 @@ class Dashboard extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <nav id="dash-nav">
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/dashboard/landing-page">Landing Page</Link>
+                        </li>
+                        <li>
+                            <Link to="/dashboard/scanner-js">Scanner</Link>
+                        </li>
+                        <li>
+                            <Link to="/dashboard/my-collection">My Collection</Link>
+                        </li>
+                    </ul>
+                    {dashboardRoutes}
+                </nav>
             );
         }
 
@@ -75,6 +97,9 @@ class Dashboard extends PureComponent<Props, State> {
                         </li>
                         <li>
                             <Link to="/dashboard/scanner-js">Scanner</Link>
+                        </li>
+                        <li>
+                            <Link to="/dashboard/my-collection">My Collection</Link>
                         </li>
                     </ul>
                     {dashboardRoutes}

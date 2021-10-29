@@ -14,4 +14,5 @@
         #dash-nav ul li {
             display: inline-block;
             justify-content: space-between;
+            text-align: center;
         }

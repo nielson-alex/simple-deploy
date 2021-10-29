@@ -1,6 +1,7 @@
 import { Switch, Route } from "react-router-dom";
 
 /* TypeScript imports */
+import Collection from "./components/Collection";
 import LandingPage from "./components/LandingPage";
 import Scanner from "./components/Scanner";
 
@@ -24,6 +25,7 @@ export default (
     <Switch>
         {/* --- TypeScript --- */}
         <Route exact path="/dashboard" component={() => <LandingPage user={user} />} />
+        <Route path="/dashboard/my-collection" component={() => <Collection user={user} /> } />
         <Route path="/dashboard/landing-page" component={() => <LandingPage user={user} />} />
 
         {/* --- TypeScript --- */}
