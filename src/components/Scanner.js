@@ -1,28 +1,26 @@
-import { PureComponent, MouseEvent } from "react";
-import QrReader from "react-qr-reader";
-import { Props } from "../types/TGlobal";
-import { State } from "../types/TCounter";
+import { PureComponent } from "react";
+import BarcodeScannerComponent from "react-webcam-barcode-scanner";
 import "../css/GlobalCSS.css";
-import "../css/CounterCSS.css";
-import { timeStamp } from "console";
+import "../css/ScannerCSS.css";
 
-class Counter extends PureComponent<Props, State> {
-    _isMounted: boolean = false;
+class Scanner extends PureComponent {
+    _isMounted = false;
 
-    constructor(props: Props) {
+    constructor(props) {
         super(props);
         this.state = {
             count: 0,
+            data: "",
             colSize: "",
-            device: ""
-        } as State;
+            device: "desktop"
+        }
 
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.decrement = this.decrement.bind(this);
         this.increment = this.increment.bind(this);
     }
 
-    componentDidMount(): void {
+    componentDidMount() {
         this._isMounted = true;
 
         if (this._isMounted === true) {
@@ -30,7 +28,7 @@ class Counter extends PureComponent<Props, State> {
         }
     }
 
-    updateWindowDimensions(): void {
+    updateWindowDimensions() {
         if (window.innerWidth < 576) {
             this.setState({
                 colSize: "",
@@ -59,33 +57,30 @@ class Counter extends PureComponent<Props, State> {
         }
     }
 
-    increment(e: MouseEvent<HTMLButtonElement>): void {
-        const name: string = e.currentTarget.name;
+    decrement(e) {
+        const name = e.currentTarget.name;
 
-        this.setState((prevState: State) => ({
-            ...prevState,
-            [name]: this.state.count - 1
-        }));
-    }
-
-    decrement(e: MouseEvent<HTMLButtonElement>): void {
-        const name: string = e.currentTarget.name;
-
-        this.setState((prevState: State) => ({
-            ...prevState,
+        this.setState({
             [name]: this.state.count + 1
-        }));
+        });
     }
 
+    increment(e) {
+        const name = e.currentTarget.name;
 
-    render(): JSX.Element {
-        const mobileRender: () => JSX.Element = (): JSX.Element => {
+        this.setState({
+            [name]: this.state.count - 1
+        });
+    }
+
+    render() {
+        const mobileRender = () => {
             return (
                 <></>
             );
         }
 
-        const desktopRender: () => JSX.Element = (): JSX.Element => {
+        const desktopRender = () => {
             return (
                 <div className="container">
                     <div className="row">
@@ -98,27 +93,43 @@ class Counter extends PureComponent<Props, State> {
                         </div>
                     </div>
 
-                    <QrReader
-                        className={`eqx-labor-tracking-qr-${this.state.device}`}
-                        delay={300}
-                        facingMode="user" // user or environment
-                        onError={(): null => null}
-                        onScan={(code: string | null): void | null => code !== null
-                            ? console.log("code:", code)
-                            : null
-                        }
-                        showViewFinder={true}
-                    />
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-12`}>
+                            <BarcodeScannerComponent
+                                width={500}
+                                height={500}
+                                onUpdate={(err, result) => {
+                                    if (result) {
+                                        this.setState({
+                                            data: result.text
+                                        });
+                                    } else {
+                                        this.setState({
+                                            data: "Not Found"
+                                        });
+                                    }
+                                }}
+                            />
+                            <p>
+                                {this.state.data === ""
+                                    ? "No image found"
+                                    : this.state.data
+                                }
+                            </p>
+                        </div>
+                    </div>
 
                     <div className="row">
                         <button
                             className={`col${this.state.colSize}-3 middle-align btn btn-secondary`}
-                            onClick={(e: MouseEvent<HTMLButtonElement>): void => this.decrement(e)}
+                            name="count"
+                            onClick={(e) => this.decrement(e)}
                         >-</button>
                         <label className={`col${this.state.colSize}-1`}>{this.state.count}</label>
                         <button
                             className={`col${this.state.colSize}-3 middle-align btn btn-secondary`}
-                            onClick={(e: MouseEvent<HTMLButtonElement>): void => this.increment(e)}
+                            name="count"
+                            onClick={(e) => this.increment(e)}
                         >+</button>
                     </div>
                 </div>
@@ -131,4 +142,4 @@ class Counter extends PureComponent<Props, State> {
     }
 }
 
-export default Counter;
+export default Scanner;
