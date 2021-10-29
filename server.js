@@ -22,24 +22,24 @@ function setUpPool() {
 
 app.use(express.static("build"));
 app.use(router.get("/get_location_groups", function (request, response, next) {
-    const query = `
-        SELECT DISTINCT location_group_id,
-                        location_group
-        FROM			oms.warehouse_recode
-        ORDER BY		location_group ASC
-    `;
+    // const query = `
+    //     SELECT DISTINCT location_group_id,
+    //                     location_group
+    //     FROM			oms.warehouse_recode
+    //     ORDER BY		location_group ASC
+    // `;
 
-    new Promise(function (resolve, reject) {
-        setUpPool().query(query,
-            function (error, results) {
-                if (error) {
-                    reject(error);
-                }
+    // new Promise(function (resolve, reject) {
+    //     setUpPool().query(query,
+    //         function (error, results) {
+    //             if (error) {
+    //                 reject(error);
+    //             }
 
-                if (results.rows) {
-                    response.send(results.rows);
-                }
-            });
-    });
+    //             if (results.rows) {
+    response.send({ "WHAT": "OKAY" });
+    // }
+    // });
+    // });
 }));
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
