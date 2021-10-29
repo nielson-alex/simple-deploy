@@ -17,7 +17,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -42,8 +42,16 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/nodemon": "^1.19.1",
     "@types/pg": "^8.6.1",
+    "@types/react-qr-reader": "^2.1.4",
+    "@types/react-router-dom": "^5.3.2",
+    "@types/react-toastify": "^4.1.0",
     "express": "^4.17.1",
-    "pg": "^8.7.1"
+    "nodemon": "^2.0.14",
+    "pg": "^8.7.1",
+    "react-qr-reader": "^2.2.1",
+    "react-router-dom": "^5.3.0",
+    "react-toastify": "^8.0.3"
   }
 }

@@ -1,0 +1,17 @@
+#dash-nav {
+    background-color: #000000;
+    top: 0;
+    height: 3em;
+}
+
+    #dash-nav ul {
+        display: flex;
+        justify-content: space-between;
+        list-style-type: none;
+        text-decoration: none;
+    }
+
+        #dash-nav ul li {
+            display: inline-block;
+            justify-content: space-between;
+        }
