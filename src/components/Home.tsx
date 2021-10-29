@@ -53,7 +53,7 @@ class Home extends PureComponent<Props, State> {
                         <Link to="/dashboard/landing-page">
                             <img src={logo} className="App-logo" alt="logo" />
                         </Link>
-                        <h4>Alex Nielson & Bekah</h4>
+                        <h4>Bekah Claussen & Alex Nielson</h4>
                         {/* <button
                             onClick={async () => {
                                 fetch("/get_location_groups")

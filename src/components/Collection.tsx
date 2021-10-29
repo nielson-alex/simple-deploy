@@ -106,14 +106,17 @@ class Collection extends PureComponent<Props, State> {
                             
 
                             return (
+                                <>
                                 <div className="row">
                                     <img
                                         src={img}
                                         alt={img}
-                                        className={`col${this.state.colSize}-5 middle-align`}
+                                        className={`col${this.state.colSize}-11 middle-align`}
                                         onClick={this.toggleDetailsModal}
                                     />
                                 </div>
+                                <br />
+                                </>
                             )
                         })  
                         : "No plants in collection"
@@ -121,7 +124,20 @@ class Collection extends PureComponent<Props, State> {
 
                     <Modal isOpen={this.state.showDetailsModal}>
                         <button onClick={this.toggleDetailsModal}>Close</button>
-                        <h2>Hi-o</h2>
+                        <div className="container">
+                            <div className="row">
+                                <p className={`col${this.state.colSize}-2 bold`}>Name:</p>
+                                <p className={`col${this.state.colSize}-10 bold`}></p>
+                            </div>
+                            <div className="row">
+                                <p className={`col${this.state.colSize}-2 bold`}>Regions:</p>
+                                <p className={`col${this.state.colSize}-10 bold`}></p>
+                            </div>
+                            <div className="row">
+                                <p className={`col${this.state.colSize}-2 bold`}>Description:</p>
+                                <p className={`col${this.state.colSize}-10 bold`}></p>
+                            </div>
+                        </div>
                     </Modal>
                 </div>
             );

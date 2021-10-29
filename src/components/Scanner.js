@@ -109,7 +109,7 @@ class Scanner extends PureComponent {
                     <div className="row">
                         <div className={`col${this.state.colSize}-12`}>
                             <BarcodeScannerComponent
-                                width={500}
+                                width={"100%"}
                                 height={500}
                                 onUpdate={(err, result) => {
                                     if (result) {
