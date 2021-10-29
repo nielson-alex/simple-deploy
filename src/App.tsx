@@ -7,8 +7,15 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <button
+          onClick={async () => {
+            fetch("/get_location_groups")
+              .then((res: any): any => res.json())
+              .then((res: any): void => console.log("res:", res));
+          }}
+        >Click</button>
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          aaaaaaaaaaaaaaaaaaaa Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <a
           className="App-link"
