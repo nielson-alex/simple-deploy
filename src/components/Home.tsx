@@ -8,7 +8,7 @@ import "../css/HomeCSS.css";
 
 class Home extends PureComponent<Props, State> {
     _isMounted: boolean = false;
-    /* comment */
+
     constructor(props: Props) {
         super(props);
         this.state = {
