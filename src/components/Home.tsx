@@ -54,32 +54,7 @@ class Home extends PureComponent<Props, State> {
                             <img src={logo} className="App-logo" alt="logo" />
                         </Link>
                         <h4>Alex Nielson & Bekah</h4>
-                        <button
-                            className="btn btn-secondary"
-                            onClick={(): any => {
-                                fetch("/animals/animals", {
-                                    method: "GET",
-                                    headers: {
-                                        "Access-Control-Allow-Origin": "*",
-                                        'Allow-Origin': "*",
-                                        "Access-Control-Allow-Methods": "['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']",
-                                        "API-KEY": "27dc4c3f-0c52-4f47-b376-820d60305c11",
-                                        "X-API-KEY": "27dc4c3f-0c52-4f47-b376-820d60305c11"
-                                    }
-                                })
-                                    .then((res: any): any => res.json())
-                                    .then((res: any): any => console.log("res:", res));
-                                // await fetch("/get_location_groups", {
-                                //     method: "GET",
-                                //     headers: {
-                                //         "Access-Control-Allow-Origin": "*",
-                                //         "Access-Control-Allow-Methods": "DELETE, GET, OPTIONS, PATCH, POST, PUT"
-                                //     }
-                                // })
-                                //     .then((res: Response): any => res.json())
-                                //     .then((res: any): void => console.log("res:", res));
-                            }}
-                        >Call API</button>
+
                         {/* <button
                             onClick={async () => {
                                 fetch("/get_location_groups")
