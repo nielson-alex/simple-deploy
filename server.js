@@ -95,7 +95,7 @@ app.use(router.get("/animals/animals", function (req, res, next) {
         })
         .then(animals => {
             console.log("animals:", animals);
-
+            console.log("");
             res.send({ "animals": animals });
         })
         .catch(err => {
