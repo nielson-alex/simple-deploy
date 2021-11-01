@@ -1,5 +1,7 @@
 #dash-nav {
     background-color: #000000;
+    margin: 0;
+    padding: 0;
     top: 0;
     height: 3em;
 }
@@ -8,11 +10,16 @@
         display: flex;
         justify-content: space-between;
         list-style-type: none;
+        margin: 0;
+        padding: 0;
         text-decoration: none;
     }
 
         #dash-nav ul li {
+            color: #f8f9fa;
             display: inline-block;
             justify-content: space-between;
+            margin: 0;
+            padding: 0;
             text-align: center;
         }

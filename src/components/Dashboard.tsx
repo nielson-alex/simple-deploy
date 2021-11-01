@@ -68,10 +68,7 @@ class Dashboard extends PureComponent<Props, State> {
                 <nav id="dash-nav">
                     <ul>
                         <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/dashboard/landing-page">Landing Page</Link>
+                            <Link to="/dashboard/landing-page">Home</Link>
                         </li>
                         <li>
                             <Link to="/dashboard/scanner-js">Scanner</Link>

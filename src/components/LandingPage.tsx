@@ -2,7 +2,8 @@ import { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { Props } from "../types/TGlobal";
 import { State } from "../types/TLandingPage";
-import logo from "../logo.svg";
+import "../css/GlobalCSS.css";
+import "../css/LandingPageCSS.css";
 
 class LandingPage extends PureComponent<Props, State> {
     _isMounted: boolean = false;
@@ -65,7 +66,7 @@ class LandingPage extends PureComponent<Props, State> {
             return (
                 <div className="container">
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}></h1>
+                        <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Green Thumb</h1>
                     </div>
 
                     <div className="row">
@@ -77,27 +78,37 @@ class LandingPage extends PureComponent<Props, State> {
                     <div className="row">
                         <div className={`col${this.state.colSize}-5 center-text middle-align`}>
                             <Link to="/dashboard/my-collection">
-                                My collection
+                                <p className="landing-page-link">
+                                    My collection
+                                </p>
                             </Link>
                         </div>
 
                         <div className={`col${this.state.colSize}-5 center-text middle-align`}>
                             <Link to="/dashboard/profile">
-                            Profile
+                            <p className="landing-page-link">
+                                    Profile
+                                </p>
                             </Link>
-                            
+
                         </div>
                     </div>
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-5 center-text middle-align`}>
                             <Link to="/dashboard/scanner-js">
-                            Scan Plant
+                            <p className="landing-page-link">
+                                    Scan Plant
+                                </p>
                             </Link>
                         </div>
 
                         <div className={`col${this.state.colSize}-5 center-text middle-align`}>
-
+                        <Link to="/dashboard/scanner-js">
+                            <p className="landing-page-link">
+                                    Scan Plant
+                                </p>
+                            </Link>
                         </div>
                     </div>
                 </div>
