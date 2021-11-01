@@ -57,7 +57,7 @@ class Home extends PureComponent<Props, State> {
                         <button
                             className="btn btn-secondary"
                             onClick={(): any => {
-                                fetch("/create-test", {
+                                fetch("https://data.heroku.com/dataclips/lwuapeleoruanrvdlcsuajvyxfdw", {
                                     method: "GET",
                                     headers: {
                                         "Access-Control-Allow-Origin": "*",
