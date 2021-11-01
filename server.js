@@ -25,7 +25,8 @@ function setUpPool() {
 }
 
 app.use(cors({
-    origin: "*"
+    origin: "*",
+    methods: "DELETE, GET, OPTIONS, PATCH, POST, PUT"
 }));
 app.use(express.static("build"));
 app.use(express.static(__dirname + "/get_location_groups"), function (request, response, next) {

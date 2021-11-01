@@ -60,7 +60,8 @@ class Home extends PureComponent<Props, State> {
                                 await fetch("/get_location_groups", {
                                     method: "GET",
                                     headers: {
-                                        "Access-Control-Allow-Origin": "*"
+                                        "Access-Control-Allow-Origin": "*",
+                                        "Access-Control-Allow-Methods": "DELETE, GET, OPTIONS, PATCH, POST, PUT"
                                     }
                                 })
                                     .then((res: Response): any => res.json())
