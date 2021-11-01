@@ -48,12 +48,25 @@ class Home extends PureComponent<Props, State> {
             return (
                 <div className="App">
                     <header className="App-header">
-                    <h2>Green Thumb</h2>
+                        <h2>Green Thumb</h2>
                         <h4>Single Page Application Demo</h4>
                         <Link to="/dashboard/landing-page">
                             <img src={logo} className="App-logo" alt="logo" />
                         </Link>
                         <h4>Alex Nielson & Bekah</h4>
+                        <button
+                            className="btn btn-secondary"
+                            onClick={async (): Promise<void> => {
+                                await fetch("/get_location_groups", {
+                                    method: "GET",
+                                    headers: {
+                                        "Access-Control-Allow-Origin": "*"
+                                    }
+                                })
+                                    .then((res: Response): any => res.json())
+                                    .then((res: any): void => console.log("res:", res));
+                            }}
+                        >Call API</button>
                         {/* <button
                             onClick={async () => {
                                 fetch("/get_location_groups")

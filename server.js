@@ -1,9 +1,13 @@
 const express = require("express");
+const cors = require("cors");
 const router = express.Router();
 const app = express();
 const PORT = process.env.PORT || 5000;
-const host = "10.0.0.249";
-const database = "postgres";
+const host = "pg.eqxnutra.com";
+// const host = "10.0.0.249";
+const database = "equinox";
+// const database = "postgres";
+const schema = "";
 // const schema = "sandbox";
 let pgPort = 5432;
 
@@ -13,20 +17,44 @@ function setUpPool() {
         user: "postgres",
         host: host,
         database: database,
-        password: " ",
+        password: "",
         port: pgPort,
     });
 
     return pool;
 }
 
+app.use(cors({
+    origin: "*"
+}));
 app.use(express.static("build"));
-app.use(router.get("/get_location_groups", function (request, response, next) {
+app.use(express.static(__dirname + "/get_location_groups"), function (request, response, next) {
     const query = `
-        SELECT      *
-        FROM        test.test
-        ORDER BY    id ASC 
-    `;
+            SELECT      id
+                        ,first_name
+                        ,last_name
+                        ,department
+                        ,start_date
+                        ,drives
+                        ,additional_equipment
+                        ,email_groups
+                        ,shared_email_access
+                        ,needs_email
+                        ,needs_vpn
+                        ,needs_phone
+                        ,needs_computer
+                        ,needs_fishbowl_access
+                        ,is_contractor
+                        ,is_remote
+                        ,is_temp
+                        ,temp_duration
+                        ,additional_comments
+            FROM        equivoice.new_hire_info
+            WHERE       active = true
+            ORDER BY    last_name ASC
+        `;
+
+    console.log("query:", query);
 
     new Promise(function (resolve, reject) {
         setUpPool().query(query,
@@ -35,11 +63,44 @@ app.use(router.get("/get_location_groups", function (request, response, next) {
                     reject(error);
                 }
 
-                if (results.rows) {
-                    response.send(results.rows);
-                    // response.send({ "WHAT": "OKAY" });
+                if (results?.rows?.length > 0) {
+                    console.log("results.rows:", results.rows);
+                    const data = results.rows;
+
+                    response.send({ "data": data });
+                } else {
+                    response.send({
+                        "error": "No results found"
+                    });
                 }
             });
     });
-}));
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+
+    // console.log("called right API");
+    // response.send({ "KEY": "VALUE" });
+});
+// app.use(router.get("/get_location_groups]", function (request, response, next) {
+//     // const query = `
+//     //     SELECT DISTINCT location_group_id,
+//     //                     location_group
+//     //     FROM			oms.warehouse_recode
+//     //     ORDER BY		location_group ASC
+//     // `;
+
+//     // new Promise(function (resolve, reject) {
+//     //     setUpPool().query(query,
+//     //         function (error, results) {
+//     //             if (error) {
+//     //                 reject(error);
+//     //             }
+
+//     //             if (results.rows) {
+//     response.send({ "WHAT": "OKAY" });
+//     // }
+//     // });
+//     // });
+// }));
+app.listen(PORT, () => {
+    console.log("express.static(__dirname + \"/public\")", express.static(__dirname, + "/public"));
+    console.log(`Listening on port ${PORT}`)
+});
