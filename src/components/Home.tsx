@@ -56,16 +56,24 @@ class Home extends PureComponent<Props, State> {
                         <h4>Alex Nielson & Bekah</h4>
                         <button
                             className="btn btn-secondary"
-                            onClick={async (): Promise<void> => {
-                                await fetch("/get_location_groups", {
+                            onClick={(): any => {
+                                fetch("/create-test", {
                                     method: "GET",
                                     headers: {
                                         "Access-Control-Allow-Origin": "*",
                                         "Access-Control-Allow-Methods": "DELETE, GET, OPTIONS, PATCH, POST, PUT"
                                     }
                                 })
-                                    .then((res: Response): any => res.json())
-                                    .then((res: any): void => console.log("res:", res));
+                                    .then((res: any): any => console.log("res:", res))
+                                // await fetch("/get_location_groups", {
+                                //     method: "GET",
+                                //     headers: {
+                                //         "Access-Control-Allow-Origin": "*",
+                                //         "Access-Control-Allow-Methods": "DELETE, GET, OPTIONS, PATCH, POST, PUT"
+                                //     }
+                                // })
+                                //     .then((res: Response): any => res.json())
+                                //     .then((res: any): void => console.log("res:", res));
                             }}
                         >Call API</button>
                         {/* <button

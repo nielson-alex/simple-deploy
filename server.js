@@ -3,10 +3,15 @@ const cors = require("cors");
 const router = express.Router();
 const app = express();
 const PORT = process.env.PORT || 5000;
-const host = "pg.eqxnutra.com";
+const user = "qqsqyszjxqcege";
+// const user = "postgres";
+const host = "ec2-18-213-179-70.compute-1.amazonaws.com";
+// const host = "pg.eqxnutra.com";
 // const host = "10.0.0.249";
-const database = "equinox";
+const database = "d3nksggl3kplk8";
+// const database = "equinox";
 // const database = "postgres";
+const password = "8afe68ffe64518067a8eee198845896ed49a09f030f2284af51caf43bb04eb67";
 const schema = "";
 // const schema = "sandbox";
 let pgPort = 5432;
@@ -14,10 +19,10 @@ let pgPort = 5432;
 function setUpPool() {
     const Pool = require("pg").Pool;
     const pool = new Pool({
-        user: "postgres",
+        user: user,
         host: host,
         database: database,
-        password: "",
+        password: password,
         port: pgPort,
     });
 
