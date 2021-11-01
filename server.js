@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 const express = require("express");
 const app = express();
 const router = express.Router();
@@ -25,7 +26,6 @@ const path = require("path");
 
 const cors = require("cors");
 const session = require("express-session");
-const mongoose = require("mongoose");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const csrf = require("csurf");
 const flash = require("connect-flash");

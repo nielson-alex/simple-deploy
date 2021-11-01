@@ -1,87 +1,94 @@
-import { PureComponent } from "react";
-import { Link } from "react-router-dom";
-import { Props } from "../types/TGlobal";
-import { State } from "../types/THome";
-import logo from "../logo.svg";
-import "../css/GlobalCSS.css";
-import "../css/HomeCSS.css";
+// import React from "react";
+// // import { PureComponent } from "react";
+// // import { Link } from "react-router-dom";
+// import { Props } from "../types/TGlobal";
+// import { State } from "../types/THome";
+// // import logo from "../logo.svg";
+// import "../css/GlobalCSS.css";
+// import "../css/HomeCSS.css";
 
-class Home extends PureComponent<Props, State> {
-    _isMounted: boolean = false;
+// class Home extends React.PureComponent<Props, State> {
+//     // _isMounted: boolean = false;
 
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            colSize: "",
-            device: ""
-        } as State;
+//     // constructor(props: Props) {
+//     //     super(props);
+//     //     this.state = {
+//     //         colSize: "",
+//     //         device: ""
+//     //     } as State;
 
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    }
+//     //     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+//     // }
 
-    componentDidMount(): void {
-        this._isMounted = true;
+//     // componentDidMount(): void {
+//     //     this._isMounted = true;
 
-        if (this._isMounted === true) {
-            window.addEventListener("resize", this.updateWindowDimensions);
-            this.updateWindowDimensions();
-        }
-    }
+//     //     if (this._isMounted === true) {
+//     //         window.addEventListener("resize", this.updateWindowDimensions);
+//     //         this.updateWindowDimensions();
+//     //     }
+//     // }
 
-    componentWillUnmount(): void {
-        window.removeEventListener("resize", this.updateWindowDimensions);
-        this._isMounted = false;
-    }
+//     // componentWillUnmount(): void {
+//     //     window.removeEventListener("resize", this.updateWindowDimensions);
+//     //     this._isMounted = false;
+//     // }
 
-    updateWindowDimensions(): void {
+//     // updateWindowDimensions(): void {
 
-    }
+//     // }
 
-    render(): JSX.Element {
-        const mobileRender: () => JSX.Element = (): JSX.Element => {
-            return (
-                <></>
-            );
-        }
+//     // render(): JSX.Element {
+//     //     const mobileRender: () => JSX.Element = (): JSX.Element => {
+//     //         return (
+//     //             <></>
+//     //         );
+//     //     }
 
-        const desktopRender: () => JSX.Element = (): JSX.Element => {
-            return (
-                <div className="App">
-                    <header className="App-header">
-                        <h2>Green Thumb</h2>
-                        <h4>Single Page Application Demo</h4>
-                        <Link to="/dashboard/landing-page">
-                            <img src={logo} className="App-logo" alt="logo" />
-                        </Link>
-                        <h4>Alex Nielson & Bekah</h4>
+//     //     const desktopRender: () => JSX.Element = (): JSX.Element => {
+//     //         return (
+//     //             <div className="App">
+//     //                 <header className="App-header">
+//     //                     <h2>Green Thumb</h2>
+//     //                     <h4>Single Page Application Demo</h4>
+//     //                     <Link to="/dashboard/landing-page">
+//     //                         <img src={logo} className="App-logo" alt="logo" />
+//     //                     </Link>
+//     //                     <h4>Alex Nielson & Bekah</h4>
 
-                        {/* <button
-                            onClick={async () => {
-                                fetch("/get_location_groups")
-                                    .then((res: any): any => res.json())
-                                    .then((res: any): void => console.log("res:", res));
-                            }}
-                        >Click</button>
-                        <p>
-                            Edit <code>src/App.tsx</code> and save to reload.
-                        </p>
-                        <a
-                            className="App-link"
-                            href="https://reactjs.org"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Learn React
-                        </a> */}
-                    </header>
-                </div>
-            );
-        }
+//     //                     {/* <button
+//     //                         onClick={async () => {
+//     //                             fetch("/get_location_groups")
+//     //                                 .then((res: any): any => res.json())
+//     //                                 .then((res: any): void => console.log("res:", res));
+//     //                         }}
+//     //                     >Click</button>
+//     //                     <p>
+//     //                         Edit <code>src/App.tsx</code> and save to reload.
+//     //                     </p>
+//     //                     <a
+//     //                         className="App-link"
+//     //                         href="https://reactjs.org"
+//     //                         target="_blank"
+//     //                         rel="noopener noreferrer"
+//     //                     >
+//     //                         Learn React
+//     //                     </a> */}
+//     //                 </header>
+//     //             </div>
+//     //         );
+//     //     }
 
-        return this.state.device === "mobile"
-            ? mobileRender()
-            : desktopRender();
-    }
-}
+//     //     return this.state.device === "mobile"
+//     //         ? mobileRender()
+//     //         : desktopRender();
+//     // }
 
-export default Home;
+//     render() {
+//         return <div></div>;
+//     }
+// }
+
+// export default Home;
+
+export default "";
