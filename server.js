@@ -25,7 +25,7 @@ function setUpPool() {
 }
 
 app.use(cors({
-    origin: "pg.eqxnutra.com",
+    origin: "*",
     methods: "DELETE, GET, OPTIONS, PATCH, POST, PUT"
 }));
 app.use(express.static("build"));
