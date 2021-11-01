@@ -2,7 +2,7 @@
 // const path = require('path');
 // const mongodb = require('mongodb');
 // const getDb = require('../util/database').getDb;
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const animalSchema = mongoose.Schema({
     name: {
