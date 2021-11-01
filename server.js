@@ -30,51 +30,52 @@ app.use(cors({
 }));
 app.use(express.static("build"));
 app.use(express.static(__dirname + "/get_location_groups"), function (request, response, next) {
-    const query = `
-            SELECT      id
-                        ,first_name
-                        ,last_name
-                        ,department
-                        ,start_date
-                        ,drives
-                        ,additional_equipment
-                        ,email_groups
-                        ,shared_email_access
-                        ,needs_email
-                        ,needs_vpn
-                        ,needs_phone
-                        ,needs_computer
-                        ,needs_fishbowl_access
-                        ,is_contractor
-                        ,is_remote
-                        ,is_temp
-                        ,temp_duration
-                        ,additional_comments
-            FROM        equivoice.new_hire_info
-            WHERE       active = true
-            ORDER BY    last_name ASC
-        `;
+    // const query = `
+    //         SELECT      id
+    //                     ,first_name
+    //                     ,last_name
+    //                     ,department
+    //                     ,start_date
+    //                     ,drives
+    //                     ,additional_equipment
+    //                     ,email_groups
+    //                     ,shared_email_access
+    //                     ,needs_email
+    //                     ,needs_vpn
+    //                     ,needs_phone
+    //                     ,needs_computer
+    //                     ,needs_fishbowl_access
+    //                     ,is_contractor
+    //                     ,is_remote
+    //                     ,is_temp
+    //                     ,temp_duration
+    //                     ,additional_comments
+    //         FROM        equivoice.new_hire_info
+    //         WHERE       active = true
+    //         ORDER BY    last_name ASC
+    //     `;
 
-    console.log("query:", query);
+    // console.log("query:", query);
 
     new Promise(function (resolve, reject) {
-        setUpPool().query(query,
-            function (error, results) {
-                if (error) {
-                    reject(error);
-                }
+        response.send({ "Sasha breed": "Calico" });
+        // setUpPool().query(query,
+        //     function (error, results) {
+        //         if (error) {
+        //             reject(error);
+        //         }
 
-                if (results?.rows?.length > 0) {
-                    console.log("results.rows:", results.rows);
-                    const data = results.rows;
+        //         if (results?.rows?.length > 0) {
+        //             console.log("results.rows:", results.rows);
+        //             const data = results.rows;
 
-                    response.send({ "data": data });
-                } else {
-                    response.send({
-                        "error": "No results found"
-                    });
-                }
-            });
+        //             response.send({ "data": data });
+        //         } else {
+        //             response.send({
+        //                 "error": "No results found"
+        //             });
+        //         }
+        //     });
     });
 
     // console.log("called right API");
