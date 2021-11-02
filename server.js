@@ -25,17 +25,17 @@ const path = require("path");
 // const animalController = require(path.join(__dirname, "/server/controllers/animal-controller"));
 
 const cors = require("cors");
-// const session = require("express-session");
-// const MongoDBStore = require("connect-mongodb-session")(session);
-// const csrf = require("csurf");
-// const flash = require("connect-flash");
-// const multer = require("multer");
+const session = require("express-session");
+const MongoDBStore = require("connect-mongodb-session")(session);
+const csrf = require("csurf");
+const flash = require("connect-flash");
+const multer = require("multer");
 
 const MONGODB_URI = 'mongodb+srv://NewEggHome:a@cluster0.ysadg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
-// const store = new MongoDBStore({
-//     uri: MONGODB_URI,
-//     collection: "sessions"
-// });
+const store = new MongoDBStore({
+    uri: MONGODB_URI,
+    collection: "sessions"
+});
 
 function setUpPool() {
     const Pool = require("pg").Pool;
@@ -51,15 +51,15 @@ function setUpPool() {
 }
 
 app.use(express.static("build"));
-// app.use(
-//     session({
-//         secret: "my secret",
-//         resave: false,
-//         saveUninitialized: false,
-//         store: store
-//     })
-// );
-// app.use(flash());
+app.use(
+    session({
+        secret: "my secret",
+        resave: false,
+        saveUninitialized: false,
+        store: store
+    })
+);
+app.use(flash());
 app.use((req, res, next) => {
     // throw new Error('Sync Dummy');
     if (!req.session.user) {
