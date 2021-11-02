@@ -136,27 +136,27 @@ app.use(router.get("/animals/animals", function (req, res, next) {
 //     // console.log("called right API");
 //     // response.send({ "KEY": "VALUE" });
 // });
-// app.use(router.get("/get_location_groups]", function (request, response, next) {
-//     // const query = `
-//     //     SELECT DISTINCT location_group_id,
-//     //                     location_group
-//     //     FROM			oms.warehouse_recode
-//     //     ORDER BY		location_group ASC
-//     // `;
+app.use(router.get("/get_location_groups]", function (request, response, next) {
+    const query = `
+         SELECT DISTINCT location_group_id,
+                         location_group
+         FROM			oms.warehouse_recode
+       ORDER BY		location_group ASC
+     `;
 
-//     // new Promise(function (resolve, reject) {
-//     //     setUpPool().query(query,
-//     //         function (error, results) {
-//     //             if (error) {
-//     //                 reject(error);
-//     //             }
+    new Promise(function (resolve, reject) {
+        setUpPool().query(query,
+            function (error, results) {
+                if (error) {
+                    reject(error);
+                }
 
-//     //             if (results.rows) {
-//     response.send({ "WHAT": "OKAY" });
-//     // }
-//     // });
-//     // });
-// }));
+                if (results.rows) {
+                    response.send({ "WHAT": "OKAY" });
+                }
+            });
+    });
+}));
 const corsOptions = {
     // origin: "https://date-planning-app.herokuapp.com/",
     origin: "*",
