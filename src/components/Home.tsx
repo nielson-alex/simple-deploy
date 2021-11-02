@@ -103,36 +103,91 @@ class Home extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <div className="middle-align" style={{ margin: "0 auto", padding: "0", width: "96%" }}>
+                    <div className="row">
+                        <h3 className={`col${this.state.colSize}-12 center-text`}>React/TypeScript Single-Page Application</h3>
+                        <Link className={`col${this.state.colSize}-3 middle-align`} to="/dashboard/landing-page">
+                            <img src={logo} className="App-logo middle-align" alt="logo" />
+                        </Link>
+                        <h4 className={`col${this.state.colSize}-12 center-text`}>Alex Nielson</h4>
+                    </div>
+
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-4 middle-align btn btn-secondary`}
+                            onClick={this.handleCallServer}
+                        >Randomly Choose Animal</button>
+                    </div>
+
+                    <div className="row">
+                        <p className={`col${this.state.colSize}-6 middle-align`}>{this.state.featuredAnimal.name !== ""
+                            ? `Meet ${this.state.featuredAnimal.name}, the ${this.state.featuredAnimal.age}-year-old ${this.state.featuredAnimal.breed}!`
+                            : "Press the button to be assigned a pet"}
+                        </p>
+                    </div>
+
+                    {/* 
+                    <div className="row">
+                        <p>Edit <code>src/App.tsx</code> and save to reload.</p> 
+                    </div>        
+                */}
+
+                    <div className="row">
+                        <a
+                            className={`col${this.state.colSize}-11 center-text middle-align App-link`}
+                            href="https://reactjs.org"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Learn React
+                        </a>
+                    </div>
+                </div>
             );
         }
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <>
-                    <h2>Green Thumb</h2>
-                    <h4>Single Page Application Demo</h4>
-                    <Link to="/dashboard/landing-page">
-                        <img src={logo} className="App-logo" alt="logo" />
-                    </Link>
-                    <h4>Alex Nielson</h4>
+                <div className="middle-align" style={{ margin: "0 auto", padding: "0", width: "96%" }}>
+                    <div className="row">
+                        <h3 className={`col${this.state.colSize}-12 center-text`}>React/TypeScript Single-Page Application</h3>
+                        <Link className={`col${this.state.colSize}-3 middle-align`} to="/dashboard/landing-page">
+                            <img src={logo} className="App-logo middle-align" alt="logo" />
+                        </Link>
+                        <h4 className={`col${this.state.colSize}-12 center-text`}>Alex Nielson</h4>
+                    </div>
 
-                    <button className="btn btn-secondary" onClick={this.handleCallServer}>Randomly Choose Animal</button>
-                    <p>{this.state.featuredAnimal.name !== ""
-                        ? `Meet ${this.state.featuredAnimal.name}, the ${this.state.featuredAnimal.age}-year-old ${this.state.featuredAnimal.breed}!`
-                        : "Press the button to be assigned a pet"
-                    }</p>
-                    <p>Edit <code>src/App.tsx</code> and save to reload.</p>
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-4 middle-align btn btn-secondary`}
+                            onClick={this.handleCallServer}
+                        >Randomly Choose Animal</button>
+                    </div>
 
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                </>
+                    <div className="row">
+                        <p className={`col${this.state.colSize}-6 middle-align`}>{this.state.featuredAnimal.name !== ""
+                            ? `Meet ${this.state.featuredAnimal.name}, the ${this.state.featuredAnimal.age}-year-old ${this.state.featuredAnimal.breed}!`
+                            : "Press the button to be assigned a pet"}
+                        </p>
+                    </div>
+
+                    {/* 
+                    <div className="row">
+                        <p>Edit <code>src/App.tsx</code> and save to reload.</p> 
+                    </div>        
+                */}
+
+                    <div className="row">
+                        <a
+                            className={`col${this.state.colSize}-11 center-text middle-align App-link`}
+                            href="https://reactjs.org"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Learn React
+                        </a>
+                    </div>
+                </div>
             );
         }
 
