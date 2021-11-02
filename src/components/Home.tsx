@@ -18,7 +18,7 @@ class Home extends PureComponent<Props, State> {
 
                 <button
                     onClick={async () => {
-                        fetch("/get_location_groups")
+                        fetch("/animals/animals")
                             .then((res: any): any => res.json())
                             .then((res: any): void => console.log("res:", res));
                     }}

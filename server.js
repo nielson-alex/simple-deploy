@@ -60,23 +60,23 @@ app.use(express.static("build"));
 //     })
 // );
 // app.use(flash());
-app.use((req, res, next) => {
-    // throw new Error('Sync Dummy');
-    if (!req.session.user) {
-        return next();
-    }
-    User.findById(req.session.user._id)
-        .then(user => {
-            if (!user) {
-                return next();
-            }
-            req.user = user;
-            next();
-        })
-        .catch(err => {
-            next(new Error(err));
-        });
-});
+// app.use((req, res, next) => {
+//     // throw new Error('Sync Dummy');
+//     if (!req.session.user) {
+//         return next();
+//     }
+//     User.findById(req.session.user._id)
+//         .then(user => {
+//             if (!user) {
+//                 return next();
+//             }
+//             req.user = user;
+//             next();
+//         })
+//         .catch(err => {
+//             next(new Error(err));
+//         });
+// });
 app.use(router.get("/animals/animals", function (req, res, next) {
     const page = req.query.page;
     console.log('page', page);
@@ -103,58 +103,21 @@ app.use(router.get("/animals/animals", function (req, res, next) {
         })
 }));
 
-// app.use("https://data.heroku.com/dataclips/lwuapeleoruanrvdlcsuajvyxfdw", function (request, response, next) {
-//     const query = `
-//             SELECT  *
-//             FROM    actro
-//     `;
-
-//     console.log("query:", query);
-
-//     new Promise(function (resolve, reject) {
-//         // response.send({ "Sasha breed": "Calico" });
-
-//         setUpPool().query(query,
-//             function (error, results) {
-//                 if (error) {
-//                     reject(error);
-//                 }
-
-//                 if (results?.rows?.length > 0) {
-//                     console.log("results.rows:", results.rows);
-//                     const data = results.rows;
-
-//                     response.send({ "data": data });
-//                 } else {
-//                     response.send({
-//                         "error": "No results found"
-//                     });
-//                 }
-//             });
-//     });
-
-//     // console.log("called right API");
-//     // response.send({ "KEY": "VALUE" });
-// });
-app.use(router.get("/get_location_groups]", function (request, response, next) {
-    const query = `
-         SELECT DISTINCT location_group_id,
-                         location_group
-         FROM			oms.warehouse_recode
-       ORDER BY		location_group ASC
-     `;
-
-    new Promise(function (resolve, reject) {
-        setUpPool().query(query,
-            function (error, results) {
-                if (error) {
-                    reject(error);
-                }
-
-                if (results.rows) {
-                    response.send({ "WHAT": "OKAY" });
-                }
-            });
+app.use(router.get("/get_location_groups", function (request, response, next) {
+    new Promise(function (req, res, next) {
+        Animal.find()
+            .countDocuments()
+            .then(numProducts => {
+                return Animal.findOne()
+                // .skip((page - 1) * ITEMS_PER_PAGE)
+                // .limit(ITEMS_PER_PAGE);
+            })
+            .then(animals => {
+                res.send({ "WHAT": "Okay" });
+            })
+            .catch(err => {
+                console.log(err);
+            })
     });
 }));
 const corsOptions = {
@@ -173,8 +136,6 @@ const options = {
 
 mongoose.connect(MONGODB_URI, options)
     .then(result => {
-
-
         const server = app.listen(PORT, () => {
             console.log("express.static(__dirname + \"/public\")", express.static(__dirname, + "/public"));
             console.log(`Listening on port ${PORT}`)
