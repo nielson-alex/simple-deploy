@@ -2,6 +2,7 @@ import { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { Props } from "../types/TGlobal";
 import { State, TAnimal } from "../types/THome";
+import { generateMessage } from "../helpers/functions";
 import logo from "../logo.svg";
 import "../css/GlobalCSS.css";
 import "../css/HomeCSS.css";
@@ -28,6 +29,7 @@ class Home extends PureComponent<Props, State> {
         } as State;
 
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.handleAddAnimal = this.handleAddAnimal.bind(this);
         this.handleCallServer = this.handleCallServer.bind(this);
     }
 
@@ -75,6 +77,33 @@ class Home extends PureComponent<Props, State> {
         }
     }
 
+    handleAddAnimal(): void {
+        fetch("/animals/add_animal", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/JSON; charset=UTF-8"
+            },
+            body: JSON.stringify({
+                name: "Claire Redfield",
+                imageUrl: "",
+                species: "Human",
+                breed: "Caucasian",
+                age: 25,
+                sex: "Female",
+                description: "Tottie",
+                price: 100
+            })
+        })
+            .then((res: any): any => {
+                console.log("res:", res);
+                return res;
+            })
+            .then((res: any): void => {
+                console.log("res:", res);
+                generateMessage("success", "Entry successfully added to database");
+            });
+    }
+
     async handleCallServer(): Promise<void> {
         fetch("/animals/animals")
             .then((res: any): any => res.json())
@@ -119,6 +148,12 @@ class Home extends PureComponent<Props, State> {
                         >Randomly Choose Animal</button>
                     </div>
 
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-4 middle-align btn btn-secondary`}
+                            onClick={this.handleAddAnimal}
+                        >Add Animal</button>
+                    </div>
                     <div className="row">
                         <p className={`col${this.state.colSize}-6 middle-align`}>{this.state.featuredAnimal.name !== ""
                             ? `Meet ${this.state.featuredAnimal.name}, the ${this.state.featuredAnimal.age}-year-old ${this.state.featuredAnimal.breed}!`

@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
-const cors = require("cors");
 const express = require("express");
 const path = require("path");
 const app = express();
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const router = express.Router();
 const PORT = process.env.PORT || 5000;
 const Animal = require('./src/models/prove03-model');
@@ -11,8 +12,10 @@ const MONGODB_URI = 'mongodb+srv://NewEggHome:a@cluster0.ysadg.mongodb.net/myFir
 
 let path2 = path.join(__dirname, "/server/routes");
 console.log("express.static(\"routes\"):", path2);
-app.use(express.static("build"));
 
+app.use(express.static("build"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/animals", animalRoutes);
 // app.use(router.get("/animals/animals", function (req, res, next) {
 //     const page = req.query.page;
