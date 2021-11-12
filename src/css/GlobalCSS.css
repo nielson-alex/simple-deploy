@@ -22,6 +22,14 @@
     text-align: center;
 }
 
+.inline-block {
+    display: inline-block;
+}
+
+.italic {
+    font-style: italic;
+}
+
 .middle-align {
     display: block;
     margin: 0 auto;

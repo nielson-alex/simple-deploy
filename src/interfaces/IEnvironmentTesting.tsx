@@ -1,6 +1,7 @@
-import { TAnimal } from "../types/TAnimalDetails";
+import { TAnimal } from "../types/TEnvironmentTesting";
 
 export interface IState {
+    animals: TAnimal[];
     featuredAnimal: TAnimal;
     colSize: string;
     device: string;

@@ -1,11 +1,18 @@
+import { User } from "../types/TGlobal";
 export interface IProps {
+    user: User
+}
+
+export interface IUser {
     id: number;
-    firstName: string;
-    lastName: string;
-    username: string;
+    active: number;
+    department: number;
     email: string;
+    employee: boolean;
+    firstName: string;
     gid: number;
-    dept: number;
-    isEmployee: boolean;
+    lastName: string;
     loggedIn: boolean;
+    username: string;
+    sharedAccount: number;
 }

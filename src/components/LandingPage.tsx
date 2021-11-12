@@ -1,10 +1,7 @@
 import { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { Props } from "../types/TGlobal";
-import {
-    State,
-    TAnimal
-} from "../types/TLandingPage";
+import { State } from "../types/TLandingPage";
 import "../css/GlobalCSS.css";
 import "../css/LandingPageCSS.css";
 
@@ -14,14 +11,11 @@ class LandingPage extends PureComponent<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            animals: [] as TAnimal[],
             colSize: "",
             device: "mobile"
         } as State;
 
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-        this.generateAnimalIcons = this.generateAnimalIcons.bind(this);
-        this.getAnimals = this.getAnimals.bind(this);
     }
 
     componentDidMount(): void {
@@ -30,7 +24,6 @@ class LandingPage extends PureComponent<Props, State> {
         if (this._isMounted === true) {
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
-            this.getAnimals();
         }
     }
 
@@ -68,69 +61,9 @@ class LandingPage extends PureComponent<Props, State> {
         }
     }
 
-    generateAnimalIcons(): JSX.Element[] {
-        if (this.state.animals.length > 0) {
-            const animals: TAnimal[] = this.state.animals.map((animal: TAnimal): TAnimal => animal);
-            const icons: JSX.Element[] = [];
+    
 
-            for (let i: number = 0; i < animals.length + 2; i += 3) {
-                icons.push(
-                    <div key={i} className="row">
-                        {animals[i]
-                            ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
-                                <Link to={`/dashboard/animal-details?id=${animals[i]._id}`}>
-                                    <div style={{ wordBreak: "break-word", width: "100%", height: "2rem" }}>
-                                        {animals[i].name}
-                                    </div>
-                                </Link>
-                            </div >
-                            : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
-                        }
-                        {animals[i + 1]
-                            ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
-                                <div style={{ wordBreak: "break-word", width: "100%", height: "2rem" }}>
-                                    {animals[i + 1].name}
-                                </div>
-                            </div >
-                            : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
-                        }
-                        {animals[i + 2]
-                            ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
-                                <div style={{ wordBreak: "break-word", width: "100%", height: "2rem" }}>
-                                    {animals[i + 2].name}
-                                </div>
-                            </div >
-                            : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
-                        }
-                    </div>
-                );
-            }
 
-            return icons;
-        } else {
-            return ([
-                <div className="row">
-                    <p className={`col${this.state.colSize}-12 center-text`}>No results found</p>
-                </div>
-            ]);
-        }
-    }
-
-    async getAnimals(): Promise<void> {
-        await fetch("/animals/get_animals")
-            .then((res: Response): Promise<Response> => res.json())
-            .then((res: any): TAnimal[] => res.animals)
-            .then((res: TAnimal[]): void => {
-                const animals: TAnimal[] = res.map((animal: TAnimal): TAnimal => animal);
-                animals.sort((a: TAnimal, b: TAnimal): number => a.name > b.name ? 1 : -1);
-
-                this.setState({
-                    animals: animals
-                }, (): void => {
-                    console.log("this.state.animals:", this.state.animals);
-                });
-            });
-    }
 
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
@@ -146,10 +79,7 @@ class LandingPage extends PureComponent<Props, State> {
                         </div>
                     </div>
 
-                    {this.state.animals.length > 0
-                        ? this.generateAnimalIcons()
-                        : <p>No results found</p>
-                    }
+                    
 
                     {/* <div className="row">
                         <div className={`col${this.state.colSize}-5 center-text middle-align`}>
