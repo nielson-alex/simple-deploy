@@ -7,7 +7,7 @@ const cors = require("cors");
 const router = express.Router();
 const PORT = process.env.PORT || 5000;
 const Animal = require('./src/models/prove03-model');
-const animalRoutes = require("./server/routes/test-routes");
+const animalRoutes = require("./server/routes/animal-routes");
 const MONGODB_URI = 'mongodb+srv://NewEggHome:a@cluster0.ysadg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 let path2 = path.join(__dirname, "/server/routes");
@@ -17,12 +17,12 @@ app.use(express.static("build"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/animals", animalRoutes);
-// app.use(router.get("/animals/animals", function (req, res, next) {
+// app.use(router.get("/animals/get_animals", function (req, res, next) {
 //     const page = req.query.page;
 //     console.log('page', page);
 //     let totalItems;
 
-//     console.log("entered /animals/animals");
+//     console.log("entered /animals/get_animals");
 
 //     Animal.find()
 //         .countDocuments()

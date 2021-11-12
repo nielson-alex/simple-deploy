@@ -29,6 +29,7 @@ class Home extends PureComponent<Props, State> {
         } as State;
 
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.getAnimalDetails = this.getAnimalDetails.bind(this);
         this.handleAddAnimal = this.handleAddAnimal.bind(this);
         this.handleCallServer = this.handleCallServer.bind(this);
     }
@@ -77,6 +78,10 @@ class Home extends PureComponent<Props, State> {
         }
     }
 
+    async getAnimalDetails(): Promise<void> {
+        fetch("/animals/")
+    }
+
     handleAddAnimal(): void {
         fetch("/animals/add_animal", {
             method: "POST",
@@ -105,7 +110,7 @@ class Home extends PureComponent<Props, State> {
     }
 
     async handleCallServer(): Promise<void> {
-        fetch("/animals/animals")
+        fetch("/animals/get_animals")
             .then((res: any): any => res.json())
             .then((res: any): void => {
                 console.log("res:", res)

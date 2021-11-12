@@ -40,4 +40,4 @@ const animalSchema = mongoose.Schema({
 });
 
 // module.exports = mongoose.model('Animal2', animalSchema);
-module.exports = mongoose.model('Animal3', animalSchema);
+module.exports = mongoose.model('Animal', animalSchema);

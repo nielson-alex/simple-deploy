@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import Collection from "./components/Collection";
 import LandingPage from "./components/LandingPage";
 import Scanner from "./components/Scanner";
+import AnimalDetails from "./components/AnimalDetails";
 
 /* JavaScript imports */
 import ScannerJS from "./components/Scanner.js";
@@ -25,8 +26,9 @@ export default (
     <Switch>
         {/* --- TypeScript --- */}
         <Route exact path="/dashboard" component={() => <LandingPage user={user} />} />
-        <Route path="/dashboard/my-collection" component={() => <Collection user={user} /> } />
+        <Route path="/dashboard/my-collection" component={() => <Collection user={user} />} />
         <Route path="/dashboard/landing-page" component={() => <LandingPage user={user} />} />
+        <Route path="/dashboard/animal-details" component={() => <AnimalDetails user={user} />} />
 
         {/* --- TypeScript --- */}
         <Route path="/dashboard/scanner-js" component={() => <ScannerJS user={user} />} />
