@@ -1,4 +1,5 @@
 import { Opaque } from "../types/TGlobal";
-import { IState } from "../interfaces/ICollection";
+import { IState, IAnimal } from "../interfaces/ICollection";
 
 export type State = Opaque<"State", IState>;
+export type TAnimal = Opaque<"animal", IAnimal>;

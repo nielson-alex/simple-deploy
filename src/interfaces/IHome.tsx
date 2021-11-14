@@ -1,7 +1,6 @@
 import { TAnimal } from "../types/THome";
 
 export interface IState {
-    featuredAnimal: TAnimal;
     colSize: string;
     device: string;
 }

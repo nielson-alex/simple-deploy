@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
 
-#landing-page-title-h1 {
-    color: green;
+.landing-page-title-h1 {
+    color: #669999;
     font-family: 'Lato', 'Verdana', sans-serif;
     font-style: italic;
+    font-weight: bold;
 }
 
 .landing-page-link {
@@ -15,4 +16,10 @@
     text-decoration: none !important;
     width: 100%;
     height: 9em;
+}
+
+.custom-card {
+    background-color: beige;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }

@@ -66,14 +66,14 @@ class Dashboard extends PureComponent<Props, State> {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
                 <nav id="dash-nav">
-                    <ul>
-                        <li>
+                    <ul id="dash-nav-ul">
+                        <li className="dash-nav-ul-li">
                             <Link to="/dashboard/landing-page">Home</Link>
                         </li>
-                        <li>
-                            <Link to="/dashboard/scanner-js">Scanner</Link>
+                        <li className="dash-nav-ul-li">
+                            <Link to="/dashboard/environment-testing">Environment Testing</Link>
                         </li>
-                        <li>
+                        <li className="dash-nav-ul-li">
                             <Link to="/dashboard/my-collection">My Collection</Link>
                         </li>
                     </ul>
@@ -85,17 +85,17 @@ class Dashboard extends PureComponent<Props, State> {
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
                 <nav id="dash-nav">
-                    <ul>
-                        <li>
+                    <ul id="dash-nav-ul">
+                        <li className="dash-nav-ul-li">
                             <Link to="/">Home</Link>
                         </li>
-                        <li>
+                        <li className="dash-nav-ul-li">
                             <Link to="/dashboard/landing-page">Landing Page</Link>
                         </li>
                         <li>
                             <Link to="/dashboard/scanner-js">Scanner</Link>
                         </li>
-                        <li>
+                        <li className="dash-nav-ul-li">
                             <Link to="/dashboard/my-collection">My Collection</Link>
                         </li>
                     </ul>

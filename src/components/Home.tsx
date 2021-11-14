@@ -1,8 +1,7 @@
 import { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { Props } from "../types/TGlobal";
-import { State, TAnimal } from "../types/THome";
-import { generateMessage } from "../helpers/functions";
+import { State } from "../types/THome";
 import logo from "../logo.svg";
 import "../css/GlobalCSS.css";
 import "../css/HomeCSS.css";
@@ -13,25 +12,11 @@ class Home extends PureComponent<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            featuredAnimal: {
-                id: "",
-                age: 0,
-                breed: "",
-                description: "",
-                imageUrl: "",
-                name: "",
-                price: 0,
-                sex: "",
-                species: ""
-            },
             colSize: "",
             device: ""
         } as State;
 
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-        this.getAnimalDetails = this.getAnimalDetails.bind(this);
-        this.handleAddAnimal = this.handleAddAnimal.bind(this);
-        this.handleCallServer = this.handleCallServer.bind(this);
     }
 
     componentDidMount(): void {
@@ -78,109 +63,22 @@ class Home extends PureComponent<Props, State> {
         }
     }
 
-    async getAnimalDetails(): Promise<void> {
-        fetch("/animals/")
-    }
-
-    handleAddAnimal(): void {
-        fetch("/animals/add_animal", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/JSON; charset=UTF-8"
-            },
-            body: JSON.stringify({
-                name: "Claire Redfield",
-                imageUrl: "",
-                species: "Human",
-                breed: "Caucasian",
-                age: 25,
-                sex: "Female",
-                description: "Tottie",
-                price: 100
-            })
-        })
-            .then((res: any): any => {
-                console.log("res:", res);
-                return res;
-            })
-            .then((res: any): void => {
-                console.log("res:", res);
-                generateMessage("success", "Entry successfully added to database");
-            });
-    }
-
-    async handleCallServer(): Promise<void> {
-        fetch("/animals/get_animals")
-            .then((res: any): any => res.json())
-            .then((res: any): void => {
-                console.log("res:", res)
-                let featuredAnimal: TAnimal = {
-                    id: res.animals.id,
-                    age: parseFloat(res.animals.age),
-                    breed: res.animals.breed,
-                    description: res.animals.description,
-                    imageUrl: res.animals.imageUrl,
-                    name: res.animals.name,
-                    price: parseFloat(res.animals.price),
-                    sex: res.animals.sex,
-                    species: res.animals.species
-                } as TAnimal;
-
-                this.setState({
-                    featuredAnimal: featuredAnimal
-                }, (): void => {
-                    console.log("this.state.featuredAnimal:", this.state.featuredAnimal);
-                });
-            });
-    }
-
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
                 <div className="middle-align" style={{ margin: "0 auto", padding: "0", width: "96%" }}>
                     <div className="row">
-                        <h3 className={`col${this.state.colSize}-12 center-text`}>React/TypeScript Single-Page Application</h3>
+                        <h1>Alex Nielson</h1>
+                        
+                        <h2 className={`col${this.state.colSize}-12 center-text`}>
+                            React/TypeScript Single-Page Application
+                        </h2>
+
                         <Link className={`col${this.state.colSize}-3 middle-align`} to="/dashboard/landing-page">
                             <img src={logo} className="App-logo middle-align" alt="logo" />
                         </Link>
-                        <h4 className={`col${this.state.colSize}-12 center-text`}>Alex Nielson</h4>
-                    </div>
 
-                    <div className="row">
-                        <button
-                            className={`col${this.state.colSize}-4 middle-align btn btn-secondary`}
-                            onClick={this.handleCallServer}
-                        >Randomly Choose Animal</button>
-                    </div>
-
-                    <div className="row">
-                        <button
-                            className={`col${this.state.colSize}-4 middle-align btn btn-secondary`}
-                            onClick={this.handleAddAnimal}
-                        >Add Animal</button>
-                    </div>
-                    <div className="row">
-                        <p className={`col${this.state.colSize}-6 middle-align`}>{this.state.featuredAnimal.name !== ""
-                            ? `Meet ${this.state.featuredAnimal.name}, the ${this.state.featuredAnimal.age}-year-old ${this.state.featuredAnimal.breed}!`
-                            : "Press the button to be assigned a pet"}
-                        </p>
-                    </div>
-
-                    {/* 
-                    <div className="row">
-                        <p>Edit <code>src/App.tsx</code> and save to reload.</p> 
-                    </div>        
-                */}
-
-                    <div className="row">
-                        <a
-                            className={`col${this.state.colSize}-11 center-text middle-align App-link`}
-                            href="https://reactjs.org"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Learn React
-                        </a>
+                        <h3 className={`col${this.state.colSize}11 center-text`}>Click icon to enter</h3>
                     </div>
                 </div>
             );
@@ -190,42 +88,17 @@ class Home extends PureComponent<Props, State> {
             return (
                 <div className="middle-align" style={{ margin: "0 auto", padding: "0", width: "96%" }}>
                     <div className="row">
-                        <h3 className={`col${this.state.colSize}-12 center-text`}>React/TypeScript Single-Page Application</h3>
+                        <h1>Alex Nielson</h1>
+                        
+                        <h2 className={`col${this.state.colSize}-12 center-text`}>
+                            React/TypeScript Single-Page Application
+                        </h2>
+
                         <Link className={`col${this.state.colSize}-3 middle-align`} to="/dashboard/landing-page">
                             <img src={logo} className="App-logo middle-align" alt="logo" />
                         </Link>
-                        <h4 className={`col${this.state.colSize}-12 center-text`}>Alex Nielson</h4>
-                    </div>
 
-                    <div className="row">
-                        <button
-                            className={`col${this.state.colSize}-4 middle-align btn btn-secondary`}
-                            onClick={this.handleCallServer}
-                        >Randomly Choose Animal</button>
-                    </div>
-
-                    <div className="row">
-                        <p className={`col${this.state.colSize}-6 middle-align`}>{this.state.featuredAnimal.name !== ""
-                            ? `Meet ${this.state.featuredAnimal.name}, the ${this.state.featuredAnimal.age}-year-old ${this.state.featuredAnimal.breed}!`
-                            : "Press the button to be assigned a pet"}
-                        </p>
-                    </div>
-
-                    {/* 
-                    <div className="row">
-                        <p>Edit <code>src/App.tsx</code> and save to reload.</p> 
-                    </div>        
-                */}
-
-                    <div className="row">
-                        <a
-                            className={`col${this.state.colSize}-11 center-text middle-align App-link`}
-                            href="https://reactjs.org"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Learn React
-                        </a>
+                        <h3 className={`col${this.state.colSize}11 center-text`}>Click icon to enter</h3>
                     </div>
                 </div>
             );

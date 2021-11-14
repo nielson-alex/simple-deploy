@@ -27,3 +27,7 @@
     margin: 0 auto;
     width: 99.9%;
 }
+
+.custom-card-2 {
+    background-color: rgba(245,245,245,1.0);
+}

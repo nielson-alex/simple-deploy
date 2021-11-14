@@ -3,7 +3,7 @@ import { Props } from "../types/TGlobal";
 import {
     State
 } from "../types/TAnimalDetails";
-import { TAnimal } from "../types/TLandingPage";
+import { TAnimal } from "../types/TCollection";
 import { useParams } from "react-router-dom";
 import "../css/GlobalCSS.css";
 import "../css/AnimalDetailsCSS.css";

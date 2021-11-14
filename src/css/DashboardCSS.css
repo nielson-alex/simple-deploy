@@ -6,7 +6,7 @@
     height: 3em;
 }
 
-    #dash-nav ul {
+    #dash-nav-ul {
         display: flex;
         justify-content: space-between;
         list-style-type: none;
@@ -15,7 +15,7 @@
         text-decoration: none;
     }
 
-        #dash-nav ul li {
+        .dash-nav-ul-li {
             color: #f8f9fa;
             display: inline-block;
             justify-content: space-between;

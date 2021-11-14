@@ -6,8 +6,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const router = express.Router();
 const PORT = process.env.PORT || 5000;
-const Animal = require('./src/models/prove03-model');
 const animalRoutes = require("./server/routes/animal-routes");
+const environmentTestingRoutes = require("./server/routes/environment-testing-routes");
 const MONGODB_URI = 'mongodb+srv://NewEggHome:a@cluster0.ysadg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 let path2 = path.join(__dirname, "/server/routes");
@@ -17,49 +17,8 @@ app.use(express.static("build"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/animals", animalRoutes);
-// app.use(router.get("/animals/get_animals", function (req, res, next) {
-//     const page = req.query.page;
-//     console.log('page', page);
-//     let totalItems;
+app.use("/environment_testing", environmentTestingRoutes);
 
-//     console.log("entered /animals/get_animals");
-
-//     Animal.find()
-//         .countDocuments()
-//         .then(numProducts => {
-//             totalItems = numProducts;
-
-//             return Animal.findOne()
-//             // .skip((20 - 1) * 20)
-//             // .limit(20);
-//         })
-//         .then(animals => {
-//             console.log("animals:", animals);
-//             console.log("");
-//             res.send({ "animals": animals });
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         })
-// }));
-
-app.use(router.get("/get_location_groups", function (request, response, next) {
-    new Promise(function (req, res, next) {
-        Animal.find()
-            .countDocuments()
-            .then(numProducts => {
-                return Animal.findOne()
-                // .skip((page - 1) * ITEMS_PER_PAGE)
-                // .limit(ITEMS_PER_PAGE);
-            })
-            .then(animals => {
-                res.send({ "WHAT": "Okay" });
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    });
-}));
 const corsOptions = {
     // origin: "https://date-planning-app.herokuapp.com/",
     origin: "*",
@@ -94,3 +53,47 @@ mongoose.connect(MONGODB_URI, options)
     .catch(err => {
         console.log(err);
     });
+
+    // app.use(router.get("/animals/get_animals", function (req, res, next) {
+//     const page = req.query.page;
+//     console.log('page', page);
+//     let totalItems;
+
+//     console.log("entered /animals/get_animals");
+
+//     Animal.find()
+//         .countDocuments()
+//         .then(numProducts => {
+//             totalItems = numProducts;
+
+//             return Animal.findOne()
+//             // .skip((20 - 1) * 20)
+//             // .limit(20);
+//         })
+//         .then(animals => {
+//             console.log("animals:", animals);
+//             console.log("");
+//             res.send({ "animals": animals });
+//         })
+//         .catch(err => {
+//             console.log(err);
+//         })
+// }));
+
+// app.use(router.get("/get_location_groups", function (request, response, next) {
+//     new Promise(function (req, res, next) {
+//         Animal.find()
+//             .countDocuments()
+//             .then(numProducts => {
+//                 return Animal.findOne()
+//                 // .skip((page - 1) * ITEMS_PER_PAGE)
+//                 // .limit(ITEMS_PER_PAGE);
+//             })
+//             .then(animals => {
+//                 res.send({ "WHAT": "Okay" });
+//             })
+//             .catch(err => {
+//                 console.log(err);
+//             })
+//     });
+// }));
