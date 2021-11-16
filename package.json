@@ -21,7 +21,7 @@
   },
   "main": "./server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "build": "react-scripts build",
     "s": "\"npm run build & npm run start\"",
     "test": "react-scripts test",
