@@ -189,14 +189,17 @@ export default class Dashboard extends PureComponent<Props, State> {
                         ==============================*/}
                         <div className="App2">
                             <div className="accordion">
-                                <AccordionFC title="Collapsible Item #1">
+                                <AccordionFC title="Experience">
+                                    <Link to="/dashboard/resume">
+                                        Resume
+                                    </Link>
+                                </AccordionFC>
+                                <AccordionFC title="Testing">
                                     <Link to="/dashboard/environment-testing">
                                         Environment Testing
                                     </Link>
-                                </AccordionFC>
-                                <AccordionFC title="Collapsible Item #2">
-                                    <Link to="/dashboard/resume">
-                                        Resume
+                                    <Link to="/dashboard/labor-tracking">
+                                        Labor Tracking
                                     </Link>
                                 </AccordionFC>
                             </div>

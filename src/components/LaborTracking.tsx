@@ -1,12 +1,11 @@
 import { PureComponent } from "react";
 import { Props } from "../types/TGlobal";
-import { State } from "../types/TResume";
-import AccordionFC from "./functional-components/AccordionFC";
+import { State } from "../types/TLaborTracking";
 import "../css/GlobalCSS.css";
-import "../css/ResumeCSS.css";
+import "../css/LaborTrackingCSS.css";
 
-export default class Resume extends PureComponent<Props, State> {
-    _isMounted: boolean = false;
+export default class LaborTracking extends PureComponent<Props, State> {
+    _isMounted: boolean;
 
     constructor(props: Props) {
         super(props);
@@ -15,8 +14,8 @@ export default class Resume extends PureComponent<Props, State> {
             device: ""
         } as State;
 
+        this._isMounted = false;
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-
     }
 
     componentDidMount(): void {
@@ -65,27 +64,7 @@ export default class Resume extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className="container">
-                    <div className="row">
-                        <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Placeholder</h1>
-                    </div>
-
-                    <div className="row">
-                        <div className={`col${this.state.colSize}-12`}>
-                            <hr />
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className={`col${this.state.colSize}-12 App2`}>
-                            <div className="accordion">
-                                <AccordionFC title="testssss">
-                                    <p style={{ width: "100%" }}>AAAAAH</p>
-                                </AccordionFC>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <></>
             );
         }
 

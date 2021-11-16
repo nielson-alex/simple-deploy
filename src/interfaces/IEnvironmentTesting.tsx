@@ -2,13 +2,10 @@ import { TWorkExperience } from "../types/TEnvironmentTesting";
 import { TAnimal } from "../types/TAnimals";
 
 export interface IState {
-    entries: any[];
-    workExperience: TWorkExperience[];
-}
-
-export interface IState {
     animals: TAnimal[];
+    entries: any[];
     featuredAnimal: TAnimal;
+    workExperience: TWorkExperience[];
     colSize: string;
     device: string;
 }

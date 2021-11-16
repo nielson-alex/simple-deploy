@@ -49,7 +49,7 @@ export const AccordionFC: FC<{ title: string, children: any }> = ({ title, child
             <div className="card-header">
                 <h2 className="mb-0">
                     <button
-                        className="btn btn-link"
+                        className="btn btn-link w100"
                         type="button"
                         aria-expanded="true"
                         onClick={() => setIsOpen(!isOpen)}

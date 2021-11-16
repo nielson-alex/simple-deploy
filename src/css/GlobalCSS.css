@@ -16,6 +16,12 @@
     margin-top: 1.5em;
     overflow-y: auto;
     height: calc(100vh - 3em);
+
+    /* My own additions */
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .center-text {

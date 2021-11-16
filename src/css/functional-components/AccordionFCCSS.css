@@ -122,3 +122,8 @@ button {
   text-decoration: underline;
   box-shadow: none;
 }
+
+
+.w100 {
+  width: 100% !important;
+}

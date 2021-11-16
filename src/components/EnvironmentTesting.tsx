@@ -17,7 +17,9 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
         super(props);
         this.state = {
             animals: [] as TAnimal[],
+            entries: [] as any[],
             featuredAnimal: {} as TAnimal,
+            workExperience: [] as TWorkExperience[],
             colSize: "",
             device: ""
         } as State;
@@ -36,6 +38,7 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
         this._isMounted = true;
 
         if (this._isMounted === true) {
+            console.log("this.state:", this.state);
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
             this.getWorkExperience();
@@ -161,6 +164,7 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
                 const animals: TAnimal[] = res.map((animal: TAnimal): TAnimal => animal);
                 animals.sort((a: TAnimal, b: TAnimal): number => a.name > b.name ? 1 : -1);
 
+                console.log("animals:", animals);
                 this.setState({
                     animals: animals
                 }, (): void => {
@@ -240,12 +244,7 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
                     <div className="row">
                         <h1
                             className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}
-                        >Resume</h1>
-                    </div>
-
-                    <div className="row">
-                        <div className={`col${this.state.colSize}-11 middle-align`} />
-                        <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Green Thumb</h1>
+                        >Testing</h1>
                     </div>
 
                     <div className="row">
