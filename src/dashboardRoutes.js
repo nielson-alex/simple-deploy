@@ -5,6 +5,7 @@ import AnimalDetails from "./components/AnimalDetails";
 import Collection from "./components/Collection";
 import EnvironmentTesting from "./components/EnvironmentTesting";
 import LandingPage from "./components/LandingPage";
+import Resume from "./components/Resume";
 import Scanner from "./components/Scanner";
 
 /* JavaScript imports */
@@ -31,6 +32,8 @@ export default (
         <Route path="/dashboard/animal-details" component={() => <AnimalDetails user={user} />} />
         <Route path="/dashboard/environment-testing" component={() => <EnvironmentTesting user={user} />} />
         <Route path="/dashboard/my-collection" component={() => <Collection user={user} />} />
+        <Route path="/dashboard/environment-testing" component={() => <EnvironmentTesting user={user} />} />
+        <Route path="/dashboard/resume" component={() => <Resume user={user} />} />
 
         {/* --- TypeScript --- */}
         <Route path="/dashboard/scanner-js" component={() => <ScannerJS user={user} />} />

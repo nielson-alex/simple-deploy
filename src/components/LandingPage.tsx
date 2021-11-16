@@ -86,7 +86,7 @@ class LandingPage extends PureComponent<Props, State> {
                                 <li>CSS</li>
                             </ul>
                         </div>
-                    </div>  
+                    </div>
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
@@ -134,7 +134,7 @@ class LandingPage extends PureComponent<Props, State> {
                                 <li>CSS</li>
                             </ul>
                         </div>
-                    </div>  
+                    </div>
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>

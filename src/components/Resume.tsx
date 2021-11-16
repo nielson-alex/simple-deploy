@@ -1,12 +1,11 @@
 import { PureComponent } from "react";
-import { Link } from "react-router-dom";
 import { Props } from "../types/TGlobal";
-import { State } from "../types/THome";
-import logo from "../logo.svg";
+import { State } from "../types/TResume";
+import AccordianFC from "./functional-components/AccordionFC";
 import "../css/GlobalCSS.css";
-import "../css/HomeCSS.css";
+import "../css/ResumeCSS.css";
 
-class Home extends PureComponent<Props, State> {
+export default class Resume extends PureComponent<Props, State> {
     _isMounted: boolean = false;
 
     constructor(props: Props) {
@@ -17,6 +16,7 @@ class Home extends PureComponent<Props, State> {
         } as State;
 
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+
     }
 
     componentDidMount(): void {
@@ -32,7 +32,6 @@ class Home extends PureComponent<Props, State> {
         window.removeEventListener("resize", this.updateWindowDimensions);
         this._isMounted = false;
     }
-
 
     updateWindowDimensions(): void {
         if (window.innerWidth < 576) {
@@ -66,20 +65,23 @@ class Home extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className="middle-align" style={{ margin: "0 auto", padding: "0", width: "96%" }}>
+                <div className="container">
                     <div className="row">
-                        <h1>Alex Nielson</h1>
+                        <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Work Experience</h1>
+                    </div>
 
-                        <h2 className={`col${this.state.colSize}-12 center-text`}>
-                            React/TypeScript Single-Page Application
-                        </h2>
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-12`}>
+                            <hr />
+                        </div>
+                    </div>
 
-                        <Link className={`col${this.state.colSize}-3 middle-align`} to="/dashboard/landing-page">
-                            <img src={logo} className="App-logo middle-align" alt="logo" />
-                            <p className="italic">Click the icon to enter</p>
-                        </Link>
-
-                        <h3 className={`col${this.state.colSize}11 center-text`}>Click icon to enter</h3>
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-12`}>
+                            <AccordianFC title="test">
+                                <p>AAAAAH</p>
+                            </AccordianFC>
+                        </div>
                     </div>
                 </div>
             );
@@ -87,21 +89,7 @@ class Home extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className="middle-align" style={{ margin: "0 auto", padding: "0", width: "96%" }}>
-                    <div className="row">
-                        <h1>Alex Nielson</h1>
-
-                        <h2 className={`col${this.state.colSize}-12 center-text`}>
-                            React/TypeScript Single-Page Application
-                        </h2>
-
-                        <Link className={`col${this.state.colSize}-3 middle-align`} to="/dashboard/landing-page">
-                            <img src={logo} className="App-logo middle-align" alt="logo" />
-                        </Link>
-
-                        <h3 className={`col${this.state.colSize}11 center-text`}>Click icon to enter</h3>
-                    </div>
-                </div>
+                <></>
             );
         }
 
@@ -110,5 +98,3 @@ class Home extends PureComponent<Props, State> {
             : desktopRender();
     }
 }
-
-export default Home;

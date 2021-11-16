@@ -1,4 +1,4 @@
-import { TAnimal } from "../types/TAnimalDetails";
+import { TAnimal } from "../types/TAnimals";
 
 export interface IState {
     featuredAnimal: TAnimal;
