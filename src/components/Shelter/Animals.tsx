@@ -86,7 +86,7 @@ export default class Animals extends PureComponent<Props, State> {
                     <div key={i} className="row">
                         {animals[i]
                             ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
-                                <Link to={`/dashboard/animal-details?id=${animals[i]._id}`}>
+                                <Link to={`/dashboard/animals/animal-details?id=${animals[i]._id}`}>
                                     <div className="animals-animal-icon">
                                         {animals[i].name}
                                     </div>
@@ -97,7 +97,9 @@ export default class Animals extends PureComponent<Props, State> {
                         {animals[i + 1]
                             ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
                                 <div className="animals-animal-icon">
-                                    {animals[i + 1].name}
+                                    <Link to={`/dashboard/animals/animal-details?id=${animals[i + 1]._id}`}>
+                                        {animals[i + 1].name}
+                                    </Link>
                                 </div>
                             </div >
                             : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
@@ -105,7 +107,9 @@ export default class Animals extends PureComponent<Props, State> {
                         {animals[i + 2]
                             ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
                                 <div className="animals-animal-icon">
-                                    {animals[i + 2].name}
+                                    <Link to={`/dashboard/animals/animal-details?id=${animals[i + 2]._id}`}>
+                                        {animals[i + 2].name}
+                                    </Link>
                                 </div>
                             </div >
                             : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />

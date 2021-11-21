@@ -7,6 +7,7 @@ const cors = require("cors");
 const router = express.Router();
 const PORT = process.env.PORT || 5000;
 const animalRoutes = require("./server/routes/animal-routes");
+const deckRoutes = require("./server/routes/deck-routes");
 const environmentTestingRoutes = require("./server/routes/environment-testing-routes");
 const resumeRoutes = require("./server/routes/resume-routes");
 const MONGODB_URI = 'mongodb+srv://NewEggHome:a@cluster0.ysadg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
@@ -18,6 +19,7 @@ app.use(express.static("build"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/animals", animalRoutes);
+app.use("/decks", deckRoutes);
 app.use("/environment_testing", environmentTestingRoutes);
 app.use("/resume", resumeRoutes);
 

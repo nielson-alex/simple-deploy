@@ -189,6 +189,7 @@ export default class Dashboard extends PureComponent<Props, State> {
                         ==============================*/}
                         <div className="App2">
                             <div className="accordion">
+                                {/* Testing */}
                                 <AccordionFC title="Testing">
                                     <ul className="subnav-ul">
                                         <li className="subnav-ul-li">
@@ -208,7 +209,25 @@ export default class Dashboard extends PureComponent<Props, State> {
                                         </li>
                                     </ul>
                                 </AccordionFC>
-                                <AccordionFC title="Experience">
+
+                                {/* Language Learning */}
+                                <AccordionFC title="Language Learning">
+                                    <ul className="subnav-ul">
+                                        <li className="subnav-ul-li">
+                                            <Link to="/dashboard/language-learning/decks">
+                                                Decks
+                                            </Link>
+                                        </li>
+                                        <li className="subnav-ul-li">
+                                            <Link to="/dashboard/language-learning/create-deck">
+                                                Create New Deck
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </AccordionFC>
+
+                                {/* Resume */}
+                                <AccordionFC title="Work Experience">
                                     <ul className="subnav-ul">
                                         <li className="subnav-ul-li">
                                             <Link to="/dashboard/resume/resume">
@@ -222,6 +241,8 @@ export default class Dashboard extends PureComponent<Props, State> {
                                         </li>
                                     </ul>
                                 </AccordionFC>
+
+                                {/* Shelter */}
                                 <AccordionFC title="Shelter">
                                     <ul className="subnav-ul">
                                         <li className="subnav-ul-li">
