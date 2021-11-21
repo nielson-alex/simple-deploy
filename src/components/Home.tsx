@@ -12,6 +12,7 @@ class Home extends PureComponent<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
+            showWarning: window.innerWidth >= 768 ? true : false,
             colSize: "",
             device: ""
         } as State;
@@ -25,6 +26,14 @@ class Home extends PureComponent<Props, State> {
         if (this._isMounted === true) {
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
+
+            console.log("this.state.device:", this.state.device);
+
+            if (this.state.device === "desktop") {
+                this.setState({
+                    showWarning: true
+                });
+            }
         }
     }
 
@@ -116,23 +125,32 @@ class Home extends PureComponent<Props, State> {
         }
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
-            return (
-                <div className="middle-align" style={{ margin: "0 auto", padding: "0", width: "96%" }}>
-                    <div className="row">
-                        <h1>Alex Nielson</h1>
-
-                        <h2 className={`col${this.state.colSize}-12 center-text`}>
-                            React/TypeScript Single-Page Application
+                return this.state.showWarning === true
+                    ? <div className="row">
+                        <h2>This webapp was designed for mobile devices. If you're viewing this app on a laptop or 
+                            desktop computer and would like to view the app as it was intended to look, press the F12 key
+                            and enable mobile view. If not, you can still view the app but the UI may be distorted 
                         </h2>
-
-                        <Link className={`col${this.state.colSize}-3 middle-align`} to="/dashboard/landing-page">
-                            <img src={logo} className="App-logo middle-align" alt="logo" />
-                        </Link>
-
-                        <h3 className={`col${this.state.colSize}11 center-text`}>Click icon to enter</h3>
+                        <button
+                            className={`col${this.state.colSize}-6 middle-align btn btn-secondary`}
+                            onClick={(): void => this.setState({ showWarning: !this.state.showWarning })}
+                        >Continue</button>
                     </div>
-                </div>
-            );
+                    : <div className="middle-align" style={{ margin: "0 auto", padding: "0", width: "96%" }}>
+                        <div className="row">
+                            <h1>Alex Nielson</h1>
+
+                            <h2 className={`col${this.state.colSize}-12 center-text`}>
+                                React/TypeScript Single-Page Application
+                            </h2>
+
+                            <Link className={`col${this.state.colSize}-3 middle-align`} to="/dashboard/landing-page">
+                                <img src={logo} className="App-logo middle-align" alt="logo" />
+                            </Link>
+
+                            <h3 className={`col${this.state.colSize}11 center-text`}>Click icon to enter</h3>
+                        </div>
+                    </div>
         }
 
         return this.state.device === "mobile"

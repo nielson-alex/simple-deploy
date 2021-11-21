@@ -1,0 +1,7 @@
+.quiz-answer-correct {
+    color: green;
+}
+
+.quiz-answer-incorrect {
+    color: red;
+}
