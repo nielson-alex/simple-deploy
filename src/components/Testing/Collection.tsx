@@ -1,22 +1,22 @@
 import { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
-import { Props } from "../types/TGlobal";
-import { State } from "../types/TCollection";
-import { TAnimal } from "../types/TCollection";
-import { generateMessage } from "../helpers/functions";
-import "../css/GlobalCSS.css";
-import "../css/CollectionCSS.css";
-import balloonFlowers from "../media/images/flower-balloon-flowers-1592923522.jpg";
-import cosmos from "../media/images/flower-balloon-flowers-1592923522.jpg";
-import flowerPhoto from "../media/images/flower-photo-1604085572504-a392ddf0d86a.jpg";
-import flowerSulfur from "../media/images/flower-sulfur-cosmos-mexican-aster.jpg";
-import banyanTree from "../media/images/tree-Banyan-tree.jpg";
-// import treeImages from "..media/images/tree-images.jpg";
-import treeImagess from "../media/images/tree-imagess.jpg";
-import beets from "../media/images/vegetable-beets-732x549-thumbnail-732x549.jpg";
-import vegetableDownload from "../media/images/vegetable-download.jpg";
-import vegetableDownloads from "../media/images/vegetable-downloads.jpg";
+import { Props } from "../../types/TGlobal";
+import { State } from "../../types/TCollection";
+import { TAnimal } from "../../types/TCollection";
+import { generateMessage } from "../../helpers/functions";
+import "../../css/GlobalCSS.css";
+import "../../css/CollectionCSS.css";
+import balloonFlowers from "../../media/images/flower-balloon-flowers-1592923522.jpg";
+import cosmos from "../../media/images/flower-balloon-flowers-1592923522.jpg";
+import flowerPhoto from "../../media/images/flower-photo-1604085572504-a392ddf0d86a.jpg";
+import flowerSulfur from "../../media/images/flower-sulfur-cosmos-mexican-aster.jpg";
+import banyanTree from "../../media/images/tree-Banyan-tree.jpg";
+// import treeImages from "../../media/images/tree-images.jpg";
+import treeImagess from "../../media/images/tree-imagess.jpg";
+import beets from "../../media/images/vegetable-beets-732x549-thumbnail-732x549.jpg";
+import vegetableDownload from "../../media/images/vegetable-download.jpg";
+import vegetableDownloads from "../../media/images/vegetable-downloads.jpg";
 
 const arr: string[] = [
     balloonFlowers,

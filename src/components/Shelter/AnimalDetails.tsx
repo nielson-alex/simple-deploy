@@ -1,12 +1,12 @@
 import { PureComponent } from "react";
-import { Props } from "../types/TGlobal";
+import { Props } from "../../types/TGlobal";
 import {
     State
-} from "../types/TAnimalDetails";
-import { TAnimal } from "../types/TAnimalDetails";
+} from "../../types/TAnimalDetails";
+import { TAnimal } from "../../types/TAnimalDetails";
 import { useParams } from "react-router-dom";
-import "../css/GlobalCSS.css";
-import "../css/AnimalDetailsCSS.css";
+import "../../css/GlobalCSS.css";
+import "../../css/AnimalDetailsCSS.css";
 
 export default class AnimalDetails extends PureComponent<Props, State> {
     _isMounted: boolean = false;

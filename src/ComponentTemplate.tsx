@@ -1,10 +1,9 @@
 import { PureComponent } from "react";
-import { Props } from "../types/TGlobal";
-import { State } from "../types/TLaborTracking";
+import { Props } from "./types/TGlobal";
+import { State } from "./types/TAddWorkExperience";
 import "../css/GlobalCSS.css";
-import "../css/LaborTrackingCSS.css";
 
-export default class LaborTracking extends PureComponent<Props, State> {
+export default class AddWorkExperience extends PureComponent<Props, State> {
     _isMounted: boolean;
 
     constructor(props: Props) {
@@ -14,7 +13,7 @@ export default class LaborTracking extends PureComponent<Props, State> {
             device: ""
         } as State;
 
-        this._isMounted = false;
+        this._isMounted = true;
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 

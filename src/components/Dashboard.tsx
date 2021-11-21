@@ -189,18 +189,47 @@ export default class Dashboard extends PureComponent<Props, State> {
                         ==============================*/}
                         <div className="App2">
                             <div className="accordion">
-                                <AccordionFC title="Experience">
-                                    <Link to="/dashboard/resume">
-                                        Resume
-                                    </Link>
-                                </AccordionFC>
                                 <AccordionFC title="Testing">
-                                    <Link to="/dashboard/environment-testing">
-                                        Environment Testing
-                                    </Link>
-                                    <Link to="/dashboard/labor-tracking">
-                                        Labor Tracking
-                                    </Link>
+                                    <ul className="subnav-ul">
+                                        <li className="subnav-ul-li">
+                                            <Link to="/dashboard/testing/environment-testing">
+                                                Environment Testing
+                                            </Link>
+                                        </li>
+                                        <li className="subnav-ul-li">
+                                            <Link to="/dashboard/testing/labor-tracking">
+                                                Labor Tracking
+                                            </Link>
+                                        </li>
+                                        <li className="subnav-ul-li">
+                                            <Link to="/dashboard/testing/my-collection">
+                                                My Collection
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </AccordionFC>
+                                <AccordionFC title="Experience">
+                                    <ul className="subnav-ul">
+                                        <li className="subnav-ul-li">
+                                            <Link to="/dashboard/resume/resume">
+                                                Resume
+                                            </Link>
+                                        </li>
+                                        <li className="subnav-ul-li">
+                                            <Link to="/dashboard/resume/add-work-experience">
+                                                Add Work Experience
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </AccordionFC>
+                                <AccordionFC title="Shelter">
+                                    <ul className="subnav-ul">
+                                        <li className="subnav-ul-li">
+                                            <Link to="/dashboard/shelter/animals">
+                                                AGN Animal Shelter
+                                            </Link>
+                                        </li>
+                                    </ul>
                                 </AccordionFC>
                             </div>
                         </div>

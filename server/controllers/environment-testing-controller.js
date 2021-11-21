@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const WorkExperience = require("../models/WorkExperience");
 
 /* GET */
-exports.getAllTests = function (request, response, next) {
+exports.getAllAnimalsTest = function (request, response, next) {
     const page = request.query.page;
     console.log('page', page);
     let totalItems;
@@ -27,12 +27,12 @@ exports.getAllTests = function (request, response, next) {
         });
 }
 
-exports.getTest = function (request, response, next) {
+exports.getWorkExperienceTest = function (request, response, next) {
     const page = request.query.page;
     console.log('page', page);
     let totalItems;
 
-    console.log("entered /environment_testing/get_test");
+    console.log("entered /environment_testing/get_work_experience_test"); 
 
     WorkExperience.find()
         .countDocuments()

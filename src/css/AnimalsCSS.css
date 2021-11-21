@@ -1,0 +1,8 @@
+.animals-animal-icon {
+    background-color: mediumspringgreen;
+    display: block;
+    margin: 0 auto;
+    word-break: break-word;
+    width: 95%;
+    height: 2rem;
+}

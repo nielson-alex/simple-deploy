@@ -5,6 +5,8 @@ export interface IState {
     animals: TAnimal[];
     entries: any[];
     featuredAnimal: TAnimal;
+    showShelterSection: boolean;
+    showWorkExperienceSection: boolean;
     workExperience: TWorkExperience[];
     colSize: string;
     device: string;

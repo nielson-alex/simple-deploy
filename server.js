@@ -8,6 +8,7 @@ const router = express.Router();
 const PORT = process.env.PORT || 5000;
 const animalRoutes = require("./server/routes/animal-routes");
 const environmentTestingRoutes = require("./server/routes/environment-testing-routes");
+const resumeRoutes = require("./server/routes/resume-routes");
 const MONGODB_URI = 'mongodb+srv://NewEggHome:a@cluster0.ysadg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 let path2 = path.join(__dirname, "/server/routes");
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/animals", animalRoutes);
 app.use("/environment_testing", environmentTestingRoutes);
+app.use("/resume", resumeRoutes);
 
 const corsOptions = {
     // origin: "https://date-planning-app.herokuapp.com/",

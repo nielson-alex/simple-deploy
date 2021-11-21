@@ -66,20 +66,50 @@ class Home extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className="middle-align" style={{ margin: "0 auto", padding: "0", width: "96%" }}>
+                <div className="container">
                     <div className="row">
-                        <h1>Alex Nielson</h1>
+                        <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
+                            Info About This App
+                        </h1>
+                    </div>
 
-                        <h2 className={`col${this.state.colSize}-12 center-text`}>
-                            React/TypeScript Single-Page Application
-                        </h2>
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11`}>
+                            <Link to="/dashboard/environment-testing">Enter Webapp</Link>
+                        </div>
 
-                        <Link className={`col${this.state.colSize}-3 middle-align`} to="/dashboard/landing-page">
-                            <img src={logo} className="App-logo middle-align" alt="logo" />
-                            <p className="italic">Click the icon to enter</p>
-                        </Link>
+                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
+                            <h4>Frontend Technologies</h4>
+                            <ul>
+                                <li>TypeScript</li>
+                                <li>ReactJS</li>
+                                <li>JavaScript</li>
+                                <li>HTML</li>
+                                <li>CSS</li>
+                            </ul>
+                        </div>
+                    </div>
 
-                        <h3 className={`col${this.state.colSize}11 center-text`}>Click icon to enter</h3>
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
+                            <h4>Backend Technologies</h4>
+                            <ul>
+                                <li>Node.js</li>
+                                <li>Git</li>
+                                <li>NoSQL (MongoDb)</li>
+                                <li>SQL (PostgreSQL; not used in app)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
+                            <h4>Deployment</h4>
+                            <ul>
+                                <li>Heroku</li>
+                                <li>GitHub</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             );

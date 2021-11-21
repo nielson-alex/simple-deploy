@@ -3,8 +3,8 @@ const environmentTestingController = require("../controllers/environment-testing
 const router = express.Router();
 
 /* GET */
-router.get("/get_test", environmentTestingController.getTest);
-router.get("/get_all_tests", environmentTestingController.getAllTests);
+router.get("/get_work_experience_test", environmentTestingController.getWorkExperienceTest);
+router.get("/get_all_animals_test", environmentTestingController.getAllAnimalsTest);
 
 /* POST */
 router.post("/post_add_test", environmentTestingController.postAddTest);
