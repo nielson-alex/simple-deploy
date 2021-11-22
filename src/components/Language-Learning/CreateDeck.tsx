@@ -342,7 +342,123 @@ export default class Decks extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <div className="container">
+                    <div className="row">
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>Create New Deck</h1>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11 middle-align`}>
+                            <hr />
+                        </div>
+                    </div>
+
+                    {/* First name */}
+                    <div className="row">
+                        <label htmlFor="firstName" className={`col${this.state.colSize}-11 middle-align`}>First Name:</label>
+                        <input
+                            type="text"
+                            id="firstName"
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="firstName"
+                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                        />
+                    </div>
+
+                    {/* Last name */}
+                    <div className="row">
+                        <label htmlFor="lastName" className={`col${this.state.colSize}-11 middle-align`}>Last Name:</label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="lastName"
+                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                        />
+                    </div>
+
+                    {/* Deck name */}
+                    <div className="row">
+                        <label htmlFor="deckName" className={`col${this.state.colSize}-11 middle-align`}>Deck Name:</label>
+                        <input
+                            type="text"
+                            id="deckName"
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="deckName"
+                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                        />
+                    </div>
+
+                    {/* Card */}
+                    <div className="row">
+                        {/* English */}
+                        <label htmlFor="english" className={`col${this.state.colSize}-11 middle-align`}>English:</label>
+                        <input
+                            type="text"
+                            id="english"
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="english"
+                            ref={this.englishRef}
+                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChangeCardAttribute(e)}
+                        />
+
+                        {/* Chinese */}
+                        <label htmlFor="chinese" className={`col${this.state.colSize}-11 middle-align`}>中文：</label>
+                        <input
+                            type="text"
+                            id="chinese"
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="chinese"
+                            ref={this.chineseRef}
+                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChangeCardAttribute(e)}
+                        />
+
+                        {/* Pinyin */}
+                        <label htmlFor="pinyin" className={`col${this.state.colSize}-11 middle-align`}>Pinyin:</label>
+                        <input
+                            type="text"
+                            id="pinyin"
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="pinyin"
+                            ref={this.pinyinRef}
+                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChangeCardAttribute(e)}
+                        />
+                    </div>
+
+                    {/* Add card button */}
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-8 middle-align`}
+                            onClick={this.addCardToDeck}
+                        >Add Card to Deck</button>
+                    </div>
+
+                    {/* Existing cards */}
+                    {this.state.cards.length > 0
+                        ? this.state.cards.map((card: TCard): JSX.Element => {
+
+                            return (
+                                <div key={card.number}>
+                                    <ul>
+                                        <li>{card.number}</li>
+                                        <li>English: {card.english}</li>
+                                        <li>中文： {card.chinese}</li>
+                                        <li>Pinyin: {card.pinyin}</li>
+                                    </ul>
+                                </div>
+                            );
+                        })
+                        : <></>
+                    }
+
+                    {/* Save deck button */}
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-8 middle-align`}
+                            onClick={this.handleSaveDeck}
+                        >Save Deck</button>
+                    </div>
+                </div>
             );
         }
 

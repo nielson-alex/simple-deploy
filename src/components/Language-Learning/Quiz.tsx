@@ -383,6 +383,18 @@ export default class Quiz extends PureComponent<Props, State> {
                             </div>
                         </div>
 
+                        <div className="row">
+                            <p className={`col${this.state.colSize}-11 middle-align center-text`}>
+                                Complete the quiz by answering each question correctly 3 times. We recommend trying "Chinese to English"
+                            </p>
+                        </div>
+
+                        <div className="row">
+                            <div className={`col${this.state.colSize}-12`}>
+                                <br />
+                            </div>
+                        </div>
+
                         {/* Quiz mode checkbox */}
                         <div className="row">
                             <label htmlFor="rbEnglishToChinese" className={`col${this.state.colSize}-5 middle-align`}>
@@ -433,7 +445,23 @@ export default class Quiz extends PureComponent<Props, State> {
                         <div className="row">
                             {/* Card value */}
                             {/* Answer status */}
+                            <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}>
+                                Times answered correctly: {this.state.currentCard.timesAnsweredCorrectly}
+                            </h3>
+
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
+
                             <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}></h3>
+
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
 
                             <h2 className={`col${this.state.colSize}-11 middle-align center-text`}>
                                 {this.state.quizMode === 0
@@ -441,6 +469,12 @@ export default class Quiz extends PureComponent<Props, State> {
                                     : this.state.currentCard.chinese
                                 }
                             </h2>
+
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
 
                             {/* Answer */}
                             <input
@@ -452,17 +486,35 @@ export default class Quiz extends PureComponent<Props, State> {
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
                             />
 
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
+
                             {/* Submit answer button */}
                             <button
                                 className={`col${this.state.colSize}-11 middle-align btn btn-primary`}
                                 onClick={this.checkAnswer}
                             >Submit</button>
 
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
+
                             {/* Skip button */}
                             <button
                                 className={`col${this.state.colSize}-11 middle-align`}
                                 onClick={this.getNextCard}
                             >Skip</button>
+
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
 
                             {/* Show hint button */}
                             <button
@@ -473,6 +525,12 @@ export default class Quiz extends PureComponent<Props, State> {
                                 : "Hide Hint"
                                 }
                             </button>
+
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
 
                             {/* Hint */}
                             {this.state.showHint === true
@@ -485,9 +543,176 @@ export default class Quiz extends PureComponent<Props, State> {
         }
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
-            return (
-                <></>
-            );
+            return this.state.quizStarted === false
+                ? (
+                    <div className="container">
+                        <div className="row">
+                            <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
+                        </div>
+
+                        <div className="row">
+                            <div className={`col${this.state.colSize}-12`}>
+                                <hr />
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <p className={`col${this.state.colSize}-11 middle-align center-text`}>
+                                Complete the quiz by answering each question correctly 3 times. We recommend trying "Chinese to English"
+                            </p>
+                        </div>
+
+                        <div className="row">
+                            <div className={`col${this.state.colSize}-12`}>
+                                <br />
+                            </div>
+                        </div>
+
+                        {/* Quiz mode checkbox */}
+                        <div className="row">
+                            <label htmlFor="rbEnglishToChinese" className={`col${this.state.colSize}-5 middle-align`}>
+                                English to Chinese &nbsp;&nbsp;&nbsp;
+                                <input
+                                    type="radio"
+                                    id="rbEnglishToChinese"
+                                    name="quizMode"
+                                    ref={this.englishToChineseRef}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleCbChange(e)}
+                                />
+                            </label>
+
+                            <label htmlFor="rbChineseToEnglish" className={`col${this.state.colSize}-5 middle-align`}>
+                                Chinese to English &nbsp;&nbsp;&nbsp;
+                                <input
+                                    type="radio"
+                                    id="rbChineseToEnglish"
+                                    name="quizMode"
+                                    ref={this.englishToChineseRef}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleCbChange(e)}
+                                />
+                            </label>
+                        </div>
+
+                        {/* Start quiz button */}
+                        <div className="row">
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                onClick={(e: MouseEvent<HTMLButtonElement>): void => this.setState({ quizStarted: !this.state.quizStarted })}
+                            >Start</button>
+                        </div>
+                    </div>
+                )
+                : (
+                    <div className="container">
+                        <div className="row">
+                            <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
+                        </div>
+
+                        <div className="row">
+                            <div className={`col${this.state.colSize}-12`}>
+                                <hr />
+                            </div>
+                        </div>
+
+                        {/* Current card */}
+                        <div className="row">
+                            {/* Card value */}
+                            {/* Answer status */}
+                            <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}>
+                                Times answered correctly: {this.state.currentCard.timesAnsweredCorrectly}
+                            </h3>
+
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
+
+                            <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}></h3>
+
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
+
+                            <h2 className={`col${this.state.colSize}-11 middle-align center-text`}>
+                                {this.state.quizMode === 0
+                                    ? this.state.currentCard.english
+                                    : this.state.currentCard.chinese
+                                }
+                            </h2>
+
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
+
+                            {/* Answer */}
+                            <input
+                                type="text"
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                ref={this.answerRef}
+                                onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                                onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.checkAnswer() : null}
+                                onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
+                            />
+
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
+
+                            {/* Submit answer button */}
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align btn btn-primary`}
+                                onClick={this.checkAnswer}
+                            >Submit</button>
+
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
+
+                            {/* Skip button */}
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                onClick={this.getNextCard}
+                            >Skip</button>
+
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
+
+                            {/* Show hint button */}
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                onClick={this.toggleHint}
+                            >{this.state.showHint === false
+                                ? "Show Hint"
+                                : "Hide Hint"
+                                }
+                            </button>
+
+                            <div className="row">
+                                <div className={`col${this.state.colSize}-12`}>
+                                    <br />
+                                </div>
+                            </div>
+
+                            {/* Hint */}
+                            {this.state.showHint === true
+                                ? <p className={`col${this.state.colSize}-11 middle-align`}>{this.state.currentCard.pinyin}</p>
+                                : <></>
+                            }
+                        </div>
+                    </div>
+                );
         }
 
         return this.state.device === "mobile"

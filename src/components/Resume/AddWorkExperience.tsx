@@ -222,7 +222,7 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
             return (
                 <div className="container">
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>My Collection</h1>
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>Add Work Experience</h1>
                     </div>
 
                     <div className="row">
@@ -305,37 +305,37 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
                             </div>
                         </>
                     : <> */}
-                            {/* Start month and year only */}
-                            <div className="row">
-                                <label className={`col${this.state.colSize}-11 middle-align`}>Start month:</label>
-                                <select
-                                    className={`col${this.state.colSize}-11 middle-align`}
-                                    name="startMonth"
-                                    onClick={(e: MouseEvent<HTMLSelectElement>): void => this.handleDdlChange(e)}
-                                >
-                                    <option value="January">01 January</option>
-                                    <option value="February">02 February</option>
-                                    <option value="March">03 March</option>
-                                    <option value="April">04 April</option>
-                                    <option value="May">05 May</option>
-                                    <option value="June">06 June</option>
-                                    <option value="July">07 July</option>
-                                    <option value="August">08 August</option>
-                                    <option value="September">09 September</option>
-                                    <option value="October">10 October</option>
-                                    <option value="November">11 November</option>
-                                    <option value="December">12 December</option>
-                                </select>
+                    {/* Start month and year only */}
+                    <div className="row">
+                        <label className={`col${this.state.colSize}-11 middle-align`}>Start month:</label>
+                        <select
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="startMonth"
+                            onClick={(e: MouseEvent<HTMLSelectElement>): void => this.handleDdlChange(e)}
+                        >
+                            <option value="January">01 January</option>
+                            <option value="February">02 February</option>
+                            <option value="March">03 March</option>
+                            <option value="April">04 April</option>
+                            <option value="May">05 May</option>
+                            <option value="June">06 June</option>
+                            <option value="July">07 July</option>
+                            <option value="August">08 August</option>
+                            <option value="September">09 September</option>
+                            <option value="October">10 October</option>
+                            <option value="November">11 November</option>
+                            <option value="December">12 December</option>
+                        </select>
 
-                                <label className={`col${this.state.colSize}-11 middle-align`}>Start month:</label>
-                                <select
-                                    className={`col${this.state.colSize}-11 middle-align`}
-                                    name="startYear"
-                                    onClick={(e: MouseEvent<HTMLSelectElement>): void => this.handleDdlChange(e)}
-                                >
-                                    {this.generateYearOptions()}
-                                </select>
-                            </div>
+                        <label className={`col${this.state.colSize}-11 middle-align`}>Start month:</label>
+                        <select
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="startYear"
+                            onClick={(e: MouseEvent<HTMLSelectElement>): void => this.handleDdlChange(e)}
+                        >
+                            {this.generateYearOptions()}
+                        </select>
+                    </div>
                     {/*//     </>
                     // */}
 
@@ -381,13 +381,156 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
             return (
                 <div className="container">
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>My Collection</h1>
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>Add Work Experience</h1>
                     </div>
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-11 middle-align`}>
                             <hr />
                         </div>
+                    </div>
+
+                    {/* First Name */}
+                    <div className="row">
+                        <label htmlFor="firstName" className={`col${this.state.colSize}-11 middle-align`}>First Name:</label>
+                        <input
+                            type="text"
+                            id="firstName"
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="firstName"
+                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                        />
+                    </div>
+
+                    {/* Last Name */}
+                    <div className="row">
+                        <label htmlFor="lastName" className={`col${this.state.colSize}-11 middle-align`}>Last Name:</label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="lastName"
+                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                        />
+                    </div>
+
+                    {/* Company name */}
+                    <div className="row">
+                        <label htmlFor="companyName" className={`col${this.state.colSize}-11 middle-align`}>Company Name:</label>
+                        <input
+                            type="text"
+                            id="companyName"
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="companyName"
+                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                        />
+                    </div>
+
+                    {/* Title */}
+                    <div className="row">
+                        <label htmlFor="title" className={`col${this.state.colSize}-11 middle-align`}>Title:</label>
+                        <input
+                            type="text"
+                            id="title"
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="title"
+                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                        />
+                    </div>
+
+                    {/* Toggle start date exact buttons */}
+                    {/* <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-5 middle-align btn btn-seconary`}
+                            onClick={(): void => this.toggleShowStartDateExact(true)}
+                        >I know the exact start date</button>
+                        <button
+                            className={`col${this.state.colSize}-5 middle-align btn btn-seconary`}
+                            onClick={(): void => this.toggleShowStartDateExact(false)}
+                        >I do not know the exact start date</button>
+                    </div> */}
+
+                    {/* {this.state.showStartDateExact === true
+                        ? <>
+                            {/* Exact start date /}
+                            <div className="row">
+                                <label className={`col${this.state.colSize}-3`}>Start Date:</label>
+                                <input
+                                    type="date"
+                                    className={`col${this.state.colSize}-8`}
+                                    name="title"
+                                    onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                                />
+                            </div>
+                        </>
+                    : <> */}
+                    {/* Start month and year only */}
+                    <div className="row">
+                        <label className={`col${this.state.colSize}-11 middle-align`}>Start month:</label>
+                        <select
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="startMonth"
+                            onClick={(e: MouseEvent<HTMLSelectElement>): void => this.handleDdlChange(e)}
+                        >
+                            <option value="January">01 January</option>
+                            <option value="February">02 February</option>
+                            <option value="March">03 March</option>
+                            <option value="April">04 April</option>
+                            <option value="May">05 May</option>
+                            <option value="June">06 June</option>
+                            <option value="July">07 July</option>
+                            <option value="August">08 August</option>
+                            <option value="September">09 September</option>
+                            <option value="October">10 October</option>
+                            <option value="November">11 November</option>
+                            <option value="December">12 December</option>
+                        </select>
+
+                        <label className={`col${this.state.colSize}-11 middle-align`}>Start month:</label>
+                        <select
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            name="startYear"
+                            onClick={(e: MouseEvent<HTMLSelectElement>): void => this.handleDdlChange(e)}
+                        >
+                            {this.generateYearOptions()}
+                        </select>
+                    </div>
+                    {/*//     </>
+                    // */}
+
+                    {/* Responsibilities */}
+                    <div className="row">
+                        <label className={`col${this.state.colSize}-4`}>Job responsibilities:</label>
+                        <textarea
+                            id="taResponsibility"
+                            className={`col${this.state.colSize}-7`}
+                            name="currentResponsibility"
+                            onChange={(e: ChangeEvent<HTMLTextAreaElement>): void => this.handleChange(e)}
+                        ></textarea>
+
+                        {/* Save responsibility button */}
+                        <button
+                            className={`col${this.state.colSize}-8 middle-align`}
+                            onClick={this.addResponsibility}
+                        >Add Job Responsibility</button>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-4`} />
+                        {this.state.responsibilities.length > 0
+                            ? <ul>
+                                {this.state.responsibilities.map((responsibility: string): JSX.Element => <li key={responsibility}>{responsibility}</li>)}
+                            </ul>
+                            : <></>
+                        }
+                    </div>
+
+                    {/* Save work experience button */}
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-8 middle-align`}
+                            onClick={this.handleAddWorkExperience}
+                        >Save Work Experience</button>
                     </div>
                 </div>
             );

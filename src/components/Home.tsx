@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Props } from "../types/TGlobal";
 import { State } from "../types/THome";
 import logo from "../logo.svg";
+import instructions from "../media/images/instructions.png";
 import "../css/GlobalCSS.css";
 import "../css/HomeCSS.css";
 
@@ -84,7 +85,7 @@ class Home extends PureComponent<Props, State> {
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-11`}>
-                            <Link to="/dashboard/environment-testing">Enter Webapp</Link>
+                            <Link to="/dashboard/landing-page">Enter Webapp</Link>
                         </div>
 
                         <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
@@ -125,32 +126,100 @@ class Home extends PureComponent<Props, State> {
         }
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
-                return this.state.showWarning === true
-                    ? <div className="row">
-                        <h2>This webapp was designed for mobile devices. If you're viewing this app on a laptop or 
-                            desktop computer and would like to view the app as it was intended to look, press the F12 key
-                            and enable mobile view. If not, you can still view the app but the UI may be distorted 
+            return this.state.showWarning === true
+                ? <div className="container">
+                    <div className="row">
+                        <h2 className={`col${this.state.colSize}-11 middle-align`}>This webapp was designed for mobile devices.</h2>
+
+                        <div className="row">
+                            <div className={`col${this.state.colSize}-12`}>
+                                <br />
+                            </div>
+                        </div>
+
+                        <h2 className={`col${this.state.colSize}-11 middle-align`}>
+                            If you're viewing this app on a laptop or
+                            desktop computer and would like to view the app as it was intended to look, enable mobile view in your browser
+                            by pressing the F12 key and making sure the circled items in the image below are selected and that you've refreshed the page.</h2>
+
+                        <div className="row">
+                            <div className={`col${this.state.colSize}-12`}>
+                                <br />
+                            </div>
+                        </div>
+
+
+                        <img className={`col${this.state.colSize}-11 middle-align`} src={instructions} alt="Instructions" />
+
+                        <div className="row">
+                            <div className={`col${this.state.colSize}-12`}>
+                                <br />
+                            </div>
+                        </div>
+
+                        <h2 className={`col${this.state.colSize}-11 middle-align`}>You can still view
+                            the site on a computer without enabling mobile view, but understand the styling will not be optimized
                         </h2>
+
+                        <div className="row">
+                            <div className={`col${this.state.colSize}-12`}>
+                                <br />
+                            </div>
+                        </div>
+
                         <button
-                            className={`col${this.state.colSize}-6 middle-align btn btn-secondary`}
+                            className={`col${this.state.colSize}-6 middle-align`}
                             onClick={(): void => this.setState({ showWarning: !this.state.showWarning })}
                         >Continue</button>
                     </div>
-                    : <div className="middle-align" style={{ margin: "0 auto", padding: "0", width: "96%" }}>
-                        <div className="row">
-                            <h1>Alex Nielson</h1>
+                </div>
+                : <div className="container">
+                    <div className="row">
+                        <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
+                            Info About This App
+                        </h1>
+                    </div>
 
-                            <h2 className={`col${this.state.colSize}-12 center-text`}>
-                                React/TypeScript Single-Page Application
-                            </h2>
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11`}>
+                            <Link to="/dashboard/landing-page">Enter Webapp</Link>
+                        </div>
 
-                            <Link className={`col${this.state.colSize}-3 middle-align`} to="/dashboard/landing-page">
-                                <img src={logo} className="App-logo middle-align" alt="logo" />
-                            </Link>
-
-                            <h3 className={`col${this.state.colSize}11 center-text`}>Click icon to enter</h3>
+                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
+                            <h4>Frontend Technologies</h4>
+                            <ul>
+                                <li>TypeScript</li>
+                                <li>ReactJS</li>
+                                <li>JavaScript</li>
+                                <li>HTML</li>
+                                <li>CSS</li>
+                            </ul>
                         </div>
                     </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
+                            <h4>Backend Technologies</h4>
+                            <ul>
+                                <li>Node.js</li>
+                                <li>Git</li>
+                                <li>NoSQL (MongoDb)</li>
+                                <li>SQL (PostgreSQL; not used in app)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
+                            <h4>Deployment</h4>
+                            <ul>
+                                <li>Heroku</li>
+                                <li>GitHub</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
         }
 
         return this.state.device === "mobile"

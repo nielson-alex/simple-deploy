@@ -189,7 +189,7 @@ export default class Dashboard extends PureComponent<Props, State> {
                         ==============================*/}
                         <div className="App2">
                             <div className="accordion">
-                                {/* Testing */}
+                                {/* Testing /}
                                 <AccordionFC title="Testing">
                                     <ul className="subnav-ul">
                                         <li className="subnav-ul-li">
@@ -209,6 +209,7 @@ export default class Dashboard extends PureComponent<Props, State> {
                                         </li>
                                     </ul>
                                 </AccordionFC>
+                    */}
 
                                 {/* Language Learning */}
                                 <AccordionFC title="Language Learning">
@@ -242,7 +243,7 @@ export default class Dashboard extends PureComponent<Props, State> {
                                     </ul>
                                 </AccordionFC>
 
-                                {/* Shelter */}
+                                {/* Shelter /}
                                 <AccordionFC title="Shelter">
                                     <ul className="subnav-ul">
                                         <li className="subnav-ul-li">
@@ -252,6 +253,7 @@ export default class Dashboard extends PureComponent<Props, State> {
                                         </li>
                                     </ul>
                                 </AccordionFC>
+                    */}
                             </div>
                         </div>
 
@@ -263,7 +265,7 @@ export default class Dashboard extends PureComponent<Props, State> {
                                 //     redirectToLogin: true
                                 // });
                             }}>
-                                <p id="mobile-nav-option-text" onClick={this.signout}>Logout</p>
+                                {/* <p id="mobile-nav-option-text" onClick={this.signout}>Logout</p> */}
                             </div>
                         </h2>
                         {/* </OutsideClickHandler> */}
@@ -313,9 +315,10 @@ export default class Dashboard extends PureComponent<Props, State> {
                                             {/*=============================== 
                                             |         Test (desktop)         |
                                             ===============================*/}
+                                            {/*
                                             <DesktopGroupFC text="Test">
                                                 {/*     -JavaScript- 
-                                                    EnvironmentTestingJSClass (desktop) */}
+                                                    EnvironmentTestingJSClass (desktop) /}
                                                 <DesktopLinkFC
                                                     to="beta/environment-testing-js-class"
                                                     text="Environment Testing (JavaScript)"
@@ -325,12 +328,13 @@ export default class Dashboard extends PureComponent<Props, State> {
 
                                             <div className="eqx-dash-divider-div" />
 
-                                            {/* Sign Out (desktop) */}
+                                            {/* Sign Out (desktop) /}
                                             <DesktopSignoutLinkFC
                                                 text="Sign Out"
                                                 icon="menu-icon fas fa-print"
                                                 onClick={this.signout}
-                                            />
+                                                /> 
+                                                */}
                                         </div>
                                     </div>
                                 </>

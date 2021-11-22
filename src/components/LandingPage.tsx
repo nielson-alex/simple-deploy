@@ -67,46 +67,22 @@ class LandingPage extends PureComponent<Props, State> {
                 <div className="container">
                     <div className="row">
                         <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
-                            Info About This App
+                            Welcome!
                         </h1>
                     </div>
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-11`}>
-                            <Link to="/dashboard/environment-testing">View Resume</Link>
+                            <Link to="/dashboard/resume/resume">View Alex Nielson's Resume</Link>
+                        </div>
+                        <div className={`col${this.state.colSize}-11`}>
+                            <Link to="/dashboard/language-learning/decks">Language Learning Flashcard App</Link>
                         </div>
 
                         <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
-                            <h4>Frontend Technologies</h4>
-                            <ul>
-                                <li>TypeScript</li>
-                                <li>ReactJS</li>
-                                <li>JavaScript</li>
-                                <li>HTML</li>
-                                <li>CSS</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
-                            <h4>Backend Technologies</h4>
-                            <ul>
-                                <li>Node.js</li>
-                                <li>Git</li>
-                                <li>NoSQL (MongoDb)</li>
-                                <li>SQL (PostgreSQL; not used in app)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
-                            <h4>Deployment</h4>
-                            <ul>
-                                <li>Heroku</li>
-                                <li>GitHub</li>
-                            </ul>
+                            <p>While some features on this app are complete like reading from and saving to the server, please have patience
+                                with the parts of the site that are incomplete.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -117,44 +93,23 @@ class LandingPage extends PureComponent<Props, State> {
             return (
                 <div className="container">
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>
-                            App Production Info
+                        <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
+                            Welcome!
                         </h1>
-                        <hr />
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
-                            <h4>Frontend Technologies</h4>
-                            <ul>
-                                <li>TypeScript</li>
-                                <li>ReactJS</li>
-                                <li>JavaScript</li>
-                                <li>HTML</li>
-                                <li>CSS</li>
-                            </ul>
+                        <div className={`col${this.state.colSize}-11`}>
+                            <Link to="/dashboard/resume/resume">View Alex Nielson's Resume</Link>
                         </div>
-                    </div>
-
-                    <div className="row">
-                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
-                            <h4>Backend Technologies</h4>
-                            <ul>
-                                <li>Node.js</li>
-                                <li>Git</li>
-                                <li>NoSQL (MongoDb)</li>
-                                <li>SQL (PostgreSQL; not used in app)</li>
-                            </ul>
+                        <div className={`col${this.state.colSize}-11`}>
+                            <Link to="/dashboard/language-learning/decks">Language Learning Flashcard App</Link>
                         </div>
-                    </div>
 
-                    <div className="row">
                         <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
-                            <h4>Deployment</h4>
-                            <ul>
-                                <li>Heroku</li>
-                                <li>GitHub</li>
-                            </ul>
+                            <p>While some features on this app are complete like reading from and saving to the server, please have patience
+                                with the parts of the site that are incomplete.
+                            </p>
                         </div>
                     </div>
                 </div>

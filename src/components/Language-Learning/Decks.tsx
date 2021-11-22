@@ -125,7 +125,28 @@ export default class Decks extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <div className="container">
+                    <div className="row">
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>My Chinese Flashcard Decks</h1>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11 middle-align`}>
+                            <hr />
+                        </div>
+                    </div>
+
+                    {this.state.decks.length > 0
+                        ? <ul>
+                            {this.state.decks.map((deck: TDeck): JSX.Element => (
+                                <Link to={`/dashboard/language-learning/quiz?id=${deck._id}`}>
+                                    <li key={deck.deckName}>{deck.deckName}</li>
+                                </Link>
+                            ))}
+                        </ul>
+                        : <></>
+                    }
+                </div>
             );
         }
 
