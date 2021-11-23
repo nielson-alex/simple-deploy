@@ -15,7 +15,6 @@
     "pg": "^8.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "^4.0.3",
     "typescript": "^4.4.4",
     "web-vitals": "^1.1.2"
   },
@@ -23,7 +22,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "react-scripts build",
-    "s": "\"npm run build & npm run start\"",
+    "s": "\"npm run build & npm run --max-http-header-size=32768 start PORT=80\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postinstall": "npm run build tsc"
@@ -46,7 +45,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:5001",
   "devDependencies": {
     "@types/express": "^4.17.13",
     "@types/nodemon": "^1.19.1",
@@ -67,6 +66,7 @@
     "react-modal": "^3.14.3",
     "react-qr-reader": "^2.2.1",
     "react-router-dom": "^5.3.0",
+    "react-scripts": "^4.0.3",
     "react-toastify": "^8.0.3",
     "react-webcam-barcode-scanner": "0.0.2-rc2",
     "socket.io": "^4.3.2"
