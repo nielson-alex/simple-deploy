@@ -6,6 +6,7 @@ exports.getAllDecks = function (request, response, next) {
     const page = request.query.page;
     let totalItems;
 
+    // Deck.find({ creator: "Alex Nielson" })
     Deck.find({ creator: "Alex Nielson" })
         .countDocuments()
         .then(numProducts => {
