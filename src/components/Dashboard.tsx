@@ -181,6 +181,7 @@ export default class Dashboard extends PureComponent<Props, State> {
                     </div>
                     <h2
                         className={`mobile-logo-image eqx-center-text eqx-dashboard-menu-icon-${this.state.device}`}
+                        style={{ color: "#ffffff" }}
                         onClick={this.menuClick}
                     >☰</h2>
                     <div className="mobile-hide-nav-options-cont" ref={this.navOptionsRowCont as any}>
@@ -362,9 +363,7 @@ export default class Dashboard extends PureComponent<Props, State> {
             // user.loggedIn === false
             // ? <Redirect to="/login" />
             // : 
-            this.state.device === "mobile"
-                ? this.mobileRender()
-                : this.desktopRender()
+            this.mobileRender()
         );
     }
 }

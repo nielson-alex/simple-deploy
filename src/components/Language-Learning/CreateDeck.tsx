@@ -1,4 +1,5 @@
 import { PureComponent, ChangeEvent, KeyboardEvent, RefObject, createRef } from "react";
+import { Link } from "react-router-dom";
 import { Props } from "../../types/TGlobal";
 import { State, TCard } from "../../types/TCreateDeck";
 import { BR } from "../functional-components/GlobalFC";
@@ -227,6 +228,8 @@ export default class Decks extends PureComponent<Props, State> {
                         <h1 className={`col${this.state.colSize}-12 center-text`}>Create New Deck</h1>
                     </div>
 
+                    <Link to="/dashboard/language-learning/decks">Decks</Link>
+
                     <div className="row">
                         <div className={`col${this.state.colSize}-11 middle-align`}>
                             <hr />
@@ -359,6 +362,8 @@ export default class Decks extends PureComponent<Props, State> {
                     <div className="row">
                         <h1 className={`col${this.state.colSize}-12 center-text`}>Create New Deck</h1>
                     </div>
+
+                    <Link to="/dashboard/language-learning/decks">Decks</Link>
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-11 middle-align`}>

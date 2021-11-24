@@ -103,6 +103,8 @@ export default class Decks extends PureComponent<Props, State> {
                         <h1 className={`col${this.state.colSize}-12 center-text`}>My Chinese Flashcard Decks</h1>
                     </div>
 
+                    <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
+
                     <div className="row">
                         <div className={`col${this.state.colSize}-11 middle-align`}>
                             <hr />
@@ -129,6 +131,8 @@ export default class Decks extends PureComponent<Props, State> {
                     <div className="row">
                         <h1 className={`col${this.state.colSize}-12 center-text`}>My Chinese Flashcard Decks</h1>
                     </div>
+
+                    <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-11 middle-align`}>

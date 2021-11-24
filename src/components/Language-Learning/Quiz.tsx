@@ -7,6 +7,7 @@ import {
     RefObject,
     createRef
 } from "react";
+import { Link } from "react-router-dom";
 import { BR } from "../functional-components/GlobalFC";
 import { Props } from "../../types/TGlobal";
 import { State, TCard } from "../../types/TQuiz";
@@ -392,6 +393,8 @@ export default class Quiz extends PureComponent<Props, State> {
                             <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
                         </div>
 
+                        <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
+
                         <div className="row">
                             <div className={`col${this.state.colSize}-12`}>
                                 <hr />
@@ -532,6 +535,8 @@ export default class Quiz extends PureComponent<Props, State> {
                         <div className="row">
                             <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
                         </div>
+
+                        <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
 
                         <div className="row">
                             <div className={`col${this.state.colSize}-12`}>
