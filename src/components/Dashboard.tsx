@@ -179,8 +179,10 @@ export default class Dashboard extends PureComponent<Props, State> {
                     >
                         <i className={`big inverted bars icon ${bOrM}`} />
                     </div>
-                    <h2 className={`mobile-logo-image eqx-center-text eqx-dashboard-menu-icon-${this.state.device}`}
-                        onClick={this.menuClick}>☰</h2>
+                    <h2
+                        className={`mobile-logo-image eqx-center-text eqx-dashboard-menu-icon-${this.state.device}`}
+                        onClick={this.menuClick}
+                    >☰</h2>
                     <div className="mobile-hide-nav-options-cont" ref={this.navOptionsRowCont as any}>
                         {/* <OutsideClickHandler onOutsideClick={() => console.log("")} /* onOutsideClick={this.outsideClick} /> */}
 
@@ -212,7 +214,7 @@ export default class Dashboard extends PureComponent<Props, State> {
                     */}
 
                                 {/* Language Learning */}
-                                <AccordionFC title="Language Learning">
+                                <AccordionFC title="Language Learning" menuClick={this.menuClick}>
                                     <ul className="subnav-ul">
                                         <li className="subnav-ul-li">
                                             <Link to="/dashboard/language-learning/decks">

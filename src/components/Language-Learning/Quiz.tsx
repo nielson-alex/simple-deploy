@@ -7,6 +7,7 @@ import {
     RefObject,
     createRef
 } from "react";
+import { BR } from "../functional-components/GlobalFC";
 import { Props } from "../../types/TGlobal";
 import { State, TCard } from "../../types/TQuiz";
 import { generateMessage } from "../../helpers/functions";
@@ -106,106 +107,74 @@ export default class Quiz extends PureComponent<Props, State> {
     }
 
     checkAnswer(): void {
-        if (this.state.quizMode === 0) {
-            if (this.state.currentCard.chinese.toLowerCase() === this.state.answer.text.toLowerCase()) {
-                this.quizComplete();
-
-                const currentCard: TCard = {
-                    ...this.state.currentCard,
-                    timesAnsweredCorrectly: parseInt(`${this.state.currentCard.timesAnsweredCorrectly}`, 10) + 1
-                };
-                const cards: TCard[] = this.state.cards.map((card: TCard): TCard => card);
-                const idx: number = cards.map((card: TCard): string => card._id).indexOf(this.state.currentCard._id);
-                cards[idx] = currentCard;
-
-                this.setState({
-                    answer: {
-                        correct: true,
-                        text: ""
-                    },
-                    cards: cards,
-                    currentCard: currentCard,
-                    showHint: false
-                }, (): void => {
-                    if (this.answerStatusRef !== null) {
-                        if (this.answerStatusRef.current !== null) {
-                            if (this.answerStatusRef.current.classList !== null) {
-                                if (this.answerStatusRef.current.classList.contains("quiz-answer-incorrect")) {
-                                    this.answerStatusRef.current.classList.remove("quiz-answer-incorrect");
-                                }
-
-                                this.answerStatusRef.current.classList.add("quiz-answer-correct");
-                            }
-
-                            this.answerStatusRef.current.innerHTML = "Correct!";
-                        }
-                    }
-
-                    if (this.answerRef !== null) {
-                        if (this.answerRef.current !== null) {
-                            if (this.answerRef.current.value !== null) {
-                                this.answerRef.current.value = "";
-                            }
-                        }
-                    }
-
-                    this.getNextCard();
-                });
-            } else {
-                if (this.answerStatusRef !== null) {
-                    if (this.answerStatusRef.current !== null) {
-                        if (this.answerStatusRef.current.classList !== null) {
-                            if (this.answerStatusRef.current.classList.contains("quiz-answer-correct")) {
-                                this.answerStatusRef.current.classList.remove("quiz-answer-correct");
-                            }
-
-                            this.answerStatusRef.current.classList.add("quiz-answer-incorrect");
-                        }
-
-                        this.answerStatusRef.current.innerHTML = "Incorrect";
-                    }
-                }
-
-                if (this.answerRef !== null) {
-                    if (this.answerRef.current !== null) {
-                        if (this.answerRef.current.value !== null) {
-                            this.answerRef.current.value = "";
-                        }
+        if (this.state.answer.text.toLowerCase() === "sk") {
+            if (this.answerRef !== null) {
+                if (this.answerRef.current !== null) {
+                    if (this.answerRef.current.value !== null) {
+                        this.answerRef.current.value = "";
                     }
                 }
             }
+
+            this.getNextCard();
         } else {
-            if (this.state.currentCard.english.toLowerCase() === this.state.answer.text.toLowerCase()) {
-                this.quizComplete();
+            if (this.state.quizMode === 0) {
+                if (this.state.currentCard.chinese.toLowerCase() === this.state.answer.text.toLowerCase()) {
+                    this.quizComplete();
 
-                const currentCard: TCard = {
-                    ...this.state.currentCard,
-                    timesAnsweredCorrectly: parseInt(`${this.state.currentCard.timesAnsweredCorrectly}`, 10) + 1
-                };
-                const cards: TCard[] = this.state.cards.map((card: TCard): TCard => card);
-                const idx: number = cards.map((card: TCard): string => card._id).indexOf(this.state.currentCard._id);
-                cards[idx] = currentCard;
+                    const currentCard: TCard = {
+                        ...this.state.currentCard,
+                        timesAnsweredCorrectly: parseInt(`${this.state.currentCard.timesAnsweredCorrectly}`, 10) + 1
+                    };
+                    const cards: TCard[] = this.state.cards.map((card: TCard): TCard => card);
+                    const idx: number = cards.map((card: TCard): string => card._id).indexOf(this.state.currentCard._id);
+                    cards[idx] = currentCard;
 
-                this.setState({
-                    answer: {
-                        correct: true,
-                        text: ""
-                    },
-                    cards: cards,
-                    currentCard: currentCard,
-                    showHint: false
-                }, (): void => {
+                    this.setState({
+                        answer: {
+                            correct: true,
+                            text: ""
+                        },
+                        cards: cards,
+                        currentCard: currentCard,
+                        showHint: false
+                    }, (): void => {
+                        if (this.answerStatusRef !== null) {
+                            if (this.answerStatusRef.current !== null) {
+                                if (this.answerStatusRef.current.classList !== null) {
+                                    if (this.answerStatusRef.current.classList.contains("quiz-answer-incorrect")) {
+                                        this.answerStatusRef.current.classList.remove("quiz-answer-incorrect");
+                                    }
+
+                                    this.answerStatusRef.current.classList.add("quiz-answer-correct");
+                                }
+
+                                this.answerStatusRef.current.innerHTML = "Correct!";
+                            }
+                        }
+
+                        if (this.answerRef !== null) {
+                            if (this.answerRef.current !== null) {
+                                if (this.answerRef.current.value !== null) {
+                                    this.answerRef.current.value = "";
+                                }
+                            }
+                        }
+
+                        this.getNextCard();
+                    });
+                } else {
                     if (this.answerStatusRef !== null) {
                         if (this.answerStatusRef.current !== null) {
                             if (this.answerStatusRef.current.classList !== null) {
-                                if (this.answerStatusRef.current.classList.contains("quiz-answer-incorrect")) {
-                                    this.answerStatusRef.current.classList.remove("quiz-answer-incorrect");
+                                if (this.answerStatusRef.current.classList.contains("quiz-answer-correct")) {
+                                    this.answerStatusRef.current.classList.remove("quiz-answer-correct");
                                 }
 
-                                this.answerStatusRef.current.classList.add("quiz-answer-correct");
+                                this.answerStatusRef.current.classList.add("quiz-answer-incorrect");
                             }
 
-                            this.answerStatusRef.current.innerHTML = "Correct!";
+                            this.answerStatusRef.current.innerHTML = "Incorrect";
                         }
                     }
 
@@ -216,28 +185,72 @@ export default class Quiz extends PureComponent<Props, State> {
                             }
                         }
                     }
-
-                    this.getNextCard();
-                });
+                }
             } else {
-                if (this.answerStatusRef !== null) {
-                    if (this.answerStatusRef.current !== null) {
-                        if (this.answerStatusRef.current.classList !== null) {
-                            if (this.answerStatusRef.current.classList.contains("quiz-answer-correct")) {
-                                this.answerStatusRef.current.classList.remove("quiz-answer-correct");
-                            }
+                if (this.state.currentCard.english.toLowerCase() === this.state.answer.text.toLowerCase()) {
+                    this.quizComplete();
 
-                            this.answerStatusRef.current.classList.add("quiz-answer-incorrect");
+                    const currentCard: TCard = {
+                        ...this.state.currentCard,
+                        timesAnsweredCorrectly: parseInt(`${this.state.currentCard.timesAnsweredCorrectly}`, 10) + 1
+                    };
+                    const cards: TCard[] = this.state.cards.map((card: TCard): TCard => card);
+                    const idx: number = cards.map((card: TCard): string => card._id).indexOf(this.state.currentCard._id);
+                    cards[idx] = currentCard;
+
+                    this.setState({
+                        answer: {
+                            correct: true,
+                            text: ""
+                        },
+                        cards: cards,
+                        currentCard: currentCard,
+                        showHint: false
+                    }, (): void => {
+                        if (this.answerStatusRef !== null) {
+                            if (this.answerStatusRef.current !== null) {
+                                if (this.answerStatusRef.current.classList !== null) {
+                                    if (this.answerStatusRef.current.classList.contains("quiz-answer-incorrect")) {
+                                        this.answerStatusRef.current.classList.remove("quiz-answer-incorrect");
+                                    }
+
+                                    this.answerStatusRef.current.classList.add("quiz-answer-correct");
+                                }
+
+                                this.answerStatusRef.current.innerHTML = "Correct!";
+                            }
                         }
 
-                        this.answerStatusRef.current.innerHTML = "Incorrect";
-                    }
-                }
+                        if (this.answerRef !== null) {
+                            if (this.answerRef.current !== null) {
+                                if (this.answerRef.current.value !== null) {
+                                    this.answerRef.current.value = "";
+                                }
+                            }
+                        }
 
-                if (this.answerRef !== null) {
-                    if (this.answerRef.current !== null) {
-                        if (this.answerRef.current.value !== null) {
-                            this.answerRef.current.value = "";
+                        this.getNextCard();
+                    });
+                } else {
+                    if (this.answerStatusRef !== null) {
+                        if (this.answerStatusRef.current !== null) {
+                            if (this.answerStatusRef.current.classList !== null) {
+                                if (this.answerStatusRef.current.classList.contains("quiz-answer-correct")) {
+                                    this.answerStatusRef.current.classList.remove("quiz-answer-correct");
+                                }
+
+                                this.answerStatusRef.current.classList.add("quiz-answer-incorrect");
+                            }
+
+                            this.answerStatusRef.current.innerHTML = "Incorrect";
+                        }
+                    }
+
+                    if (this.answerRef !== null) {
+                        if (this.answerRef.current !== null) {
+                            if (this.answerRef.current.value !== null) {
+                                this.answerRef.current.value = "";
+                            }
                         }
                     }
                 }
@@ -324,17 +337,19 @@ export default class Quiz extends PureComponent<Props, State> {
     }
 
     handleCbChange(e: ChangeEvent<HTMLInputElement>): void {
+        const id: string = e.currentTarget.id;
         const name: string = e.currentTarget.name;
         const value: any = e.currentTarget.value;
         const checked: boolean = e.currentTarget.checked;
 
+        console.log("id:", id);
         console.log("name:", name);
         console.log("value:", value);
         console.log("checked:", checked);
 
         this.setState((prevState: State) => ({
             ...prevState,
-            [name]: checked === true ? 0 : 1
+            [name]: id === "rbEnglishToChinese" ? 0 : 1
         }));
     }
 
@@ -389,11 +404,7 @@ export default class Quiz extends PureComponent<Props, State> {
                             </p>
                         </div>
 
-                        <div className="row">
-                            <div className={`col${this.state.colSize}-12`}>
-                                <br />
-                            </div>
-                        </div>
+                        <BR colSize={this.state.colSize} />
 
                         {/* Quiz mode checkbox */}
                         <div className="row">
@@ -414,7 +425,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                     type="radio"
                                     id="rbChineseToEnglish"
                                     name="quizMode"
-                                    ref={this.englishToChineseRef}
+                                    ref={this.chineseToEnglishRef}
                                     onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleCbChange(e)}
                                 />
                             </label>
@@ -449,19 +460,11 @@ export default class Quiz extends PureComponent<Props, State> {
                                 Times answered correctly: {this.state.currentCard.timesAnsweredCorrectly}
                             </h3>
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}></h3>
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             <h2 className={`col${this.state.colSize}-11 middle-align center-text`}>
                                 {this.state.quizMode === 0
@@ -470,11 +473,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                 }
                             </h2>
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             {/* Answer */}
                             <input
@@ -486,11 +485,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
                             />
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             {/* Submit answer button */}
                             <button
@@ -498,11 +493,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                 onClick={this.checkAnswer}
                             >Submit</button>
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             {/* Skip button */}
                             <button
@@ -510,11 +501,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                 onClick={this.getNextCard}
                             >Skip</button>
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             {/* Show hint button */}
                             <button
@@ -526,11 +513,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                 }
                             </button>
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             {/* Hint */}
                             {this.state.showHint === true
@@ -562,11 +545,7 @@ export default class Quiz extends PureComponent<Props, State> {
                             </p>
                         </div>
 
-                        <div className="row">
-                            <div className={`col${this.state.colSize}-12`}>
-                                <br />
-                            </div>
-                        </div>
+                        <BR colSize={this.state.colSize} />
 
                         {/* Quiz mode checkbox */}
                         <div className="row">
@@ -622,19 +601,11 @@ export default class Quiz extends PureComponent<Props, State> {
                                 Times answered correctly: {this.state.currentCard.timesAnsweredCorrectly}
                             </h3>
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}></h3>
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             <h2 className={`col${this.state.colSize}-11 middle-align center-text`}>
                                 {this.state.quizMode === 0
@@ -643,11 +614,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                 }
                             </h2>
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             {/* Answer */}
                             <input
@@ -659,11 +626,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
                             />
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             {/* Submit answer button */}
                             <button
@@ -671,11 +634,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                 onClick={this.checkAnswer}
                             >Submit</button>
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             {/* Skip button */}
                             <button
@@ -683,11 +642,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                 onClick={this.getNextCard}
                             >Skip</button>
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             {/* Show hint button */}
                             <button
@@ -699,11 +654,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                 }
                             </button>
 
-                            <div className="row">
-                                <div className={`col${this.state.colSize}-12`}>
-                                    <br />
-                                </div>
-                            </div>
+                            <BR colSize={this.state.colSize} />
 
                             {/* Hint */}
                             {this.state.showHint === true

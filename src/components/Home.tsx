@@ -1,5 +1,6 @@
 import { PureComponent } from "react";
 import { Link } from "react-router-dom";
+import { BR } from "./functional-components/GlobalFC";
 import { Props } from "../types/TGlobal";
 import { State } from "../types/THome";
 import logo from "../logo.svg";
@@ -131,41 +132,24 @@ class Home extends PureComponent<Props, State> {
                     <div className="row">
                         <h2 className={`col${this.state.colSize}-11 middle-align`}>This webapp was designed for mobile devices.</h2>
 
-                        <div className="row">
-                            <div className={`col${this.state.colSize}-12`}>
-                                <br />
-                            </div>
-                        </div>
+                        <BR colSize={this.state.colSize} />
 
                         <h2 className={`col${this.state.colSize}-11 middle-align`}>
                             If you're viewing this app on a laptop or
                             desktop computer and would like to view the app as it was intended to look, enable mobile view in your browser
                             by pressing the F12 key and making sure the circled items in the image below are selected and that you've refreshed the page.</h2>
 
-                        <div className="row">
-                            <div className={`col${this.state.colSize}-12`}>
-                                <br />
-                            </div>
-                        </div>
-
+                        <BR colSize={this.state.colSize} />
 
                         <img className={`col${this.state.colSize}-11 middle-align`} src={instructions} alt="Instructions" />
 
-                        <div className="row">
-                            <div className={`col${this.state.colSize}-12`}>
-                                <br />
-                            </div>
-                        </div>
+                        <BR colSize={this.state.colSize} />
 
                         <h2 className={`col${this.state.colSize}-11 middle-align`}>You can still view
                             the site on a computer without enabling mobile view, but understand the styling will not be optimized
                         </h2>
 
-                        <div className="row">
-                            <div className={`col${this.state.colSize}-12`}>
-                                <br />
-                            </div>
-                        </div>
+                        <BR colSize={this.state.colSize} />
 
                         <button
                             className={`col${this.state.colSize}-6 middle-align`}

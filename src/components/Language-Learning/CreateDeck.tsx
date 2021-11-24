@@ -1,6 +1,7 @@
-import { PureComponent, ChangeEvent, RefObject, createRef } from "react";
+import { PureComponent, ChangeEvent, KeyboardEvent, RefObject, createRef } from "react";
 import { Props } from "../../types/TGlobal";
 import { State, TCard } from "../../types/TCreateDeck";
+import { BR } from "../functional-components/GlobalFC";
 import { generateMessage } from "../../helpers/functions";
 import "../../css/GlobalCSS.css";
 import "../../css/CreateDeckCSS.css";
@@ -193,7 +194,8 @@ export default class Decks extends PureComponent<Props, State> {
                         number: card.number
                     }))
                 })
-            });
+            })
+                .then((): void => generateMessage("success", "Deck successfully created"));
         }
     }
 
@@ -229,6 +231,10 @@ export default class Decks extends PureComponent<Props, State> {
                         <div className={`col${this.state.colSize}-11 middle-align`}>
                             <hr />
                         </div>
+                    </div>
+
+                    <div className="row">
+                        <p className={`col${this.state.colSize}-11 middle-align`}>{this.state.cards.length} cards created</p>
                     </div>
 
                     {/* First name */}
@@ -278,6 +284,7 @@ export default class Decks extends PureComponent<Props, State> {
                             name="english"
                             ref={this.englishRef}
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChangeCardAttribute(e)}
+                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.handleSaveDeck() : null}
                         />
 
                         {/* Chinese */}
@@ -289,6 +296,7 @@ export default class Decks extends PureComponent<Props, State> {
                             name="chinese"
                             ref={this.chineseRef}
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChangeCardAttribute(e)}
+                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.handleSaveDeck() : null}
                         />
 
                         {/* Pinyin */}
@@ -300,8 +308,11 @@ export default class Decks extends PureComponent<Props, State> {
                             name="pinyin"
                             ref={this.pinyinRef}
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChangeCardAttribute(e)}
+                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.handleSaveDeck() : null}
                         />
                     </div>
+
+                    <BR colSize={this.state.colSize} />
 
                     {/* Add card button */}
                     <div className="row">
@@ -311,23 +322,7 @@ export default class Decks extends PureComponent<Props, State> {
                         >Add Card to Deck</button>
                     </div>
 
-                    {/* Existing cards */}
-                    {this.state.cards.length > 0
-                        ? this.state.cards.map((card: TCard): JSX.Element => {
-
-                            return (
-                                <div key={card.number}>
-                                    <ul>
-                                        <li>{card.number}</li>
-                                        <li>English: {card.english}</li>
-                                        <li>中文： {card.chinese}</li>
-                                        <li>Pinyin: {card.pinyin}</li>
-                                    </ul>
-                                </div>
-                            );
-                        })
-                        : <></>
-                    }
+                    <BR colSize={this.state.colSize} />
 
                     {/* Save deck button */}
                     <div className="row">
@@ -336,6 +331,24 @@ export default class Decks extends PureComponent<Props, State> {
                             onClick={this.handleSaveDeck}
                         >Save Deck</button>
                     </div>
+
+                    {/* Existing cards */}
+                    {this.state.cards.length > 0
+                        ? this.state.cards.map((card: TCard): JSX.Element => {
+
+                            return (
+                                <div key={card.number}>
+                                    <ul key={`${this.state.deckName}-card-${card.number}`}>
+                                        <li key={`card-number-${card.number}`}>{card.number}</li>
+                                        <li key={`${card.number}-english`}>English: {card.english}</li>
+                                        <li key={`${card.number}-chinese`}>中文： {card.chinese}</li>
+                                        <li key={`${card.number}-pinyin`}>Pinyin: {card.pinyin}</li>
+                                    </ul>
+                                </div>
+                            );
+                        })
+                        : <></>
+                    }
                 </div>
             );
         }

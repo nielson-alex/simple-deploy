@@ -1,6 +1,7 @@
 import { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
+import { BR } from "../functional-components/GlobalFC";
 import { Props } from "../../types/TGlobal";
 import { State } from "../../types/TCollection";
 import { TAnimal } from "../../types/TCollection";
@@ -174,7 +175,7 @@ class Collection extends PureComponent<Props, State> {
     async getAnimalDetails(): Promise<void> {
         fetch("/animals/")
     }
-    
+
     handleAddAnimal(): void {
         fetch("/animals/add_animal", {
             method: "POST",
@@ -208,9 +209,9 @@ class Collection extends PureComponent<Props, State> {
             .then((res: any): TAnimal[] => res.data)
             .then((res: TAnimal[]): void => {
                 const animals: TAnimal[] = res.map((animal: TAnimal): TAnimal => animal);
-                
+
                 console.log("res:", res);
-                
+
                 let featuredAnimal: TAnimal = {
                     _id: animals[0]._id,
                     age: parseFloat(`${animals[0].age}`),
@@ -289,7 +290,7 @@ class Collection extends PureComponent<Props, State> {
                                         onClick={this.toggleDetailsModal}
                                     />
                                 </div>
-                                <br />
+                                <BR colSize={this.state.colSize} />
                                 </>
                             )
                         })  
