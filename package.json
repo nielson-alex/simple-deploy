@@ -22,7 +22,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "react-scripts build",
-    "s": "\"npm run build & npm run --max-http-header-size=32768 start PORT=80\"",
+    "s": "\"npm run build & npm run start\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postinstall": "npm run build tsc"
