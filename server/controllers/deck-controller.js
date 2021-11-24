@@ -7,7 +7,7 @@ exports.getAllDecks = function (request, response, next) {
     let totalItems;
 
     // Deck.find({ creator: "Alex Nielson" })
-    Deck.find({ creator: "Alex Nielson" })
+    Deck.find()
         .countDocuments()
         .then(numProducts => {
             totalItems = numProducts;
