@@ -76,3 +76,30 @@ exports.postAddDeck = function (request, response, next) {
             });
     }
 }
+
+exports.postEditDeck = function (request, response, next) {
+    const _id = request.body._id;
+    const deck_name = request.body.deck_name;
+    const cards = request.body.cards;
+    const creator = request.body.creator;
+
+    console.log("_id:", _id);
+    console.log("deck_name:", deck_name);
+    console.log("cards:", cards);
+    console.log("creator:", creator);
+
+    Deck.findById(mongoose.Types.ObjectId(_id))
+        .then(deck => {
+            deck.deck_name = deck_name;
+            deck.cards = cards;
+            deck.creator = creator;
+            return deck.save();
+        })
+        .then(result => {
+            console.log("result:", result);
+            response.send({"status": "Successful"});
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}

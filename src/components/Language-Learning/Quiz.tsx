@@ -14,6 +14,7 @@ import { State, TCard } from "../../types/TQuiz";
 import { generateMessage } from "../../helpers/functions";
 import "../../css/GlobalCSS.css";
 import "../../css/QuizCSS.css";
+import { threadId } from "worker_threads";
 
 export default class Quiz extends PureComponent<Props, State> {
     _isMounted: boolean;
@@ -42,6 +43,7 @@ export default class Quiz extends PureComponent<Props, State> {
             quizMode: 0,
             quizCompleted: false,
             quizStarted: false,
+            showAnswer: false,
             showHint: false,
             colSize: "",
             device: ""
@@ -59,6 +61,7 @@ export default class Quiz extends PureComponent<Props, State> {
         this.handleChange = this.handleChange.bind(this);
         this.handleCbChange = this.handleCbChange.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
+        this.toggleAnswer = this.toggleAnswer.bind(this);
         this.toggleHint = this.toggleHint.bind(this);
         this.quizComplete = this.quizComplete.bind(this);
     }
@@ -118,6 +121,26 @@ export default class Quiz extends PureComponent<Props, State> {
             }
 
             this.getNextCard();
+        } else if (this.state.answer.text.toLowerCase() === "sh") {
+            this.toggleHint();
+
+            if (this.answerRef !== null) {
+                if (this.answerRef.current !== null) {
+                    if (this.answerRef.current.value !== null) {
+                        this.answerRef.current.value = "";
+                    }
+                }
+            }
+        } else if (this.state.answer.text.toLowerCase() === "sa") {
+            this.toggleAnswer();
+
+            if (this.answerRef !== null) {
+                if (this.answerRef.current !== null) {
+                    if (this.answerRef.current.value !== null) {
+                        this.answerRef.current.value = "";
+                    }
+                }
+            }
         } else {
             if (this.state.quizMode === 0) {
                 if (this.state.currentCard.chinese.toLowerCase() === this.state.answer.text.toLowerCase()) {
@@ -313,6 +336,7 @@ export default class Quiz extends PureComponent<Props, State> {
 
             this.setState({
                 currentCard: tmp,
+                showAnswer: false,
                 showHint: false
             }, (): void => {
                 console.log("this.state.currentCard:", this.state.currentCard);
@@ -321,6 +345,7 @@ export default class Quiz extends PureComponent<Props, State> {
             this.setState({
                 quizCompleted: true,
                 quizStarted: false,
+                showAnswer: false,
                 showHint: false
             }, (): void => {
                 generateMessage("success", "Congratulations! You have mastered all of the cards in this deck");
@@ -356,6 +381,12 @@ export default class Quiz extends PureComponent<Props, State> {
 
     handleFocus(e: FocusEvent<HTMLInputElement>): void {
         e.currentTarget.select();
+    }
+
+    toggleAnswer(): void {
+        this.setState({
+            showAnswer: !this.state.showAnswer
+        });
     }
 
     toggleHint(): void {
@@ -521,6 +552,32 @@ export default class Quiz extends PureComponent<Props, State> {
                             {/* Hint */}
                             {this.state.showHint === true
                                 ? <p className={`col${this.state.colSize}-11 middle-align`}>{this.state.currentCard.pinyin}</p>
+                                : <></>
+                            }
+
+                            <BR colSize={this.state.colSize} />
+
+                            {/* Show answer button */}
+
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                onClick={this.toggleAnswer}
+                            >{this.state.showAnswer !== true
+                                ? "Show Answer"
+                                : "Hide Answer"
+                                }
+                            </button>
+
+                            <BR colSize={this.state.colSize} />
+
+                            {/* Card answer */}
+                            {this.state.showAnswer === true
+                                ? <p className={`col${this.state.colSize}-11 middle-align center-text`}>
+                                    {this.state.quizMode === 0
+                                        ? this.state.currentCard.chinese
+                                        : this.state.currentCard.english
+                                    }
+                                </p>
                                 : <></>
                             }
                         </div>

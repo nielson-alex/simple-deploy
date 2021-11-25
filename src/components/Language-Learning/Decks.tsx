@@ -112,13 +112,25 @@ export default class Decks extends PureComponent<Props, State> {
                     </div>
 
                     {this.state.decks.length > 0
-                        ? <ul>
+                        ? <table>
                             {this.state.decks.map((deck: TDeck): JSX.Element => (
-                                <Link to={`/dashboard/language-learning/quiz?id=${deck._id}`}>
-                                    <li key={deck.deckName}>{deck.deckName}</li>
-                                </Link>
+                                <tr key={deck.deckName}>
+                                    <td>
+                                        {deck.deckName}
+                                    </td>
+                                    <td>
+                                        <Link to={`/dashboard/language-learning/quiz?id=${deck._id}`}>
+                                            <li key={deck.deckName}>Study</li>
+                                        </Link>
+                                    </td>
+                                    <td>
+                                        <Link to={`/dashboard/language-learning/edit?id=${deck._id}`}>
+                                            <li key={deck.deckName}>Edit Deck</li>
+                                        </Link>
+                                    </td>
+                                </tr>
                             ))}
-                        </ul>
+                        </table>
                         : <></>
                     }
                 </div>

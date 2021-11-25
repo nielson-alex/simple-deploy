@@ -96,8 +96,6 @@ export default class Decks extends PureComponent<Props, State> {
             cards.push(this.state.currentCard);
         }
 
-        console.log("cards:", cards);
-
         this.setState({
             cards: cards,
             cardNum: this.state.cardNum + 1,
@@ -112,17 +110,15 @@ export default class Decks extends PureComponent<Props, State> {
             console.log("this.state.cards:", this.state.cards);
 
             if (this.englishRef?.current !== null) {
-                console.log("this.englishRef:", this.englishRef);
                 this.englishRef.current.value = "";
+                this.englishRef.current.select();
             }
 
             if (this.chineseRef?.current !== null) {
-                console.log("this.chineseRef:", this.chineseRef);
                 this.chineseRef.current.value = "";
             }
 
             if (this.pinyinRef?.current !== null) {
-                console.log("this.pinyinRef:", this.pinyinRef);
                 this.pinyinRef.current.value = "";
             }
         });
@@ -287,7 +283,7 @@ export default class Decks extends PureComponent<Props, State> {
                             name="english"
                             ref={this.englishRef}
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChangeCardAttribute(e)}
-                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.handleSaveDeck() : null}
+                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.addCardToDeck() : null}
                         />
 
                         {/* Chinese */}
@@ -299,7 +295,7 @@ export default class Decks extends PureComponent<Props, State> {
                             name="chinese"
                             ref={this.chineseRef}
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChangeCardAttribute(e)}
-                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.handleSaveDeck() : null}
+                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.addCardToDeck() : null}
                         />
 
                         {/* Pinyin */}
@@ -311,7 +307,7 @@ export default class Decks extends PureComponent<Props, State> {
                             name="pinyin"
                             ref={this.pinyinRef}
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChangeCardAttribute(e)}
-                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.handleSaveDeck() : null}
+                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.addCardToDeck() : null}
                         />
                     </div>
 

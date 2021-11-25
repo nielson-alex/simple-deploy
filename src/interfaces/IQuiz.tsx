@@ -10,6 +10,7 @@ export interface IState {
     quizMode: number;
     quizCompleted: boolean;
     quizStarted: boolean;
+    showAnswer: boolean;
     showHint: boolean;
     colSize: string;
     device: string;

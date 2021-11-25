@@ -2,8 +2,9 @@ import { Switch, Route } from "react-router-dom";
 
 /* TypeScript imports */
 /* Main */              import LandingPage from "./components/LandingPage";
-/* Language-Learning */ import Decks from "./components/Language-Learning/Decks";
 /* Language-Learning */ import CreateDeck from "./components/Language-Learning/CreateDeck";
+/* Language-Learning */ import Decks from "./components/Language-Learning/Decks";
+/* Language-Learning */ import EditDeck from "./components/Language-Learning/EditDeck";
 /* Language-Learning */ import Quiz from "./components/Language-Learning/Quiz";
 /* Resume */            import Resume from "./components/Resume/Resume";
 /* Resume */            import AddWorkExperience from "./components/Resume/AddWorkExperience";
@@ -35,8 +36,9 @@ export default (
         {/* --- TypeScript --- */}
         {/* Main */}                <Route exact path="/dashboard" component={() => <LandingPage user={user} />} />
         {/* Main */}                <Route path="/dashboard/landing-page" component={() => <LandingPage user={user} />} />
+                {/* Language-Learning */}   <Route path="/dashboard/language-learning/create-deck" component={() => <CreateDeck user={user} />} />
         {/* Language-Learning */}   <Route path="/dashboard/language-learning/decks" component={() => <Decks user={user} />} />
-        {/* Language-Learning */}   <Route path="/dashboard/language-learning/create-deck" component={() => <CreateDeck user={user} />} />
+        {/* Language-Learning */}   <Route path="/dashboard/language-learning/edit" component={() => <EditDeck user={user} />} />
         {/* Language-Learning */}   <Route path="/dashboard/language-learning/quiz" component={() => <Quiz user={user} />} />
         {/* Resume */}              <Route path="/dashboard/resume/resume" component={() => <Resume user={user} />} />
         {/* Resume */}              <Route path="/dashboard/resume/add-work-experience" component={() => <AddWorkExperience user={user} />} />
