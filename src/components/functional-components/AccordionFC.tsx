@@ -16,8 +16,15 @@ interface IShow {
 type TCollapse = Opaque<"collapse", ICollapse>;
 type TShow = Opaque<"show", IShow>;
 
+interface IAccordion {
+    children: any;
+    className?: string;
+    id?: string;
+    title: string;
+    menuClick?: () => void;
+}
 // Accordion component
-export const AccordionFC: FC<{ title: string, children: any, menuClick?: () => void }> = ({ title, children, menuClick }) => {
+export const AccordionFC: FC<IAccordion> = ({ children, className, id, title, menuClick }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [height, setHeight] = useState<number>(0);
     const bodyRef = useRef(null);
@@ -45,7 +52,7 @@ export const AccordionFC: FC<{ title: string, children: any, menuClick?: () => v
     } as TShow;
 
     return (
-        <div className="card">
+        <div id={id} className={`card ${className}`}>
             <div className="card-header">
                 <h2 className="mb-0">
                     <button

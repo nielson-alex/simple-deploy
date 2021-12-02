@@ -1,38 +1,29 @@
-import React from "react";
-
-export interface FCIDesktopGroup {
-    children?: any | any[] | React.ReactNode | React.ReactNode[];
-    text?: string;
-}
-
-export interface FCIDesktopLink {
-    icon?: string;
-    ref?: any;
-    to?: string;
-    text?: string;
-}
+import { MouseEvent } from "react";
 
 export interface FCIDesktopSignoutLink {
     icon?: string;
-    text?: string;
-    onClick?: () => void;
+    text: string;
+    onClick: (e: MouseEvent<HTMLButtonElement | HTMLElement>) => void
 }
 
-export interface FCIMobileGroup {
-    children?: FCIDesktopLink;
+export interface FCIGroup {
     condition?: boolean;
     keyNum: string;
-    ref?: any;
-    text?: string;
-    handleClick?: () => void;
+    children: any;
+    text: string;
+    colSize?: string;
+    device: string;
+    handleClick?: () => any;
 }
 
-export interface FCIMobileLink {
+export interface FCILink {
+    children?: any;
     condition?: boolean;
     icon?: string;
-    props?: any;
+    keynum?: string;
     ref?: any;
-    text?: string;
-    to?: string;
-    onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+    text: string;
+    to: string;
+    device: string;
+    handleClick?: () => any;
 }

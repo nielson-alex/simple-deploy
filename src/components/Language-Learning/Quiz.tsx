@@ -419,7 +419,7 @@ export default class Quiz extends PureComponent<Props, State> {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return this.state.quizStarted === false
                 ? (
-                    <div className="container">
+                    <div className={`container container-${this.state.device}`}>
                         <div className="row">
                             <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
                         </div>
@@ -475,7 +475,7 @@ export default class Quiz extends PureComponent<Props, State> {
                     </div>
                 )
                 : (
-                    <div className="container">
+                    <div className={`container container-${this.state.device}`}>
                         <div className="row">
                             <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
                         </div>
@@ -588,7 +588,7 @@ export default class Quiz extends PureComponent<Props, State> {
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return this.state.quizStarted === false
                 ? (
-                    <div className="container">
+                    <div className={`container container-${this.state.device}`}>
                         <div className="row">
                             <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
                         </div>
@@ -644,7 +644,7 @@ export default class Quiz extends PureComponent<Props, State> {
                     </div>
                 )
                 : (
-                    <div className="container">
+                    <div className={`container container-${this.state.device}`}>
                         <div className="row">
                             <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
                         </div>

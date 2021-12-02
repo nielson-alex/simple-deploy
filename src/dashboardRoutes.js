@@ -36,7 +36,7 @@ export default (
         {/* --- TypeScript --- */}
         {/* Main */}                <Route exact path="/dashboard" component={() => <LandingPage user={user} />} />
         {/* Main */}                <Route path="/dashboard/landing-page" component={() => <LandingPage user={user} />} />
-                {/* Language-Learning */}   <Route path="/dashboard/language-learning/create-deck" component={() => <CreateDeck user={user} />} />
+        {/* Language-Learning */}   <Route path="/dashboard/language-learning/create-deck" component={() => <CreateDeck user={user} />} />
         {/* Language-Learning */}   <Route path="/dashboard/language-learning/decks" component={() => <Decks user={user} />} />
         {/* Language-Learning */}   <Route path="/dashboard/language-learning/edit" component={() => <EditDeck user={user} />} />
         {/* Language-Learning */}   <Route path="/dashboard/language-learning/quiz" component={() => <Quiz user={user} />} />

@@ -77,7 +77,7 @@ class Home extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className="container">
+                <div className={`container container-${this.state.device}`}>
                     <div className="row">
                         <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
                             Info About This App
@@ -128,36 +128,37 @@ class Home extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return this.state.showWarning === true
-                ? <div className="container">
-                    <div className="row">
-                        <h2 className={`col${this.state.colSize}-11 middle-align`}>This webapp was designed for mobile devices.</h2>
+                ? <div style={{ margin: "0 auto", padding: "1rem 0", width: "98%", height: "100vh" }}>
 
-                        <BR colSize={this.state.colSize} />
+                    <h4 className={`col${this.state.colSize}-9 middle-align center-text`}>This webapp is designed for mobile devices.</h4>
 
-                        <h2 className={`col${this.state.colSize}-11 middle-align`}>
-                            If you're viewing this app on a laptop or
-                            desktop computer and would like to view the app as it was intended to look, enable mobile view in your browser
-                            by pressing the F12 key and making sure the circled items in the image below are selected and that you've refreshed the page.</h2>
+                    <BR colSize={this.state.colSize} />
 
-                        <BR colSize={this.state.colSize} />
+                    <h4 className={`col${this.state.colSize}-9 middle-align center-text`}>
+                        If you're viewing this app on a laptop or
+                        desktop computer and would like the optimal viewing experience, enable mobile view in your browser
+                        by pressing the F12 key and making sure the circled items in the image below are selected.
+                    </h4>
 
-                        <img className={`col${this.state.colSize}-11 middle-align`} src={instructions} alt="Instructions" />
+                    <BR colSize={this.state.colSize} />
 
-                        <BR colSize={this.state.colSize} />
+                    <img className={`col${this.state.colSize}-11 middle-align center-text`} src={instructions} alt="Instructions" />
 
-                        <h2 className={`col${this.state.colSize}-11 middle-align`}>You can still view
-                            the site on a computer without enabling mobile view, but understand the styling will not be optimized
-                        </h2>
+                    <BR colSize={this.state.colSize} />
 
-                        <BR colSize={this.state.colSize} />
+                    <h4 className={`col${this.state.colSize}-9 middle-align center-text`}>
+                        You can still view the site on a computer without enabling mobile view, but understand the styling will not be optimized.
+                    </h4>
 
-                        <button
-                            className={`col${this.state.colSize}-6 middle-align`}
-                            onClick={(): void => this.setState({ showWarning: !this.state.showWarning })}
-                        >Continue</button>
-                    </div>
+                    <BR colSize={this.state.colSize} />
+
+                    {/* Continue button */}
+                    <button
+                        className={`col${this.state.colSize}-3 middle-align center-text`}
+                        onClick={(): void => this.setState({ showWarning: !this.state.showWarning })}
+                    >Continue</button>
                 </div>
-                : <div className="container">
+                : <div className={`container container-${this.state.device}`}>
                     <div className="row">
                         <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
                             Info About This App

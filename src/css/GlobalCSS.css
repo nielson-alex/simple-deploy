@@ -10,18 +10,47 @@
     Dark:       #212529
 */
 
-.container {
+/* .container {
     background-color: #ffffff !important;
-    box-shadow: 0px 0px 15px #000000;
-    margin-top: 1.5em;
+    /* margin-top: 1.5em; /
+    overflow-y: auto;
+    height: calc(100vh - 3em);
+
+    /* My own additions /
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+    margin: 0.25rem auto 0 auto;
+    width: 98%;
+    min-width: 98%;
+} */
+
+.container-mobile {
+    background-color: #ffffff !important;
+    /* margin-top: 1.5em; */
     overflow-y: auto;
     height: calc(100vh - 3em);
 
     /* My own additions */
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+    margin: 0.25rem auto 0 auto;
+    width: 98%;
+    min-width: 98%;
+}
+
+.container-desktop {
+    background-color: #ffffff !important;
+    /* margin-top: 1.5em; */
+    overflow-y: auto;
+    /* height: calc(100vh - 3em); */
+
+    /* My own additions */
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+    margin: 0.25rem auto 0 auto;
+    width: 100%;
+    min-width: 100%;
+    height: calc(100vh - 1.25em);
 }
 
 .center-text {

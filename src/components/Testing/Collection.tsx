@@ -241,7 +241,7 @@ class Collection extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className="container">
+                <div className={`container container-${this.state.device}`}>
                     <div className="row">
                         <h1 className={`col${this.state.colSize}-12 center-text`}>My Collection</h1>
                     </div>
@@ -299,7 +299,7 @@ class Collection extends PureComponent<Props, State> {
 
                     <Modal isOpen={this.state.showDetailsModal}>
                         <button onClick={this.toggleDetailsModal}>Close</button>
-                        <div className="container">
+                        <div className={`container container-${this.state.device}`}>
                             <div className="row">
                                 <p className={`col${this.state.colSize}-2 bold`}>Name:</p>
                                 <p className={`col${this.state.colSize}-10 bold`}></p>

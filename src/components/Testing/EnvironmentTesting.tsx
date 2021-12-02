@@ -169,7 +169,7 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
                 animals.sort((a: TAnimal, b: TAnimal): number => a.name > b.name ? 1 : -1);
 
                 console.log("animals:", animals);
-                
+
                 this.setState({
                     animals: animals,
                     featuredAnimal: animals[0]
@@ -264,7 +264,7 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className="container">
+                <div className={`container container-${this.state.device}`}>
                     <div className="row">
                         <h1
                             className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}

@@ -94,7 +94,7 @@ export default class Resume extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className="container">
+                <div className={`container container-${this.state.device}`}>
                     <div className="row">
                         <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Resume</h1>
                     </div>
@@ -137,7 +137,7 @@ export default class Resume extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className="container">
+                <div className={`container container-${this.state.device}`}>
                     <div className="row">
                         <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Resume</h1>
                     </div>
