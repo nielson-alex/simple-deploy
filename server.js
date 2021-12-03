@@ -2,7 +2,6 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const csrf = require("csurf");
 const flash = require("connect-flash");
@@ -72,7 +71,6 @@ const options = {
 app.use(express.static("build"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(flash());
