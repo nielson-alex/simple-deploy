@@ -61,7 +61,6 @@
     "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^3.1.1",
     "crypto": "^1.0.1",
-    "csurf": "^1.11.0",
     "express-session": "^1.17.2",
     "express-validator": "^6.13.0",
     "history": "^5.1.0",
