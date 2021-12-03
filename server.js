@@ -10,7 +10,6 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 const path = require("path");
 const PORT = process.env.PORT || 5001;
-const request = require("request");
 const router = express.Router();
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
