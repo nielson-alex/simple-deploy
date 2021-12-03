@@ -67,7 +67,7 @@ class LandingPage extends PureComponent<Props, State> {
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
                         <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
-                            Welcome!
+                            Welcome, {this.props.user.firstName}
                         </h1>
                     </div>
 

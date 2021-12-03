@@ -6,6 +6,7 @@ export interface IState {
     navMenuOpen: boolean;
     redirectToLanding: boolean;
     redirectToLogin: boolean;
+    user: any;
     colSize: string;
     device: string;
 }

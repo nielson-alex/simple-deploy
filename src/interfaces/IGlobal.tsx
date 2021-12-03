@@ -4,15 +4,8 @@ export interface IProps {
 }
 
 export interface IUser {
-    id: number;
-    active: number;
-    department: number;
+    _id: string;
     email: string;
-    employee: boolean;
     firstName: string;
-    gid: number;
     lastName: string;
-    loggedIn: boolean;
-    username: string;
-    sharedAccount: number;
 }

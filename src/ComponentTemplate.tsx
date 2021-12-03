@@ -1,6 +1,7 @@
 import { PureComponent } from "react";
 import { Props } from "./types/TGlobal";
 import { State } from "./types/TAddWorkExperience";
+import { BR } from "./components/functional-components/GlobalFC";
 import "../css/GlobalCSS.css";
 
 export default class AddWorkExperience extends PureComponent<Props, State> {
@@ -63,13 +64,29 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <div className={`container container-${this.state.device}`}>
+                    <div className="row">
+                        <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
+
+                        </h1>
+                    </div>
+
+                    <BR colSize={this.state.colSize} />
+                </div>
             );
         }
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <div className={`container container-${this.state.device}`}>
+                    <div className="row">
+                        <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
+
+                        </h1>
+                    </div>
+
+                    <BR colSize={this.state.colSize} />
+                </div>
             );
         }
 

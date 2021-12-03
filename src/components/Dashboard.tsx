@@ -14,20 +14,7 @@ import whiteLogo from "../images/Equinox icon white.png";       /* Images */
 import "../css/GlobalCSS.css";
 import "../css/DashboardCSS.css";                               /* CSS */
 import eqxLogo from "../images/EquinoxLogoWideWhite.png";       /* Imported Media */
-
-let user = {
-    id: -1,
-    active: 0,
-    department: -1,
-    email: "",
-    employee: false,
-    firstName: "",
-    gid: -1,
-    lastName: "",
-    loggedIn: false,
-    username: "",
-    sharedAccount: 0
-} as User;
+import { stringify } from "querystring";
 
 const accounting: TRenderable = { gid: 1, departments: [101, 106, 116] } as TRenderable;
 const accounts: TRenderable = { gid: 2, departments: [116, 114] } as TRenderable;
@@ -56,15 +43,16 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
             navMenuOpen: false,
             redirectToLanding: false,
             redirectToLogin: false,
+            user: {},
             colSize: "",
             device: ""
         } as State;
 
-        if (props?.user) {
-            if (props?.user !== undefined) {
-                user = props?.user;
-            }
-        }
+        // if (props?.user) {
+        //     if (props?.user !== undefined) {
+        //         user = props?.user;
+        //     }
+        // }
 
         this._isMounted = false;
         this.mobileMenuIcon = createRef()
@@ -81,6 +69,7 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
         if (this._isMounted === true) {
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
+            this.getUserBySession();
         }
     }
 
@@ -116,6 +105,61 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
                 colSize: "-xl",
                 device: "desktop"
             });
+        }
+    }
+
+    async getUserBySession(): Promise<void> {
+        let user: {
+            _id: string;
+            email: string;
+            firstName: string;
+            lastName: string;
+        } = {
+            _id: "",
+            email: "",
+            firstName: "",
+            lastName: "",
+        }
+
+        let cookies = null;
+
+        if (document.cookie) {
+            const breakpoint = document.cookie.indexOf("=");
+
+            cookies = {
+                session: document.cookie.substr(breakpoint + 1, document.cookie.length - 1)
+            };
+
+            console.log("cookies:", cookies.session);
+
+            await fetch("/auth/get_user_by_session", {
+                method: "GET",
+                headers: {
+                    "id": cookies.session
+                }
+            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.data) {
+                        if (res.data[0]) {
+                            return res?.data[0]
+                        }
+                    }
+                })
+                .then(res => {
+                    user = {
+                        _id: res._id,
+                        email: res.email,
+                        firstName: res.first_name,
+                        lastName: res.last_name,
+                    }
+
+                    this.setState({
+                        user: user
+                    }, (): void => {
+                        console.log("this.state.user:", this.state.user);
+                    })
+                })
         }
     }
 
@@ -224,7 +268,7 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
             if (this.state.device === "mobile") {
                 return (
                     <div className="main-dash-container">
-                        {this.redirectToLanding()}
+
                         <nav id={`eqx-dash--top-nav-${this.state.device}`} className="eqx-center-text">
                             {/* <OutsideClickHandler onOutsideClick={this.outsideClick} > */}
 
@@ -237,12 +281,15 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
 
                                 {/* Log out button (mobile) */}
                                 <h2>
-                                    <div className="item" onClick={(): void => {
-                                        localStorage.removeItem("eqxState");
-                                        this.setState({
-                                            redirectToLogin: true
-                                        });
-                                    }}>
+                                    <div
+                                        className="item"
+                                        onClick={(): void => {
+                                            localStorage.removeItem("eqxState");
+                                            this.setState({
+                                                redirectToLogin: true
+                                            });
+                                        }}
+                                    >
                                         <p id={`eqx-dash--nav-option-text-${this.state.device}`} onClick={this.signout}>Logout</p>
                                     </div>
                                 </h2>
@@ -253,7 +300,7 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
                             {/* </OutsideClickHandler> */}
 
                         </nav>
-                        {dashboardRoutes}
+                        {dashboardRoutes(this.state.user)}
                     </div>
                 )
             } else {
@@ -308,7 +355,7 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
                                     }
                                     id="main"
                                 >
-                                    {dashboardRoutes}
+                                    {dashboardRoutes(this.state.user)}
                                 </div>
                             </div>
                         </div>
@@ -320,7 +367,10 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
         // if (!user || user === undefined || user === null || user?.id < 0) {
         //     return <Redirect to="/login" />;
         // } else {
-        return createContainer();
+
+        return this.state.user._id !== ""
+            ? createContainer()
+            : <></>;
         // }
     }
 }

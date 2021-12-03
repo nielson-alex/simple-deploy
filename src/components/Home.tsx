@@ -89,6 +89,10 @@ class Home extends PureComponent<Props, State> {
                             <Link to="/dashboard/landing-page">Enter Webapp</Link>
                         </div>
 
+                        <div className={`col${this.state.colSize}-11`}>
+                            <Link to="/dashboard/login">Sign In</Link>
+                        </div>
+
                         <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
                             <h4>Frontend Technologies</h4>
                             <ul>
