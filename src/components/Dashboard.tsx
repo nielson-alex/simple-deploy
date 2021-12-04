@@ -229,29 +229,25 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
                     </GroupFC>
 
                     {/* Language Learning */}
-                    <GroupFC keyNum="0" text="Resume" device={this.state.device}>
-
-                        {/* Language Learning Dashboard */}
-                        <LinkFC text="Home" to="language-learning/dash" handleClick={this.menuClick} device={this.state.device} />
+                    <GroupFC keyNum="0" text="Language Learning" device={this.state.device}>
+                        {/* Decks */}
+                        <LinkFC text="Decks" to="language-learning/decks" handleClick={this.menuClick} device={this.state.device} />
 
                         {/* Create Deck */}
                         <LinkFC text="Create Deck" to="language-learning/create-deck" handleClick={this.menuClick} device={this.state.device} />
-
-                        {/* Decks */}
-                        <LinkFC text="Decks" to="language-learning/decks" handleClick={this.menuClick} device={this.state.device} />
                     </GroupFC>
 
                     {/* Beta */}
-                    <GroupFC keyNum="0" text="Resume" device={this.state.device}>
+                    <GroupFC keyNum="0" text="Beta" device={this.state.device}>
 
                         {/* Collection */}
-                        <LinkFC text="Alex Nielson's Resume" to="resume/resume" handleClick={this.menuClick} device={this.state.device} />
+                        <LinkFC text="Collection" to="testing/my-collection" handleClick={this.menuClick} device={this.state.device} />
 
                         {/* Environment Testing */}
-                        <LinkFC text="Alex Nielson's Resume" to="resume/resume" handleClick={this.menuClick} device={this.state.device} />
+                        <LinkFC text="Environment Testing" to="testing/environment-testing" handleClick={this.menuClick} device={this.state.device} />
 
                         {/* Labor Tracking */}
-                        <LinkFC text="Alex Nielson's Resume" to="resume/resume" handleClick={this.menuClick} device={this.state.device} />
+                        <LinkFC text="Labor Tracking" to="testing/labor-tracking" handleClick={this.menuClick} device={this.state.device} />
                     </GroupFC>
                 </div>
             );

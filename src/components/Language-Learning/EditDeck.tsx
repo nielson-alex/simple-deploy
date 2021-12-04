@@ -2,6 +2,7 @@ import {
     PureComponent,
     ChangeEvent,
     FocusEvent,
+    Fragment,
     KeyboardEvent,
     MouseEvent,
     RefObject,
@@ -54,6 +55,7 @@ export default class EditDeck extends PureComponent<Props, State> {
         this.handleBlur = this.handleBlur.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleDeleteCard = this.handleDeleteCard.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
         this.isValid = this.isValid.bind(this);
         this.newCardIsValid = this.newCardIsValid.bind(this);
         this.saveDeck = this.saveDeck.bind(this);
@@ -226,6 +228,46 @@ export default class EditDeck extends PureComponent<Props, State> {
         });
     }
 
+    handleKeyUp(e: KeyboardEvent<HTMLInputElement>): string | void {
+        let val: string = e.currentTarget.value;
+
+        if (e.key === "Enter") {
+            this.addCardToDeck();
+        } else {
+            let pinyin = e.currentTarget.value;
+            pinyin = pinyin.replace("a1", "ā");
+            pinyin = pinyin.replace("a2", "á");
+            pinyin = pinyin.replace("a3", "ǎ");
+            pinyin = pinyin.replace("a4", "à");
+            pinyin = pinyin.replace("e1", "ē");
+            pinyin = pinyin.replace("e2", "é");
+            pinyin = pinyin.replace("e3", "ě");
+            pinyin = pinyin.replace("e4", "è");
+            pinyin = pinyin.replace("i1", "ī");
+            pinyin = pinyin.replace("i2", "í");
+            pinyin = pinyin.replace("i3", "ǐ");
+            pinyin = pinyin.replace("i4", "ì");
+            pinyin = pinyin.replace('o1', 'ō');
+            pinyin = pinyin.replace('o2', 'ó');
+            pinyin = pinyin.replace('o3', 'ǒ');
+            pinyin = pinyin.replace('o4', 'ò');
+            pinyin = pinyin.replace('u1', 'ū');
+            pinyin = pinyin.replace('u2', 'ú');
+            pinyin = pinyin.replace('u3', 'ǔ');
+            pinyin = pinyin.replace('u4', 'ù');
+            pinyin = pinyin.replace('v1', 'ǖ');
+            pinyin = pinyin.replace('v2', 'ǘ');
+            pinyin = pinyin.replace('v3', 'ǚ');
+            pinyin = pinyin.replace('v4', 'ǜ');
+            pinyin = pinyin.replace('v5', 'ü');
+
+            val = pinyin;
+
+            e.currentTarget.value = val;
+            return val;
+        }
+    }
+
     isValid(): boolean {
         let isValid: boolean = true;
 
@@ -321,6 +363,7 @@ export default class EditDeck extends PureComponent<Props, State> {
                                                     defaultValue={card.english}
                                                     onBlur={(e: FocusEvent<HTMLInputElement>): void => this.handleBlur(e)}
                                                     onFocus={(e: FocusEvent<HTMLInputElement>): void => e.currentTarget.select()}
+                                                    onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.addCardToDeck() : null}
                                                 />
                                             </td>
 
@@ -333,6 +376,7 @@ export default class EditDeck extends PureComponent<Props, State> {
                                                     defaultValue={card.chinese}
                                                     onBlur={(e: FocusEvent<HTMLInputElement>): void => this.handleBlur(e)}
                                                     onFocus={(e: FocusEvent<HTMLInputElement>): void => e.currentTarget.select()}
+                                                    onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.addCardToDeck() : null}
                                                 />
                                             </td>
 
@@ -345,6 +389,7 @@ export default class EditDeck extends PureComponent<Props, State> {
                                                     defaultValue={card.pinyin}
                                                     onBlur={(e: FocusEvent<HTMLInputElement>): void => this.handleBlur(e)}
                                                     onFocus={(e: FocusEvent<HTMLInputElement>): void => e.currentTarget.select()}
+                                                    onKeyUp={(e: KeyboardEvent<HTMLInputElement>): string | void => this.handleKeyUp(e)}
                                                 />
                                             </td>
 

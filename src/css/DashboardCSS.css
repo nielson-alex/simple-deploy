@@ -25,7 +25,7 @@
         text-decoration: none !important;
     }
 
-#eqx-dashboard--mobile-nav-option-text {
+.eqx-dashboard--mobile-nav-option-text {
     color: #C7C7C7;
     font-size: 14px;
     padding-left: 1rem;
@@ -34,11 +34,11 @@
     text-transform: uppercase;
 }
 
-    #eqx-dashboard--mobile-nav-option-text a {
+.eqx-dashboard--mobile-nav-option-text a {
         text-decoration: none !important;
     }
 
-    #eqx-dashboard--mobile-nav-option-text:hover {
+    .eqx-dashboard--mobile-nav-option-text:hover {
         color: #0dcaf0;
         text-decoration: none;
         
@@ -225,7 +225,11 @@
 }
 
 .eqx-dash--dLink {
+    background-color: rgba(0,0,0,0.0);
+    color: #ffffff !important;
     padding: 0.5em 0 0.5em 1em;
+    text-align: left !important;
+    text-decoration: none;
 }
 
 .eqx-dash--dLinkText {

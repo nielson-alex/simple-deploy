@@ -1,10 +1,11 @@
-import { TCard } from "../types/TCreateDeck";
+import { TCard, TDiacritics } from "../types/TCreateDeck";
 
 export interface IState {
     cards: TCard[];
     cardNum: number;
     currentCard: TCard;
     deckName: string;
+    diacritics: TDiacritics;
     redirect: boolean;
     colSize: string;
     device: string;
@@ -16,4 +17,13 @@ export interface ICard {
     english: string;
     number: number;
     pinyin: string;
+}
+
+export interface IDiacritics {
+    a: string[];
+    e: string[];
+    i: string[];
+    o: string[];
+    u: string[];
+    v: string[];
 }

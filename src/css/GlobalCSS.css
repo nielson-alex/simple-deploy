@@ -34,8 +34,8 @@
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 5px;
     margin: 0.25rem auto 0 auto;
-    width: 98%;
-    min-width: 98%;
+    /* width: 98%;
+    min-width: 98%; */
 }
 
 .container-desktop {
@@ -72,5 +72,5 @@
 }
 
 .custom-card-2 {
-    background-color: rgba(245,245,245,1.0);
+    background-color: rgba(245,245,245,0.0);
 }

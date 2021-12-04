@@ -305,7 +305,7 @@ export default class Quiz extends PureComponent<Props, State> {
                         cards: cards,
                         currentCard: cards[0]
                     }, (): void => {
-
+                        this.getNextCard();
                     });
                 }
             });
