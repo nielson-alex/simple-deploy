@@ -33,9 +33,9 @@
   },
   "main": "./server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "build": "react-scripts build",
-    "s": "concurrently \"npm run build\" \"react-scripts start\" \"nodemon server.js\"",
+    "s": "concurrently \"npm run build\" \"react-scripts start\" \"node server.js\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postinstall": "npm run build tsc"
@@ -68,7 +68,6 @@
     "@types/react-toastify": "^4.1.0",
     "crypto": "^1.0.1",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.14",
     "path": "^0.12.7",
     "react-modal": "^3.14.3",
     "react-qr-reader": "^2.2.1",
