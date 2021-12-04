@@ -4,10 +4,7 @@ const WorkExperience = require("../models/WorkExperience");
 /* GET */
 exports.getAllAnimalsTest = function (request, response, next) {
     const page = request.query.page;
-    console.log('page', page);
     let totalItems;
-
-    console.log("entered /animals/get_animals");
 
     WorkExperience.find()
         .countDocuments()
@@ -19,7 +16,6 @@ exports.getAllAnimalsTest = function (request, response, next) {
             // .limit(20);
         })
         .then(entries => {
-            console.log("entries:", entries);
             response.send({ "work_experience": entries });
         })
         .catch(err => {
@@ -28,11 +24,7 @@ exports.getAllAnimalsTest = function (request, response, next) {
 }
 
 exports.getWorkExperienceTest = function (request, response, next) {
-    const page = request.query.page;
-    console.log('page', page);
     let totalItems;
-
-    console.log("entered /environment_testing/get_work_experience_test"); 
 
     WorkExperience.find()
         .countDocuments()
@@ -44,8 +36,6 @@ exports.getWorkExperienceTest = function (request, response, next) {
             // .limit(20);
         })
         .then(workExperience => {
-            console.log("work experience:", workExperience);
-            console.log("");
             response.send({ "work experience": workExperience });
         })
         .catch(err => {
@@ -55,9 +45,6 @@ exports.getWorkExperienceTest = function (request, response, next) {
 
 /* POST */
 exports.postAddTest = function (request, response, next) {
-    console.log("request:", request.headers);
-    console.log("req.body:", request.body);
-
     const companyName = request.body.company_name;
     const startMM = request.body.start_mm;
     const startMMMM = request.body.start_mmmm;
@@ -80,7 +67,6 @@ exports.postAddTest = function (request, response, next) {
 
     workExperience.save()
         .then(result => {
-            console.log('Created entry');
             response.send({ "status": "New entry successfully added" });
         })
         .catch(err => {

@@ -22,7 +22,6 @@ export default class Decks extends PureComponent<Props, State> {
 
         this._isMounted = true;
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-        this.getDecks = this.getDecks.bind(this);
     }
 
     componentDidMount(): void {
@@ -31,7 +30,6 @@ export default class Decks extends PureComponent<Props, State> {
         if (this._isMounted === true) {
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
-            this.getDecks();
         }
     }
 
@@ -100,10 +98,13 @@ export default class Decks extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>My Chinese Flashcard Decks</h1>
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>Flashcard Decks</h1>
                     </div>
 
-                    <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
+                    {this.props?.user?._id !== ""
+                        ? <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
+                        : null
+                    }
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-11 middle-align`}>
@@ -111,27 +112,37 @@ export default class Decks extends PureComponent<Props, State> {
                         </div>
                     </div>
 
-                    {this.state.decks.length > 0
-                        ? <table>
-                            {this.state.decks.map((deck: TDeck): JSX.Element => (
-                                <tr key={deck.deckName}>
-                                    <td>
-                                        {deck.deckName}
-                                    </td>
-                                    <td>
-                                        <Link to={`/dashboard/language-learning/quiz?id=${deck._id}`}>
-                                            <li key={deck.deckName}>Study</li>
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={`/dashboard/language-learning/edit?id=${deck._id}`}>
-                                            <li key={deck.deckName}>Edit Deck</li>
-                                        </Link>
-                                    </td>
-                                </tr>
-                            ))}
-                        </table>
-                        : <></>
+                    {this.props?.user?.decks?.length > 0
+                        ? (
+                            <div className="row">
+                                <table className={`col${this.state.colSize}-11 middle-align`}>
+                                    {this.props?.user?.decks?.map((deck: TDeck): JSX.Element => (
+                                        <tr key={deck.deckName}>
+                                            <td>
+                                                {deck.deckName}
+                                            </td>
+                                            <td>
+                                                <Link to={`/dashboard/language-learning/quiz?id=${deck._id}`}>
+                                                    <li key={deck.deckName}>Study</li>
+                                                </Link>
+                                            </td>
+                                            <td>
+                                                <Link to={`/dashboard/language-learning/edit?id=${deck._id}`}>
+                                                    <li key={deck.deckName}>Edit Deck</li>
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </table>
+                            </div>
+                        )
+                        : (
+                            <div className="row">
+                                <p className={`col${this.state.colSize}-11 middle-align center-text`}>
+                                    You must be signed in to view decks other than the sample deck
+                                </p>
+                            </div>
+                        )
                     }
                 </div>
             );
@@ -144,7 +155,10 @@ export default class Decks extends PureComponent<Props, State> {
                         <h1 className={`col${this.state.colSize}-12 center-text`}>My Chinese Flashcard Decks</h1>
                     </div>
 
-                    <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
+                    {this.props?.user?._id !== ""
+                        ? <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
+                        : null
+                    }
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-11 middle-align`}>
@@ -152,15 +166,37 @@ export default class Decks extends PureComponent<Props, State> {
                         </div>
                     </div>
 
-                    {this.state.decks.length > 0
-                        ? <ul>
-                            {this.state.decks.map((deck: TDeck): JSX.Element => (
-                                <Link to={`/dashboard/language-learning/quiz?id=${deck._id}`}>
-                                    <li key={deck.deckName}>{deck.deckName}</li>
-                                </Link>
-                            ))}
-                        </ul>
-                        : <></>
+                    {this.props?.user?.decks?.length > 0
+                        ? (
+                            <div className="row">
+                                <table className={`col${this.state.colSize}-11 middle-align`}>
+                                    {this.props?.user?.decks?.map((deck: TDeck): JSX.Element => (
+                                        <tr key={deck.deckName}>
+                                            <td>
+                                                {deck.deckName}
+                                            </td>
+                                            <td>
+                                                <Link to={`/dashboard/language-learning/quiz?id=${deck._id}`}>
+                                                    <li key={deck.deckName}>Study</li>
+                                                </Link>
+                                            </td>
+                                            <td>
+                                                <Link to={`/dashboard/language-learning/edit?id=${deck._id}`}>
+                                                    <li key={deck.deckName}>Edit Deck</li>
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </table>
+                            </div>
+                        )
+                        : (
+                            <div className="row">
+                                <p className={`col${this.state.colSize}-11 middle-align center-text`}>
+                                    You must be signed in to view decks other than the sample deck
+                                </p>
+                            </div>
+                        )
                     }
                 </div>
             );

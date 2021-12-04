@@ -37,7 +37,6 @@ const getUserBySession = async () => {
 
         });
 
-    console.log("sloppypoppy:", user);
     return user;
 }
 

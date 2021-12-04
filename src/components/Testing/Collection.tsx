@@ -167,7 +167,7 @@ class Collection extends PureComponent<Props, State> {
                 this.setState({
                     animals: animals
                 }, (): void => {
-                    console.log("this.state.animals:", this.state.animals);
+
                 });
             });
     }
@@ -194,11 +194,9 @@ class Collection extends PureComponent<Props, State> {
             })
         })
             .then((res: any): any => {
-                console.log("res:", res);
                 return res;
             })
             .then((res: any): void => {
-                console.log("res:", res);
                 generateMessage("success", "Entry successfully added to database");
             });
     }
@@ -209,8 +207,6 @@ class Collection extends PureComponent<Props, State> {
             .then((res: any): TAnimal[] => res.data)
             .then((res: TAnimal[]): void => {
                 const animals: TAnimal[] = res.map((animal: TAnimal): TAnimal => animal);
-
-                console.log("res:", res);
 
                 let featuredAnimal: TAnimal = {
                     _id: animals[0]._id,
@@ -227,7 +223,7 @@ class Collection extends PureComponent<Props, State> {
                 this.setState({
                     featuredAnimal: featuredAnimal
                 }, (): void => {
-                    console.log("this.state.featuredAnimal:", this.state.featuredAnimal);
+
                 });
             });
     }

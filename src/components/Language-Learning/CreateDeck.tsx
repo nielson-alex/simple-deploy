@@ -1,5 +1,5 @@
 import { PureComponent, ChangeEvent, KeyboardEvent, RefObject, createRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Props } from "../../types/TGlobal";
 import { State, TCard } from "../../types/TCreateDeck";
 import { BR } from "../functional-components/GlobalFC";
@@ -9,6 +9,7 @@ import "../../css/CreateDeckCSS.css";
 
 export default class Decks extends PureComponent<Props, State> {
     _isMounted: boolean;
+    decksLinkRef: RefObject<HTMLAnchorElement>;
     englishRef: RefObject<HTMLInputElement>;
     chineseRef: RefObject<HTMLInputElement>;
     pinyinRef: RefObject<HTMLInputElement>;
@@ -25,14 +26,14 @@ export default class Decks extends PureComponent<Props, State> {
                 number: -1,
                 pinyin: ""
             },
-            firstName: "",
-            lastName: "",
+            redirect: false,
             deckName: "",
             colSize: "",
             device: ""
-        } as State;
+        };
 
         this._isMounted = true;
+        this.decksLinkRef = createRef();
         this.englishRef = createRef();
         this.chineseRef = createRef();
         this.pinyinRef = createRef();
@@ -105,10 +106,8 @@ export default class Decks extends PureComponent<Props, State> {
                 chinese: "",
                 pinyin: "",
                 number: this.state.cardNum
-            } as TCard
+            }
         }, (): void => {
-            console.log("this.state.cards:", this.state.cards);
-
             if (this.englishRef?.current !== null) {
                 this.englishRef.current.value = "";
                 this.englishRef.current.select();
@@ -164,16 +163,13 @@ export default class Decks extends PureComponent<Props, State> {
         currentCard.deckName = this.state.deckName;
         currentCard.number = this.state.cardNum;
 
-        console.log("currentCard:", currentCard);
-
         this.setState({
             currentCard: currentCard
         }, (): void => {
-            console.log("this.state.currentCard:", this.state.currentCard);
         });
     }
 
-    handleSaveDeck(): void {
+    handleSaveDeck(): JSX.Element | void {
         if (this.allFieldsValid()) {
             fetch("/decks/add_deck", {
                 method: "POST",
@@ -181,7 +177,7 @@ export default class Decks extends PureComponent<Props, State> {
                     "Content-Type": "application/JSON; charset=UTF-8"
                 },
                 body: JSON.stringify({
-                    creator: `${this.state.firstName} ${this.state.lastName}`,
+                    creator: this.props?.user?._id,
                     deck_name: this.state.deckName,
                     cards: this.state.cards.map((card: TCard): any => ({
                         deck_name: card.deckName,
@@ -192,20 +188,22 @@ export default class Decks extends PureComponent<Props, State> {
                     }))
                 })
             })
-                .then((): void => generateMessage("success", "Deck successfully created"));
+                .then((): void => {
+                    generateMessage("success", "Deck successfully created");
+
+                    this.setState({
+                        redirect: true
+                    }, (): void => {
+                        window.location.reload();
+                    });
+                });
         }
     }
 
     allFieldsValid(): boolean {
         let isValid: boolean = true;
 
-        if (this.state.firstName === "") {
-            generateMessage("error", "Please provide a first name");
-            isValid = false;
-        } else if (this.state.lastName === "") {
-            generateMessage("error", "Please provide a last name");
-            isValid = false;
-        } else if (this.state.deckName === "") {
+        if (this.state.deckName === "") {
             generateMessage("error", "Please provide a name for this deck");
             isValid = false;
         } else if (this.state.cards.length < 1) {
@@ -224,7 +222,7 @@ export default class Decks extends PureComponent<Props, State> {
                         <h1 className={`col${this.state.colSize}-12 center-text`}>Create New Deck</h1>
                     </div>
 
-                    <Link to="/dashboard/language-learning/decks">Decks</Link>
+                    <Link to="/dashboard/language-learning/decks" ref={this.decksLinkRef}>Decks</Link>
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-11 middle-align`}>
@@ -234,30 +232,6 @@ export default class Decks extends PureComponent<Props, State> {
 
                     <div className="row">
                         <p className={`col${this.state.colSize}-11 middle-align`}>{this.state.cards.length} cards created</p>
-                    </div>
-
-                    {/* First name */}
-                    <div className="row">
-                        <label htmlFor="firstName" className={`col${this.state.colSize}-11 middle-align`}>First Name:</label>
-                        <input
-                            type="text"
-                            id="firstName"
-                            className={`col${this.state.colSize}-11 middle-align`}
-                            name="firstName"
-                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
-                        />
-                    </div>
-
-                    {/* Last name */}
-                    <div className="row">
-                        <label htmlFor="lastName" className={`col${this.state.colSize}-11 middle-align`}>Last Name:</label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            className={`col${this.state.colSize}-11 middle-align`}
-                            name="lastName"
-                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
-                        />
                     </div>
 
                     {/* Deck name */}
@@ -359,36 +333,12 @@ export default class Decks extends PureComponent<Props, State> {
                         <h1 className={`col${this.state.colSize}-12 center-text`}>Create New Deck</h1>
                     </div>
 
-                    <Link to="/dashboard/language-learning/decks">Decks</Link>
+                    <Link to="/dashboard/language-learning/decks" ref={this.decksLinkRef}>Decks</Link>
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-11 middle-align`}>
                             <hr />
                         </div>
-                    </div>
-
-                    {/* First name */}
-                    <div className="row">
-                        <label htmlFor="firstName" className={`col${this.state.colSize}-11 middle-align`}>First Name:</label>
-                        <input
-                            type="text"
-                            id="firstName"
-                            className={`col${this.state.colSize}-11 middle-align`}
-                            name="firstName"
-                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
-                        />
-                    </div>
-
-                    {/* Last name */}
-                    <div className="row">
-                        <label htmlFor="lastName" className={`col${this.state.colSize}-11 middle-align`}>Last Name:</label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            className={`col${this.state.colSize}-11 middle-align`}
-                            name="lastName"
-                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
-                        />
                     </div>
 
                     {/* Deck name */}
@@ -476,8 +426,10 @@ export default class Decks extends PureComponent<Props, State> {
             );
         }
 
-        return this.state.device === "mobile"
-            ? mobileRender()
-            : desktopRender();
+        return this.state.redirect !== true
+            ? this.state.device === "mobile"
+                ? mobileRender()
+                : desktopRender()
+            : <Redirect to="/dashboard/language-learning/decks" />;
     }
 }

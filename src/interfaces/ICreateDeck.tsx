@@ -5,8 +5,7 @@ export interface IState {
     cardNum: number;
     currentCard: TCard;
     deckName: string;
-    firstName: string;
-    lastName: string;
+    redirect: boolean;
     colSize: string;
     device: string;
 }

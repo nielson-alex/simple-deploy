@@ -1,4 +1,4 @@
-import { PureComponent, ChangeEvent, FocusEvent } from "react";
+import { PureComponent, ChangeEvent, FocusEvent, KeyboardEvent } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Props } from "../types/TGlobal";
 import { State } from "../types/TLogin";
@@ -25,6 +25,7 @@ export default class Login extends PureComponent<Props, State> {
         this.handleChange = this.handleChange.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.submit = this.submit.bind(this);
+        this.submitOnEnter = this.submitOnEnter.bind(this);
     }
 
     componentDidMount(): void {
@@ -33,8 +34,6 @@ export default class Login extends PureComponent<Props, State> {
         if (this._isMounted === true) {
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
-
-            console.log("this.props:", this.props);
         }
     }
 
@@ -110,17 +109,24 @@ export default class Login extends PureComponent<Props, State> {
         })
             .then((res: Response): Promise<Response> => res.json())
             .then((res: any): void => {
-                console.log("res:", res);
                 const user = res.user;
 
                 if (res.status === "Success") {
                     this.setState({
                         redirect: true
-                    }, (): void => {
+                    }, (): JSX.Element => {
                         document.cookie = `agn.connect.session=${user._id}; expires=${user.session.expiration}; first_name=${user.first_name}; last_name=${user.last_name}; email=${user.email}; isLoggedIn=${user.session.isLoggedIn}`
+                        window.location.reload();
+                        return <Redirect to="/dashboard/landing-page" />
                     });
                 }
             })
+    }
+
+    submitOnEnter(e: KeyboardEvent<HTMLInputElement>): void {
+        if (e.key === "Enter") {
+            this.submit();
+        }
     }
 
     render(): JSX.Element {
@@ -146,6 +152,7 @@ export default class Login extends PureComponent<Props, State> {
                                 name="email"
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
+                                onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void => this.submitOnEnter(e)}
                             />
                         </div>
 
@@ -159,6 +166,7 @@ export default class Login extends PureComponent<Props, State> {
                                 name="password"
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
+                                onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void => this.submitOnEnter(e)}
                             />
                         </div>
 
@@ -207,6 +215,7 @@ export default class Login extends PureComponent<Props, State> {
                                 className={`col${this.state.colSize}-11 middle-align`}
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
+                                onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void => this.submitOnEnter(e)}
                             />
                         </div>
 
@@ -219,6 +228,7 @@ export default class Login extends PureComponent<Props, State> {
                                 className={`col${this.state.colSize}-11 middle-align`}
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
+                                onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void => this.submitOnEnter(e)}
                             />
                         </div>
 

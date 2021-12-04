@@ -32,7 +32,6 @@ export const AccordionFC: FC<IAccordion> = ({ children, className, id, title, me
     // Get the collapsed body height
     useEffect(() => {
         if (bodyRef !== null && bodyRef.current !== null) {
-            console.log("bodyRef.current:", bodyRef.current);
             // const elementHeight = bodyRef.current.clientHeight;
             // setHeight(elementHeight);
         }

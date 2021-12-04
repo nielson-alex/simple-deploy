@@ -14,7 +14,6 @@ exports.getAllDecks = function (request, response, next) {
             return Deck.find();
         })
         .then(decks => {
-            console.log("decks:", decks);
             response.send({ "decks": decks });
         })
         .catch(err => {
@@ -24,7 +23,6 @@ exports.getAllDecks = function (request, response, next) {
 
 exports.getCardsByDeckId = (req, res, next) => {
     const deckId = req.params._id;
-    console.log("deckId:", deckId);
 
     Deck.findById(new mongoose.Types.ObjectId(deckId))
         .then(deck => {
@@ -46,10 +44,6 @@ exports.postAddDeck = function (request, response, next) {
     const creator = request.body.creator;
     const deck_name = request.body.deck_name;
     const cards = request.body.cards;
-
-    console.log("creator:", creator);
-    console.log("deck_name:", deck_name);
-    console.log("cards:", cards);
 
     let errorMessage = "";
 
@@ -75,7 +69,6 @@ exports.postAddDeck = function (request, response, next) {
 
         deck.save()
             .then(result => {
-                console.log('Created entry');
                 response.send({ "status": "New entry successfully added" });
             })
             .catch(err => {
@@ -92,11 +85,6 @@ exports.postEditDeck = function (request, response, next) {
     const cards = request.body.cards;
     const creator = request.body.creator;
 
-    console.log("_id:", _id);
-    console.log("deck_name:", deck_name);
-    console.log("cards:", cards);
-    console.log("creator:", creator);
-
     Deck.findById(mongoose.Types.ObjectId(_id))
         .then(deck => {
             deck.deck_name = deck_name;
@@ -105,7 +93,6 @@ exports.postEditDeck = function (request, response, next) {
             return deck.save();
         })
         .then(result => {
-            console.log("result:", result);
             response.send({ "status": "Successful" });
         })
         .catch(err => {

@@ -3,12 +3,6 @@ const Animal = require("../models/Animals");
 
 /* GET */
 exports.getAnimals = function (request, response, next) {
-    const page = request.query.page;
-    console.log('page', page);
-    let totalItems;
-
-    console.log("entered /animals/get_animals");
-
     Animal.find()
         .countDocuments()
         .then(numProducts => {
@@ -19,8 +13,6 @@ exports.getAnimals = function (request, response, next) {
             // .limit(20);
         })
         .then(animals => {
-            console.log("animals:", animals);
-            console.log("");
             response.send({ "animals": animals });
         })
         .catch(err => {
@@ -30,7 +22,6 @@ exports.getAnimals = function (request, response, next) {
 
 exports.getAnimalDetails = (req, res, next) => {
     const animalId = req.params._id;
-    console.log("animalId:", animalId);
 
     Animal.findById(new mongoose.Types.ObjectId(animalId))
         .then(animal => {
@@ -40,9 +31,6 @@ exports.getAnimalDetails = (req, res, next) => {
 
 /* POST */
 exports.postAddAnimal = function (request, response, next) {
-    console.log("request:", request.headers);
-    console.log("req.body:", request.body);
-
     const name = request.body.name;
     let imageUrl = '';
     const species = request.body.species;
@@ -107,7 +95,6 @@ exports.postAddAnimal = function (request, response, next) {
 
         animal.save()
             .then(result => {
-                console.log('Created entry');
                 response.send({ "status": "New entry successfully added" });
             })
             .catch(err => {

@@ -20,8 +20,8 @@ import { Switch, Route } from "react-router-dom";
 /* JavaScript imports */
 import ScannerJS from "./components/Scanner.js";
 const agh = (user) => {
-    console.log("user:", user);
-
+    console.log("dashboardRoutes user:", user);
+    
     return (
         <Switch>
             {/* --- TypeScript --- */}

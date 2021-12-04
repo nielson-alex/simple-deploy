@@ -24,6 +24,7 @@ class LandingPage extends PureComponent<Props, State> {
         if (this._isMounted === true) {
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
+            console.log("this.props:", this.props);
         }
     }
 

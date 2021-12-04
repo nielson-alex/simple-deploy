@@ -128,8 +128,6 @@ const Jank = () => {
 }
 
 const routes = (user) => {
-    console.log("user:", user);
-
     return (
         <Switch>
             <Route exact path="/" component={() => <Home user={user} />} />

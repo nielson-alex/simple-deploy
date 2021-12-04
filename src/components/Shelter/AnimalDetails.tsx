@@ -33,7 +33,6 @@ export default class AnimalDetails extends PureComponent<Props, State> {
     }
 
     componentDidMount(): void {
-        console.log("this.props:", this.props);
         this._isMounted = true;
 
         if (this._isMounted === true) {
@@ -81,14 +80,10 @@ export default class AnimalDetails extends PureComponent<Props, State> {
         const breakpoint: number = window.location.href.indexOf("?");
         let url: string = window.location.href.substr(breakpoint + 4, window.location.href.length - 1);
 
-        console.log("url:", url);
-
         await fetch(`/animals/animal_details/${url}`)
             .then((res: Response): Promise<Response> => res.json())
             .then((res: any): TAnimal => res.data)
             .then((res: any): void => {
-                console.log("res:", res);
-
                 this.setState({
                     featuredAnimal: {
                         _id: res._id,

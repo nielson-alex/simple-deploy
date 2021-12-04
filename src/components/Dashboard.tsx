@@ -69,7 +69,7 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
         if (this._isMounted === true) {
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
-            this.getUserBySession();
+
         }
     }
 
@@ -130,8 +130,6 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
                 session: document.cookie.substr(breakpoint + 1, document.cookie.length - 1)
             };
 
-            console.log("cookies:", cookies.session);
-
             await fetch("/auth/get_user_by_session", {
                 method: "GET",
                 headers: {
@@ -157,7 +155,7 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
                     this.setState({
                         user: user
                     }, (): void => {
-                        console.log("this.state.user:", this.state.user);
+
                     })
                 })
         }
@@ -177,7 +175,6 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
     }
 
     signout: () => void = (): void => {
-        console.log("entered signout()");
         localStorage.removeItem("eqxState");
         window.location.replace("/login");
         window.location.reload();

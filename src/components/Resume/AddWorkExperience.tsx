@@ -160,11 +160,9 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
                 })
             })
                 .then((res: any): any => {
-                    console.log("res:", res);
                     return res;
                 })
                 .then((res: any): void => {
-                    console.log("res:", res);
                     generateMessage("success", "Entry successfully added to database");
                 });
         }
@@ -189,9 +187,6 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
         } else {
             value = parseInt(e.currentTarget.value, 10)
         }
-
-        console.log("name:", name);
-        console.log("value:", value);
 
         this.setState((prevState: State) => ({
             ...prevState,

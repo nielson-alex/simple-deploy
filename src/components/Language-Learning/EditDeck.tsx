@@ -156,12 +156,9 @@ export default class EditDeck extends PureComponent<Props, State> {
         const breakpoint: number = window.location.href.indexOf("?");
         let url: string = window.location.href.substr(breakpoint + 4, window.location.href.length - 1);
 
-        console.log("url:", url);
-
         await fetch(`/decks/get_cards_by_deck_id/${url}`)
             .then((res: Response): Promise<Response> => res.json())
             .then((res: any): any => {
-                console.log("res:", res);
                 return {
                     creator: res.data.creator,
                     cards: res.data.cards
@@ -184,7 +181,7 @@ export default class EditDeck extends PureComponent<Props, State> {
                         creator: res.creator,
                         deckName: cards[0].deckName
                     }, (): void => {
-                        console.log("this.state.cards:", this.state.cards);
+
                     });
                 }
             });
@@ -201,18 +198,11 @@ export default class EditDeck extends PureComponent<Props, State> {
             [name]: value
         } as TCard;
 
-        console.log("idx:", idx);
-        console.log("name:", name);
-        console.log("value:", value);
-
         cards.splice(idx, 1, currentCard);
-
-        console.log("cards:", cards);
 
         this.setState({
             cards: cards
         }, (): void => {
-            console.log("this.state.cards:", this.state.cards);
         });
     }
 

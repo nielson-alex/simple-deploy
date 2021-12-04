@@ -14,8 +14,6 @@ exports.getAllWorkExperience = function (request, response, next) {
             return WorkExperience.find();
         })
         .then(workExperience => {
-            console.log("workExperience:", workExperience);
-            console.log("");
             response.send({ "workExperience": workExperience });
         })
         .catch(err => {
@@ -76,7 +74,6 @@ exports.postAddWorkExperience = function (request, response, next) {
 
         workExperience.save()
             .then(result => {
-                console.log('Created entry');
                 response.send({ "status": "New entry successfully added" });
             })
             .catch(err => {

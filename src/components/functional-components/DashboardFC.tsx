@@ -70,7 +70,6 @@ export const LinkFC: FC<FCTLink> = ({
 }) => {
     const mobileLink: RefObject<HTMLDivElement> = useRef(null);
     const showRef: () => void = (): void => {
-        console.log("ref:", mobileLink);
     }
 
     if (device === "mobile") {

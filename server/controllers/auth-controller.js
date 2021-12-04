@@ -10,7 +10,6 @@ const User = require('../models/users');
 /* GET */
 exports.getUserBySession = (req, res, next) => {
     const id = req.headers.id;
-    console.log("id:", id);
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -33,9 +32,6 @@ exports.postLogin = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    console.log("email:", email);
-    console.log("password:", password);
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(422).send({ "status": "No accounts found" });
@@ -56,8 +52,6 @@ exports.postLogin = (req, res, next) => {
                     if (doMatch) {
                         req.session.isLoggedIn = true;
                         req.session.user = user;
-
-                        console.log("req.session.user:", req.session.user);
 
                         res.status(200).send({
                             "status": "Success",
@@ -93,12 +87,8 @@ exports.postSignup = (req, res, next) => {
     const last_name = req.body.last_name;
     const password = req.body.password;
 
-    console.log("password:", password);
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.log(errors.array());
-
         res.send({ "status": "error" })
     }
 

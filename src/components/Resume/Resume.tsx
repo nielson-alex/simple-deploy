@@ -85,7 +85,7 @@ export default class Resume extends PureComponent<Props, State> {
                     this.setState({
                         workExperience: workExperience
                     }, (): void => {
-                        console.log("this.state.workExperience:", this.state.workExperience);
+
                     });
                 }
             });

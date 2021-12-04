@@ -42,7 +42,6 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
         this._isMounted = true;
 
         if (this._isMounted === true) {
-            console.log("this.state:", this.state);
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
             this.getWorkExperience();
@@ -103,7 +102,7 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
                 this.setState({
                     workExperience: workExperience
                 }, (): void => {
-                    console.log("this.state.workExperience:", this.state.workExperience);
+
                 });
             });
     }
@@ -168,13 +167,11 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
                 const animals: TAnimal[] = res.map((animal: TAnimal): TAnimal => animal);
                 animals.sort((a: TAnimal, b: TAnimal): number => a.name > b.name ? 1 : -1);
 
-                console.log("animals:", animals);
-
                 this.setState({
                     animals: animals,
                     featuredAnimal: animals[0]
                 }, (): void => {
-                    console.log("this.state.animals:", this.state.animals);
+
                 });
             });
     }
@@ -209,11 +206,9 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
             })
         })
             .then((res: any): any => {
-                console.log("res:", res);
                 return res;
             })
             .then((res: any): void => {
-                console.log("res:", res);
                 generateMessage("success", "Entry successfully added to database");
             });
     }
@@ -238,7 +233,7 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
                 this.setState({
                     featuredAnimal: featuredAnimal
                 }, (): void => {
-                    console.log("this.state.featuredAnimal:", this.state.featuredAnimal);
+
                 });
             });
     }

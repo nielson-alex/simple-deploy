@@ -21,7 +21,6 @@ const resumeRoutes = require("./server/routes/resume-routes");
 const User = require("./server/models/users");
 
 let path2 = path.join(__dirname, "/server/routes");
-console.log("express.static(\"routes\"):", path2);
 
 // Automatically creates cookie for you
 // const csrfProtection = csrf({ cookie: true });
@@ -87,9 +86,6 @@ app.use(
 );
 
 app.get('/', csrfProtection, function (req, res) {
-    // pass the csrfToken to the view
-    // res.render('send', { csrfToken: req.csrfToken() })
-    console.log("req.csrfToken():", req.csrfToken());
     res.send({ csrfToken: req.csrfToken() })
 })
 app.use("/animals", animalRoutes);
@@ -102,7 +98,6 @@ app.use("/resume", resumeRoutes);
 mongoose.connect(MONGODB_URI, options)
     .then(result => {
         const server = app.listen(PORT, () => {
-            console.log("express.static(__dirname + \"/public\")", express.static(__dirname, + "/public"));
             console.log(`Listening on port ${PORT}`)
         });
 

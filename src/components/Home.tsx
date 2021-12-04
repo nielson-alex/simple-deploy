@@ -29,8 +29,6 @@ class Home extends PureComponent<Props, State> {
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
 
-            console.log("this.state.device:", this.state.device);
-
             if (this.state.device === "desktop") {
                 this.setState({
                     showWarning: true

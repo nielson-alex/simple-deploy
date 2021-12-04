@@ -136,14 +136,12 @@ export default class Animals extends PureComponent<Props, State> {
                 const animals: TAnimal[] = res.map((animal: TAnimal): TAnimal => animal);
                 animals.sort((a: TAnimal, b: TAnimal): number => a.name > b.name ? 1 : -1);
 
-                console.log("animals:", animals);
-
                 if (this._isMounted === true) {
                     this.setState({
                         animals: animals,
                         featuredAnimal: animals[0]
                     }, (): void => {
-                        console.log("this.state.animals:", this.state.animals);
+                        
                     });
                 }
             });
