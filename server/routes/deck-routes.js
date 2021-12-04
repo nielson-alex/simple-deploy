@@ -5,6 +5,7 @@ const router = express.Router();
 /* GET */
 router.get("/get_all_decks", deckController.getAllDecks);
 router.get('/get_cards_by_deck_id/:_id', deckController.getCardsByDeckId);
+router.get('/get_decks_by_user_id', deckController.getDecksByUserId);
 
 /* POST */
 router.post("/add_deck", deckController.postAddDeck);

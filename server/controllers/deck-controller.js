@@ -32,6 +32,15 @@ exports.getCardsByDeckId = (req, res, next) => {
         });
 }
 
+exports.getDecksByUserId = (req, res, next) => {
+    const userId = req.headers._id;
+
+    Deck.find({ creator: userId })
+        .then(deck => {
+            res.send({ "data": deck });
+        });
+}
+
 /* POST */
 exports.postAddDeck = function (request, response, next) {
     const creator = request.body.creator;
@@ -97,7 +106,7 @@ exports.postEditDeck = function (request, response, next) {
         })
         .then(result => {
             console.log("result:", result);
-            response.send({"status": "Successful"});
+            response.send({ "status": "Successful" });
         })
         .catch(err => {
             console.log(err);

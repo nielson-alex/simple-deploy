@@ -7,7 +7,7 @@ import './App.css';
 function App() {
   return (
     <div id="app-container">
-      {routes}
+      {routes()}
       <ToastContainer />
     </div>
   );

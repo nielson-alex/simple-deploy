@@ -300,7 +300,7 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
                             {/* </OutsideClickHandler> */}
 
                         </nav>
-                        {dashboardRoutes(this.state.user)}
+                        {dashboardRoutes(this.props.user)}
                     </div>
                 )
             } else {
@@ -355,7 +355,7 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
                                     }
                                     id="main"
                                 >
-                                    {dashboardRoutes(this.state.user)}
+                                    {dashboardRoutes(this.props.user)}
                                 </div>
                             </div>
                         </div>
