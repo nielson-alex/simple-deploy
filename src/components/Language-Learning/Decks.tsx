@@ -98,8 +98,8 @@ export default class Decks extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>Flashcard Decks</h1>
-                    </div>
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>Deck Collection</h1>
+                    </div>d
 
                     {this.props?.user?._id !== ""
                         ? <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
