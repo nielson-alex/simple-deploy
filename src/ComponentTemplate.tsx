@@ -66,7 +66,7 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
+                        <h1 className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}>
 
                         </h1>
                     </div>
@@ -80,7 +80,7 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
+                        <h1 className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}>
 
                         </h1>
                     </div>

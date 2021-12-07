@@ -398,6 +398,10 @@ export default class Decks extends PureComponent<Props, State> {
                         </div>
                     </div>
 
+                    <div className="row">
+                        <p className={`col${this.state.colSize}-11 middle-align`}>{this.state.cards.length} cards created</p>
+                    </div>
+
                     {/* Deck name */}
                     <div className="row">
                         <label htmlFor="deckName" className={`col${this.state.colSize}-11 middle-align`}>Deck Name:</label>
@@ -421,6 +425,7 @@ export default class Decks extends PureComponent<Props, State> {
                             name="english"
                             ref={this.englishRef}
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChangeCardAttribute(e)}
+                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): string | void => this.handleKeyUp(e)}
                         />
 
                         {/* Chinese */}
@@ -432,6 +437,7 @@ export default class Decks extends PureComponent<Props, State> {
                             name="chinese"
                             ref={this.chineseRef}
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChangeCardAttribute(e)}
+                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): string | void => this.handleKeyUp(e)}
                         />
 
                         {/* Pinyin */}
@@ -443,8 +449,11 @@ export default class Decks extends PureComponent<Props, State> {
                             name="pinyin"
                             ref={this.pinyinRef}
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChangeCardAttribute(e)}
+                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): string | void => this.handleKeyUp(e)}
                         />
                     </div>
+
+                    <BR colSize={this.state.colSize} />
 
                     {/* Add card button */}
                     <div className="row">
@@ -454,23 +463,7 @@ export default class Decks extends PureComponent<Props, State> {
                         >Add Card to Deck</button>
                     </div>
 
-                    {/* Existing cards */}
-                    {this.state.cards.length > 0
-                        ? this.state.cards.map((card: TCard): JSX.Element => {
-
-                            return (
-                                <div key={card.number}>
-                                    <ul>
-                                        <li>{card.number}</li>
-                                        <li>English: {card.english}</li>
-                                        <li>中文： {card.chinese}</li>
-                                        <li>Pinyin: {card.pinyin}</li>
-                                    </ul>
-                                </div>
-                            );
-                        })
-                        : <></>
-                    }
+                    <BR colSize={this.state.colSize} />
 
                     {/* Save deck button */}
                     <div className="row">
@@ -479,6 +472,24 @@ export default class Decks extends PureComponent<Props, State> {
                             onClick={this.handleSaveDeck}
                         >Save Deck</button>
                     </div>
+
+                    {/* Existing cards */}
+                    {this.state.cards.length > 0
+                        ? this.state.cards.map((card: TCard): JSX.Element => {
+
+                            return (
+                                <div key={card.number}>
+                                    <ul key={`${this.state.deckName}-card-${card.number}`}>
+                                        <li key={`card-number-${card.number}`}>{card.number}</li>
+                                        <li key={`${card.number}-english`}>English: {card.english}</li>
+                                        <li key={`${card.number}-chinese`}>中文： {card.chinese}</li>
+                                        <li key={`${card.number}-pinyin`}>Pinyin: {card.pinyin}</li>
+                                    </ul>
+                                </div>
+                            );
+                        })
+                        : <></>
+                    }
                 </div>
             );
         }

@@ -1,25 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
 
-.landing-page-title-h1 {
+.landing-page--title-h1-mobile {
     color: #669999;
     font-family: 'Lato', 'Verdana', sans-serif;
     font-style: italic;
     font-weight: bold;
 }
 
-.landing-page-link {
-    background-color: #55AF86;
-    border-radius: 25px;
-    box-shadow: 0px 0px 10px #000000;
-    color: #f8f9fa !important;
-    padding: 3.5em 0 0 0;
-    text-decoration: none !important;
-    width: 100%;
-    height: 9em;
-}
-
-.custom-card {
-    background-color: beige;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+.landing-page--title-h1-desktop {
+    color: #669999;
+    font-family: 'Lato', 'Verdana', sans-serif;
+    font-style: italic;
+    font-weight: bold;
 }

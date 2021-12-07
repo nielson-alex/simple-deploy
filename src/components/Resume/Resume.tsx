@@ -96,7 +96,7 @@ export default class Resume extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Resume</h1>
+                        <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Resume</h1>
                     </div>
 
                     <div className="row">
@@ -112,7 +112,7 @@ export default class Resume extends PureComponent<Props, State> {
                                     ? this.state.workExperience.map((entry: TWorkExperience): JSX.Element => {
 
                                         return (
-                                            <AccordionFC title={entry.companyName}>
+                                            <AccordionFC title={entry.companyName} device={this.state.device}>
                                                 <div className={`col${this.state.colSize}-11 card custom-card-2 middle-align`}>
                                                     <p>{entry.title}</p>
                                                     <p>{entry.startMMMM} {entry.startYYYY}</p>
@@ -139,7 +139,7 @@ export default class Resume extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Resume</h1>
+                        <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Resume</h1>
                     </div>
 
                     <div className="row">
@@ -155,7 +155,7 @@ export default class Resume extends PureComponent<Props, State> {
                                     ? this.state.workExperience.map((entry: TWorkExperience): JSX.Element => {
 
                                         return (
-                                            <AccordionFC title={entry.companyName}>
+                                            <AccordionFC title={entry.companyName} device={this.state.device}>
                                                 <div className={`col${this.state.colSize}-11 card custom-card-2 middle-align`}>
                                                     <p>{entry.companyName}</p>
                                                     <p>{entry.title}</p>

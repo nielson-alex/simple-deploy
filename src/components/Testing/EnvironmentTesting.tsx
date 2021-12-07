@@ -116,30 +116,30 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
                 icons.push(
                     <div key={i} className="row">
                         {animals[i]
-                            ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
+                            ? <div className={`col${this.state.colSize}-4 middle-align center-text`}>
                                 <Link to={`/dashboard/animal-details?id=${animals[i]._id}`}>
-                                    <div className="environment-testing-animal-icon">
+                                    <div className="environment-testing--animal-icon">
                                         {animals[i].name}
                                     </div>
                                 </Link>
                             </div >
-                            : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
+                            : <div className={`col${this.state.colSize}-4 middle-align center-text`} />
                         }
                         {animals[i + 1]
-                            ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
-                                <div className="environment-testing-animal-icon">
+                            ? <div className={`col${this.state.colSize}-4 middle-align center-text`}>
+                                <div className="environment-testing--animal-icon">
                                     {animals[i + 1].name}
                                 </div>
                             </div >
-                            : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
+                            : <div className={`col${this.state.colSize}-4 middle-align center-text`} />
                         }
                         {animals[i + 2]
-                            ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
-                                <div className="environment-testing-animal-icon">
+                            ? <div className={`col${this.state.colSize}-4 middle-align center-text`}>
+                                <div className="environment-testing--animal-icon">
                                     {animals[i + 2].name}
                                 </div>
                             </div >
-                            : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
+                            : <div className={`col${this.state.colSize}-4 middle-align center-text`} />
                         }
                     </div>
                 );
@@ -262,7 +262,7 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
                         <h1
-                            className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}
+                            className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}
                         >Testing</h1>
                     </div>
 
@@ -368,7 +368,110 @@ export default class EnvironmentTesting extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <div className={`container container-${this.state.device}`}>
+                    <div className="row">
+                        <h1
+                            className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}
+                        >Testing</h1>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-12`}>
+                            <hr />
+                        </div>
+                    </div>
+
+                    {/* Toggle work experience button */}
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-8 middle-align btn btn-secondary`}
+                            name="WorkExperienceSection"
+                            onClick={(e: MouseEvent<HTMLButtonElement>): void => this.state.showWorkExperienceSection === true
+                                ? this.hideSection(e)
+                                : this.showSection(e)
+                            }
+                        >{this.state.showWorkExperienceSection !== true
+                            ? "Show Work Experience"
+                            : "Hide Work Experience"
+                            }
+                        </button>
+                    </div>
+
+                    {/* Show work experience section */}
+                    {this.state.showWorkExperienceSection === true
+                        ? <div className="row">
+                            {this.state.workExperience.length > 0
+                                ? this.state.workExperience.map((entry: TWorkExperience): JSX.Element => {
+
+                                    return (
+                                        <div className={`col${this.state.colSize}-11 card custom-card-2 middle-align`}>
+                                            <p>{entry.companyName}</p>
+                                            <p>{entry.title}</p>
+                                            <p>{entry.startMMMM} {entry.startYYYY}</p>
+                                            <div>{entry.responsibilities.length > 0
+                                                ? entry.responsibilities.map((responsibility: string): JSX.Element => <p>{responsibility}</p>)
+                                                : <p>No work responsibilities found</p>
+                                            }</div>
+                                        </div>
+                                    )
+                                })
+                                : <p className={`col${this.state.colSize}-12`}>
+                                    No work experience found
+                                </p>
+                            }
+                            <button
+                                className={`col${this.state.colSize}-4 middle-align btn btn-secondary`}
+                                onClick={this.handleCallServer}
+                            >Randomly Choose Animal</button>
+                        </div>
+                        : <></>
+                    }
+
+                    {/* Toggle shelter section button */}
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-8 middle-align btn btn-secondary`}
+                            name="ShelterSection"
+                            onClick={(e: MouseEvent<HTMLButtonElement>): void => this.state.showShelterSection === true
+                                ? this.hideSection(e)
+                                : this.showSection(e)
+                            }
+                        >{this.state.showShelterSection !== true
+                            ? "Show Shelter"
+                            : "Hide Shelter"
+                            }
+                        </button>
+                    </div>
+
+                    {this.state.showShelterSection === true
+                        ? <>
+                            {/* Add animal button */}
+                            <div className="row">
+                                <button
+                                    className={`col${this.state.colSize}-6 middle-align`}
+                                    onClick={this.handleAddAnimal}
+                                >Add Animal</button>
+                            </div>
+
+                            {/* Featured animal */}
+                            <div className="row">
+                                <p className={`col${this.state.colSize}-6 middle-align`}>{this.state.featuredAnimal.name !== ""
+                                    ? `Meet ${this.state.featuredAnimal.name}, the ${this.state.featuredAnimal.age}-year-old ${this.state.featuredAnimal.breed}!`
+                                    : "Press the button to be assigned a pet"}
+                                </p>
+                            </div>
+
+                            {/* All animals */}
+                            <div className="row">
+                                {this.state.animals.length > 0
+                                    ? this.generateAnimalIcons()
+                                    : <p>No results found</p>
+                                }
+                            </div>
+                        </>
+                        : <></>
+                    }
+                </div>
             );
         }
 

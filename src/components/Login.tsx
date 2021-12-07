@@ -135,7 +135,7 @@ export default class Login extends PureComponent<Props, State> {
                 ? (
                     <div className={`container container-${this.state.device}`}>
                         <div className="row">
-                            <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
+                            <h1 className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}>
                                 Sign In
                             </h1>
                         </div>
@@ -199,7 +199,7 @@ export default class Login extends PureComponent<Props, State> {
                 ? (
                     <div className={`container container-${this.state.device}`}>
                         <div className="row">
-                            <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
+                            <h1 className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}>
                                 Sign In
                             </h1>
                         </div>
@@ -210,9 +210,10 @@ export default class Login extends PureComponent<Props, State> {
                         <div className="row">
                             <label htmlFor="tbEmail" className={`col${this.state.colSize}-11 middle-align`}>Email:</label>
                             <input
-                                type="text"
+                                type="email"
                                 id="tbEmail"
                                 className={`col${this.state.colSize}-11 middle-align`}
+                                name="email"
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
                                 onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void => this.submitOnEnter(e)}
@@ -221,11 +222,12 @@ export default class Login extends PureComponent<Props, State> {
 
                         {/* Password */}
                         <div className="row">
-                            <label htmlFor="tbEmail" className={`col${this.state.colSize}-11 middle-align`}>Email:</label>
+                            <label htmlFor="tbPassword" className={`col${this.state.colSize}-11 middle-align`}>Password:</label>
                             <input
-                                type="text"
-                                id="tbEmail"
+                                type="password"
+                                id="tbPassword"
                                 className={`col${this.state.colSize}-11 middle-align`}
+                                name="password"
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
                                 onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void => this.submitOnEnter(e)}
@@ -253,7 +255,7 @@ export default class Login extends PureComponent<Props, State> {
                         <p>Don't have an account? <Link to="/dashboard/signup">Click here to create an account </Link></p>
                     </div>
                 )
-                : <Redirect to="/dashboard/login" />
+                : <Redirect to="/dashboard/landing-page" />
         }
 
         return this.state.device === "mobile"

@@ -77,7 +77,7 @@ class Home extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
+                        <h1 className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}>
                             Info About This App
                         </h1>
                     </div>
@@ -162,7 +162,7 @@ class Home extends PureComponent<Props, State> {
                 </div>
                 : <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
+                        <h1 className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}>
                             Info About This App
                         </h1>
                     </div>

@@ -117,30 +117,30 @@ class Collection extends PureComponent<Props, State> {
                 icons.push(
                     <div key={i} className="row">
                         {animals[i]
-                            ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
+                            ? <div className={`col${this.state.colSize}-4 middle-align center-text`}>
                                 <Link to={`/dashboard/animal-details?id=${animals[i]._id}`}>
                                     <div style={{ wordBreak: "break-word", width: "100%", height: "2rem" }}>
                                         {animals[i].name}
                                     </div>
                                 </Link>
                             </div >
-                            : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
+                            : <div className={`col${this.state.colSize}-4 middle-align center-text`} />
                         }
                         {animals[i + 1]
-                            ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
+                            ? <div className={`col${this.state.colSize}-4 middle-align center-text`}>
                                 <div style={{ wordBreak: "break-word", width: "100%", height: "2rem" }}>
                                     {animals[i + 1].name}
                                 </div>
                             </div >
-                            : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
+                            : <div className={`col${this.state.colSize}-4 middle-align center-text`} />
                         }
                         {animals[i + 2]
-                            ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
+                            ? <div className={`col${this.state.colSize}-4 middle-align center-text`}>
                                 <div style={{ wordBreak: "break-word", width: "100%", height: "2rem" }}>
                                     {animals[i + 2].name}
                                 </div>
                             </div >
-                            : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
+                            : <div className={`col${this.state.colSize}-4 middle-align center-text`} />
                         }
                     </div>
                 );
@@ -316,7 +316,80 @@ class Collection extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <div className={`container container-${this.state.device}`}>
+                    <div className="row">
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>My Collection</h1>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11 middle-align`}>
+                            <hr />
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-4 middle-align btn btn-secondary`}
+                            onClick={this.randomlyChooseAnimal}
+                        >Randomly Choose Animal</button>
+                    </div>
+
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-4 middle-align btn btn-secondary`}
+                            onClick={this.handleAddAnimal}
+                        >Add Animal</button>
+                    </div>
+                    <div className="row">
+                        <p className={`col${this.state.colSize}-6 middle-align`}>{this.state.featuredAnimal.name !== ""
+                            ? `Meet ${this.state.featuredAnimal.name}, the ${this.state.featuredAnimal.age}-year-old ${this.state.featuredAnimal.breed}!`
+                            : "Press the button to be assigned a pet"}
+                        </p>
+                    </div>
+
+                    {this.state.animals.length > 0
+                        ? this.generateAnimalIcons()
+                        : <p>No results found</p>
+                    }
+
+                    {/* {arr.length > 0
+                        ? arr.map((img: string): JSX.Element => {
+                            
+                            return (
+                                <>
+                                <div className="row">
+                                    <img
+                                        src={img}
+                                        alt={img}
+                                        className={`col${this.state.colSize}-11 middle-align`}
+                                        onClick={this.toggleDetailsModal}
+                                    />
+                                </div>
+                                <BR colSize={this.state.colSize} />
+                                </>
+                            )
+                        })  
+                        : "No plants in collection"
+                    } */}
+
+                    <Modal isOpen={this.state.showDetailsModal}>
+                        <button onClick={this.toggleDetailsModal}>Close</button>
+                        <div className={`container container-${this.state.device}`}>
+                            <div className="row">
+                                <p className={`col${this.state.colSize}-2 bold`}>Name:</p>
+                                <p className={`col${this.state.colSize}-10 bold`}></p>
+                            </div>
+                            <div className="row">
+                                <p className={`col${this.state.colSize}-2 bold`}>Regions:</p>
+                                <p className={`col${this.state.colSize}-10 bold`}></p>
+                            </div>
+                            <div className="row">
+                                <p className={`col${this.state.colSize}-2 bold`}>Description:</p>
+                                <p className={`col${this.state.colSize}-10 bold`}></p>
+                            </div>
+                        </div>
+                    </Modal>
+                </div>
             );
         }
 

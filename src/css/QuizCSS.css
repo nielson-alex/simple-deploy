@@ -1,7 +1,15 @@
-.quiz-answer-correct {
+.quiz--answer-correct-mobile {
     color: green;
 }
 
-.quiz-answer-incorrect {
+.quiz--answer-correct-desktop {
+    color: green;
+}
+
+.quiz--answer-incorrect-mobile {
+    color: red;
+}
+
+.quiz--answer-incorrect-desktop {
     color: red;
 }

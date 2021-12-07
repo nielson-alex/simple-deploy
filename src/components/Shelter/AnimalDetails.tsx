@@ -104,7 +104,7 @@ export default class AnimalDetails extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Weclome</h1>
+                        <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Weclome</h1>
                     </div>
 
                     <div className="row">
@@ -139,15 +139,50 @@ export default class AnimalDetails extends PureComponent<Props, State> {
                             {this.state.featuredAnimal.price}
                         </div>
                     </div>
-
-
                 </div>
             );
         }
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <div className={`container container-${this.state.device}`}>
+                    <div className="row">
+                        <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Weclome</h1>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-12`}>
+                            <hr />
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-5 middle-align center-text`}>
+                            {this.state.featuredAnimal._id}
+                        </div>
+                        <div className={`col${this.state.colSize}-5 middle-align center-text`}>
+                            {this.state.featuredAnimal.name}
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-5 middle-align center-text`}>
+                            {this.state.featuredAnimal.species}
+                        </div>
+                        <div className={`col${this.state.colSize}-5 middle-align center-text`}>
+                            {this.state.featuredAnimal.breed}
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-5 middle-align center-text`}>
+                            {this.state.featuredAnimal.description}
+                        </div>
+                        <div className={`col${this.state.colSize}-5 middle-align center-text`}>
+                            {this.state.featuredAnimal.price}
+                        </div>
+                    </div>
+                </div>
             );
         }
 

@@ -8,6 +8,7 @@ import {
     RefObject,
     createRef
 } from "react";
+import { Link } from "react-router-dom";
 import { Props } from "../../types/TGlobal";
 import {
     State,
@@ -334,8 +335,10 @@ export default class EditDeck extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
+                        <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
                     </div>
+
+                    <Link to="/dashboard/language-learning/decks">Back</Link>
 
                     <div className="row">
                         <div className={`col${this.state.colSize}-12`}>
@@ -492,7 +495,163 @@ export default class EditDeck extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <div className={`container container-${this.state.device}`}>
+                    <div className="row">
+                        <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
+                    </div>
+
+                    <Link to="/dashboard/language-learning/decks">Back</Link>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-12`}>
+                            <hr />
+                        </div>
+                    </div>
+
+                    {this.state.cards.length > 0
+                        ? <div className="row">
+                            <table className={`col${this.state.colSize}-11 middle-align`}>
+                                {this.state.cards.map((card: TCard): JSX.Element => {
+                                    <colgroup>
+                                        <col style={{ width: "33.33%" }} />
+                                        <col style={{ width: "33.33%" }} />
+                                        <col style={{ width: "33.33%" }} />
+                                    </colgroup>
+                                    return (
+                                        <tr key={`${card.deckName}-${card.number}`}>
+                                            {/* English */}
+                                            <td>
+                                                <input
+                                                    type="text"
+                                                    id={card._id}
+                                                    name="english"
+                                                    defaultValue={card.english}
+                                                    onBlur={(e: FocusEvent<HTMLInputElement>): void => this.handleBlur(e)}
+                                                    onFocus={(e: FocusEvent<HTMLInputElement>): void => e.currentTarget.select()}
+                                                    onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.addCardToDeck() : null}
+                                                />
+                                            </td>
+
+                                            {/* Chinese */}
+                                            <td>
+                                                <input
+                                                    type="text"
+                                                    id={card._id}
+                                                    name="chinese"
+                                                    defaultValue={card.chinese}
+                                                    onBlur={(e: FocusEvent<HTMLInputElement>): void => this.handleBlur(e)}
+                                                    onFocus={(e: FocusEvent<HTMLInputElement>): void => e.currentTarget.select()}
+                                                    onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.addCardToDeck() : null}
+                                                />
+                                            </td>
+
+                                            {/* Pinyin */}
+                                            <td>
+                                                <input
+                                                    type="text"
+                                                    id={card._id}
+                                                    name="pinyin"
+                                                    defaultValue={card.pinyin}
+                                                    onBlur={(e: FocusEvent<HTMLInputElement>): void => this.handleBlur(e)}
+                                                    onFocus={(e: FocusEvent<HTMLInputElement>): void => e.currentTarget.select()}
+                                                    onKeyUp={(e: KeyboardEvent<HTMLInputElement>): string | void => this.handleKeyUp(e)}
+                                                />
+                                            </td>
+
+                                            {/* Delete button */}
+                                            <td>
+                                                <button
+                                                    id={card._id}
+                                                    onClick={(e: MouseEvent<HTMLButtonElement>): void => this.handleDeleteCard(e)}
+                                                >Delete</button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
+                            </table>
+                        </div>
+                        : "No cards found in this deck"
+                    }
+
+                    {/* Create new card button */}
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            onClick={this.toggleShowNewCard}
+                        >Create New Card</button>
+                    </div>
+
+                    {/* New card */}
+                    {this.state.showNewCard === true
+                        ? <div className="row">
+
+                            {/* English (new card) */}
+                            <label htmlFor="tbEnglish" className={`col${this.state.colSize}-11 middle-align`}>
+                                English:&nbsp;&nbsp;&nbsp;
+                                <input
+                                    type="text"
+                                    id="tbEnglish"
+                                    name="english"
+                                    onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                                    onFocus={(e: FocusEvent<HTMLInputElement>): void => e.currentTarget.select()}
+                                    onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.addCardToDeck() : null}
+                                    ref={this.newCardEnglishRef}
+                                />
+                            </label>
+
+                            {/* Chinese (new card) */}
+                            <label htmlFor="tbChinese" className={`col${this.state.colSize}-11 middle-align`}>
+                                Chinese:&nbsp;&nbsp;&nbsp;
+                                <input
+                                    type="text"
+                                    id="tbChinese"
+                                    name="chinese"
+                                    onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                                    onFocus={(e: FocusEvent<HTMLInputElement>): void => e.currentTarget.select()}
+                                    onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.addCardToDeck() : null}
+                                    ref={this.newCardChineseRef}
+                                />
+                            </label>
+
+                            {/* Pinyin (new card) */}
+                            <label htmlFor="tbPinyin" className={`col${this.state.colSize}-11 middle-align`}>
+                                Pinyin:&nbsp;&nbsp;&nbsp;
+                                <input
+                                    type="text"
+                                    id="tbPinyin"
+                                    name="pinyin"
+                                    onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                                    onFocus={(e: FocusEvent<HTMLInputElement>): void => e.currentTarget.select()}
+                                    onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.addCardToDeck() : null}
+                                    ref={this.newCardPinyinRef}
+                                />
+                            </label>
+
+                            <br />
+
+                            {/* Clear fields button */}
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                onClick={this.clearNewCardFields}
+                            >Clear Fields</button>
+
+                            {/* Add card to deck button */}
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                onClick={this.addCardToDeck}
+                            >Add Card to Deck</button>
+                        </div>
+                        : <></>
+                    }
+
+
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-11 middle-align`}
+                            onClick={this.saveDeck}
+                        >Save Changes</button>
+                    </div>
+                </div>
             );
         }
 

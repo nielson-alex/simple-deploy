@@ -166,11 +166,11 @@ export default class Quiz extends PureComponent<Props, State> {
                         if (this.answerStatusRef !== null) {
                             if (this.answerStatusRef.current !== null) {
                                 if (this.answerStatusRef.current.classList !== null) {
-                                    if (this.answerStatusRef.current.classList.contains("quiz-answer-incorrect")) {
-                                        this.answerStatusRef.current.classList.remove("quiz-answer-incorrect");
+                                    if (this.answerStatusRef.current.classList.contains(`quiz-answer-incorrect-${this.state.device}`)) {
+                                        this.answerStatusRef.current.classList.remove(`quiz-answer-incorrect-${this.state.device}`);
                                     }
 
-                                    this.answerStatusRef.current.classList.add("quiz-answer-correct");
+                                    this.answerStatusRef.current.classList.add(`quiz--answer-correct-${this.state.device}`);
                                 }
 
                                 this.answerStatusRef.current.innerHTML = "Correct!";
@@ -191,11 +191,11 @@ export default class Quiz extends PureComponent<Props, State> {
                     if (this.answerStatusRef !== null) {
                         if (this.answerStatusRef.current !== null) {
                             if (this.answerStatusRef.current.classList !== null) {
-                                if (this.answerStatusRef.current.classList.contains("quiz-answer-correct")) {
-                                    this.answerStatusRef.current.classList.remove("quiz-answer-correct");
+                                if (this.answerStatusRef.current.classList.contains(`quiz--answer-correct-${this.state.device}`)) {
+                                    this.answerStatusRef.current.classList.remove(`quiz--answer-correct-${this.state.device}`);
                                 }
 
-                                this.answerStatusRef.current.classList.add("quiz-answer-incorrect");
+                                this.answerStatusRef.current.classList.add(`quiz-answer-incorrect-${this.state.device}`);
                             }
 
                             this.answerStatusRef.current.innerHTML = "Incorrect";
@@ -234,11 +234,11 @@ export default class Quiz extends PureComponent<Props, State> {
                         if (this.answerStatusRef !== null) {
                             if (this.answerStatusRef.current !== null) {
                                 if (this.answerStatusRef.current.classList !== null) {
-                                    if (this.answerStatusRef.current.classList.contains("quiz-answer-incorrect")) {
-                                        this.answerStatusRef.current.classList.remove("quiz-answer-incorrect");
+                                    if (this.answerStatusRef.current.classList.contains(`quiz-answer-incorrect-${this.state.device}`)) {
+                                        this.answerStatusRef.current.classList.remove(`quiz-answer-incorrect-${this.state.device}`);
                                     }
 
-                                    this.answerStatusRef.current.classList.add("quiz-answer-correct");
+                                    this.answerStatusRef.current.classList.add(`quiz--answer-correct-${this.state.device}`);
                                 }
 
                                 this.answerStatusRef.current.innerHTML = "Correct!";
@@ -259,11 +259,11 @@ export default class Quiz extends PureComponent<Props, State> {
                     if (this.answerStatusRef !== null) {
                         if (this.answerStatusRef.current !== null) {
                             if (this.answerStatusRef.current.classList !== null) {
-                                if (this.answerStatusRef.current.classList.contains("quiz-answer-correct")) {
-                                    this.answerStatusRef.current.classList.remove("quiz-answer-correct");
+                                if (this.answerStatusRef.current.classList.contains(`quiz--answer-correct-${this.state.device}`)) {
+                                    this.answerStatusRef.current.classList.remove(`quiz--answer-correct-${this.state.device}`);
                                 }
 
-                                this.answerStatusRef.current.classList.add("quiz-answer-incorrect");
+                                this.answerStatusRef.current.classList.add(`quiz-answer-incorrect-${this.state.device}`);
                             }
 
                             this.answerStatusRef.current.innerHTML = "Incorrect";
@@ -414,10 +414,10 @@ export default class Quiz extends PureComponent<Props, State> {
                 ? (
                     <div className={`container container-${this.state.device}`}>
                         <div className="row">
-                            <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
+                            <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
                         </div>
 
-                        <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
+                        <Link to="/dashboard/language-learning/decks">Back</Link>
 
                         <div className="row">
                             <div className={`col${this.state.colSize}-12`}>
@@ -470,7 +470,7 @@ export default class Quiz extends PureComponent<Props, State> {
                 : (
                     <div className={`container container-${this.state.device}`}>
                         <div className="row">
-                            <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
+                            <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
                         </div>
 
                         <div className="row">
@@ -583,10 +583,10 @@ export default class Quiz extends PureComponent<Props, State> {
                 ? (
                     <div className={`container container-${this.state.device}`}>
                         <div className="row">
-                            <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
+                            <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
                         </div>
 
-                        <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
+                        <Link to="/dashboard/language-learning/decks">Back</Link>
 
                         <div className="row">
                             <div className={`col${this.state.colSize}-12`}>
@@ -621,7 +621,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                     type="radio"
                                     id="rbChineseToEnglish"
                                     name="quizMode"
-                                    ref={this.englishToChineseRef}
+                                    ref={this.chineseToEnglishRef}
                                     onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleCbChange(e)}
                                 />
                             </label>
@@ -639,7 +639,7 @@ export default class Quiz extends PureComponent<Props, State> {
                 : (
                     <div className={`container container-${this.state.device}`}>
                         <div className="row">
-                            <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
+                            <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
                         </div>
 
                         <div className="row">
@@ -714,6 +714,32 @@ export default class Quiz extends PureComponent<Props, State> {
                             {/* Hint */}
                             {this.state.showHint === true
                                 ? <p className={`col${this.state.colSize}-11 middle-align`}>{this.state.currentCard.pinyin}</p>
+                                : <></>
+                            }
+
+                            <BR colSize={this.state.colSize} />
+
+                            {/* Show answer button */}
+
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                onClick={this.toggleAnswer}
+                            >{this.state.showAnswer !== true
+                                ? "Show Answer"
+                                : "Hide Answer"
+                                }
+                            </button>
+
+                            <BR colSize={this.state.colSize} />
+
+                            {/* Card answer */}
+                            {this.state.showAnswer === true
+                                ? <p className={`col${this.state.colSize}-11 middle-align center-text`}>
+                                    {this.state.quizMode === 0
+                                        ? this.state.currentCard.chinese
+                                        : this.state.currentCard.english
+                                    }
+                                </p>
                                 : <></>
                             }
                         </div>

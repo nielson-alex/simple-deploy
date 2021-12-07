@@ -125,6 +125,10 @@ button {
   box-shadow: none;
 }
 
+.accordion--header-button-desktop {
+  float: left;
+  text-align: left;
+}
 
 .w100 {
   width: 100% !important;

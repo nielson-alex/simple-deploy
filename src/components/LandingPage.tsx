@@ -1,5 +1,6 @@
 import { PureComponent } from "react";
 import { Link } from "react-router-dom";
+import { BR } from "../components/functional-components/GlobalFC";
 import { Props } from "../types/TGlobal";
 import { State } from "../types/TLandingPage";
 import "../css/GlobalCSS.css";
@@ -67,19 +68,29 @@ class LandingPage extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
+                        <h1 className={`col${this.state.colSize}-12 landing-page--page-title-h1-${this.state.device} center-text`}>
                             Welcome, {this.props.user.first_name}
                         </h1>
                     </div>
 
+                    {/* Sign In Link */}
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11`}>
-                            <Link to="/dashboard/resume/resume">View Alex Nielson's Resume</Link>
-                        </div>
-                        <div className={`col${this.state.colSize}-11`}>
-                            <Link to="/dashboard/language-learning/decks">Language Learning Flashcard App</Link>
-                        </div>
+                        <Link to="/dashboard/login" className={`col${this.state.colSize}-11`}>Sign In</Link>
+                    </div>
 
+                    {/* Language Learning Link */}
+                    <div className="row">
+                        <Link to="/dashboard/language-learning/decks" className={`col${this.state.colSize}-11`}>Language Learning Flashcard App</Link>
+                    </div>
+
+                    {/* Resume Link */}
+                    <div className="row">
+                        <Link to="/dashboard/resume/resume" className={`col${this.state.colSize}-11`}>View Alex Nielson's Resume</Link>
+                    </div>
+
+                    <BR colSize={this.state.colSize} />
+
+                    <div className="row">
                         <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
                             <p>While some features on this app are complete like reading from and saving to the server, please have patience
                                 with the parts of the site that are incomplete.
@@ -94,19 +105,29 @@ class LandingPage extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 landing-page-title-h1 center-text`}>
-                            Welcome!
+                        <h1 className={`col${this.state.colSize}-12 landing-page--page-title-h1-${this.state.device} center-text`}>
+                            Welcome, {this.props.user.first_name}
                         </h1>
                     </div>
 
+                    {/* Sign In Link */}
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11`}>
-                            <Link to="/dashboard/resume/resume">View Alex Nielson's Resume</Link>
-                        </div>
-                        <div className={`col${this.state.colSize}-11`}>
-                            <Link to="/dashboard/language-learning/decks">Language Learning Flashcard App</Link>
-                        </div>
+                        <Link to="/dashboard/login" className={`col${this.state.colSize}-11`}>Sign In</Link>
+                    </div>
 
+                    {/* Language Learning Link */}
+                    <div className="row">
+                        <Link to="/dashboard/language-learning/decks" className={`col${this.state.colSize}-11`}>Language Learning Flashcard App</Link>
+                    </div>
+
+                    {/* Resume Link */}
+                    <div className="row">
+                        <Link to="/dashboard/resume/resume" className={`col${this.state.colSize}-11`}>View Alex Nielson's Resume</Link>
+                    </div>
+
+                    <BR colSize={this.state.colSize} />
+
+                    <div className="row">
                         <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
                             <p>While some features on this app are complete like reading from and saving to the server, please have patience
                                 with the parts of the site that are incomplete.

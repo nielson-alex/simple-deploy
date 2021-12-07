@@ -86,7 +86,41 @@ class Scanner extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <div className="container">
+                    <div className="row">
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>Counter</h1>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-12`}>
+                            <hr />
+                        </div>
+                    </div>
+
+                    <QrReader
+                        className={`labor-tracking--qr-${this.state.device}`}
+                        delay={300}
+                        facingMode="user" // user or environment
+                        onError={(): null => null}
+                        onScan={(code: string | null): void | null => code !== null
+                            ? console.log("code:", code)
+                            : null
+                        }
+                        showViewFinder={true}
+                    />
+
+                    <div className="row">
+                        <button
+                            className={`col${this.state.colSize}-3 middle-align btn btn-secondary`}
+                            onClick={(e: MouseEvent<HTMLButtonElement>): void => this.decrement(e)}
+                        >-</button>
+                        <label className={`col${this.state.colSize}-1`}>{this.state.count}</label>
+                        <button
+                            className={`col${this.state.colSize}-3 middle-align btn btn-secondary`}
+                            onClick={(e: MouseEvent<HTMLButtonElement>): void => this.increment(e)}
+                        >+</button>
+                    </div>
+                </div>
             );
         }
 
@@ -104,7 +138,7 @@ class Scanner extends PureComponent<Props, State> {
                     </div>
 
                     <QrReader
-                        className={`eqx-labor-tracking-qr-${this.state.device}`}
+                        className={`labor-tracking--qr-${this.state.device}`}
                         delay={300}
                         facingMode="user" // user or environment
                         onError={(): null => null}

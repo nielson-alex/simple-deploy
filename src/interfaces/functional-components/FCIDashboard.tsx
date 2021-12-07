@@ -3,6 +3,8 @@ import { MouseEvent } from "react";
 export interface FCIDesktopSignoutLink {
     icon?: string;
     text: string;
+    colSize: string;
+    device: string;
     onClick: (e: MouseEvent<HTMLButtonElement | HTMLElement>) => void
 }
 
@@ -24,6 +26,7 @@ export interface FCILink {
     ref?: any;
     text: string;
     to: string;
+    colSize: string;
     device: string;
     handleClick?: () => any;
 }

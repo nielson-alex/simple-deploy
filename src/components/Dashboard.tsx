@@ -166,8 +166,8 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
         if (this.state.navMenuOpen === false) {
             this.setState({ navMenuOpen: false });
         } else {
-            current.classList.add(`eqx-dash--hide-nav-options-cont-${this.state.device}`);
-            current.classList.remove(`eqx-dash--nav-options-cont-${this.state.device}`);
+            current.classList.add(`dashboard--hide-nav-options-cont-${this.state.device}`);
+            current.classList.remove(`dashboard--nav-options-cont-${this.state.device}`);
             setTimeout(() => {
                 this.setState({ navMenuOpen: false });
             }, 100);
@@ -189,15 +189,15 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
         // });
 
         if (this.state.navMenuOpen === false) {
-            current.classList.add(`eqx-dash--nav-options-cont-${this.state.device}`);
-            current.classList.remove(`eqx-dash--hide-nav-options-cont-${this.state.device}`);
+            current.classList.add(`dashboard--nav-options-cont-${this.state.device}`);
+            current.classList.remove(`dashboard--hide-nav-options-cont-${this.state.device}`);
 
             this.setState({
                 navMenuOpen: !this.state.navMenuOpen
             });
         } else {
-            current.classList.add(`eqx-dash--hide-nav-options-cont-${this.state.device}`);
-            current.classList.remove(`eqx-dash--nav-options-cont-${this.state.device}`);
+            current.classList.add(`dashboard--hide-nav-options-cont-${this.state.device}`);
+            current.classList.remove(`dashboard--nav-options-cont-${this.state.device}`);
 
             this.setState({
                 navMenuOpen: !this.state.navMenuOpen
@@ -221,54 +221,57 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
         const createGroups: () => JSX.Element = (): JSX.Element => {
             return (
                 <div className="accordion">
-                    {/* Resume */}
+                    {/* Home */}
+                    <GroupFC keyNum="0" text="Home" device={this.state.device}>
+
+                        {/* Home */}
+                        <LinkFC text="Home" to="landing-page" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
+                    </GroupFC>
+
+                    {/* Resume Main */}
                     <GroupFC keyNum="0" text="Resume" device={this.state.device}>
 
                         {/* Resume */}
-                        <LinkFC text="Alex Nielson's Resume" to="resume/resume" handleClick={this.menuClick} device={this.state.device} />
+                        <LinkFC text="Alex Nielson's Resume" to="resume/resume" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
                     </GroupFC>
 
-                    {/* Language Learning */}
+                    {/* Language Learning Main */}
                     <GroupFC keyNum="0" text="Language Learning" device={this.state.device}>
                         {/* Decks */}
-                        <LinkFC text="Decks" to="language-learning/decks" handleClick={this.menuClick} device={this.state.device} />
+                        <LinkFC text="Decks" to="language-learning/decks" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
 
                         {/* Create Deck */}
-                        <LinkFC text="Create Deck" to="language-learning/create-deck" handleClick={this.menuClick} device={this.state.device} />
+                        <LinkFC text="Create Deck" to="language-learning/create-deck" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
                     </GroupFC>
 
-                    {/* Beta */}
+                    {/* Beta Main */}
                     <GroupFC keyNum="0" text="Beta" device={this.state.device}>
 
                         {/* Collection */}
-                        <LinkFC text="Collection" to="testing/my-collection" handleClick={this.menuClick} device={this.state.device} />
+                        <LinkFC text="Collection" to="testing/my-collection" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
 
                         {/* Environment Testing */}
-                        <LinkFC text="Environment Testing" to="testing/environment-testing" handleClick={this.menuClick} device={this.state.device} />
+                        <LinkFC text="Environment Testing" to="testing/environment-testing" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
 
                         {/* Labor Tracking */}
-                        <LinkFC text="Labor Tracking" to="testing/labor-tracking" handleClick={this.menuClick} device={this.state.device} />
+                        <LinkFC text="Labor Tracking" to="testing/labor-tracking" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
                     </GroupFC>
                 </div>
             );
         }
 
         const createContainer: () => JSX.Element = (): JSX.Element => {
-            let bOrM: string = this.state.colSize === "xs" || this.state.colSize === "xs"
-                ? "mini"
-                : "big";
-
             if (this.state.device === "mobile") {
                 return (
                     <div className="main-dash-container">
 
-                        <nav id={`eqx-dash--top-nav-${this.state.device}`} className="eqx-center-text">
+                        <nav id={`dashboard--top-nav-${this.state.device}`} className="center-text">
                             {/* <OutsideClickHandler onOutsideClick={this.outsideClick} > */}
 
                             {/* Hamburger icon */}
                             <h2 style={{ color: "white", width: "100%", padding: "0", margin: "0" }} onClick={this.menuClick}>☰</h2>
 
-                            <div className={`eqx-dash--hide-nav-options-cont-${this.state.device}`} ref={this.navOptionsRowCont as any}>
+                            <div className={`dashboard--hide-nav-options-cont-${this.state.device}`} ref={this.navOptionsRowCont as any}>
                                 {createGroups()}
                                 <hr />
 
@@ -283,12 +286,10 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
                                             });
                                         }}
                                     >
-                                        <p id={`eqx-dash--nav-option-text-${this.state.device}`} onClick={this.signout}>Logout</p>
+                                        <p id={`dashboard--nav-option-text-${this.state.device}`} onClick={this.signout}>Logout</p>
                                     </div>
                                 </h2>
                             </div>
-
-
 
                             {/* </OutsideClickHandler> */}
 
@@ -300,12 +301,12 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
                 return (
                     <div className="main-dash-container">
                         <div className="container-fluid">
-                            <div className={`row eqx-100vh`}>
-                                <div className={this.state.desktopNavMinimized === false ? "px-1 eqx-dash--left-nav-section" : "px-1 eqx-dash--left-nav-section-minimized"}>
+                            <div className={`row`}>
+                                <div className={this.state.desktopNavMinimized === false ? "px-1 dashboard--left-nav-section" : "px-1 dashboard--left-nav-section-minimized"}>
                                     {this.state.desktopNavMinimized === true
-                                        ? <div className={`py-2 sticky-top flex-grow-1 eqx-dash--side-nav-${this.state.device}`}>
+                                        ? <div className={`py-2 sticky-top flex-grow-1 dashboard--side-nav-${this.state.device}`}>
                                             <p
-                                                className="eqx-dash--nav-button"
+                                                className="dashboard--nav-button"
                                                 onClick={(): void => {
                                                     this.setState({
                                                         desktopNavMinimized: !this.state.desktopNavMinimized
@@ -315,11 +316,11 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
                                         </div>
                                         : <>
                                             <div
-                                                className={`py-2 sticky-top flex-grow-1 eqx-dash--side-nav-${this.state.device}`}
+                                                className={`py-2 sticky-top flex-grow-1 dashboard--side-nav-${this.state.device}`}
                                                 ref={this.mobileMenuIcon as any}
                                             >
                                                 <p
-                                                    className="eqx-dash--nav-button"
+                                                    className="dashboard--nav-button"
                                                     onClick={(): void => {
                                                         this.setState({
                                                             desktopNavMinimized: !this.state.desktopNavMinimized
@@ -329,12 +330,14 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
 
                                                 {createGroups()}
 
-                                                <div className="eqx-dash--divider-div" />
+                                                <div className="dashboard--divider-div" />
 
                                                 {/* Sign Out (desktop) */}
                                                 <DesktopSignoutLinkFC
                                                     text="Sign Out"
-                                                    icon="eqx-dash--menu-icon fas fa-print"
+                                                    icon="dashboard--menu-icon fas fa-print"
+                                                    colSize={this.state.colSize}
+                                                    device={this.state.device}
                                                     onClick={this.signout}
                                                 />
                                             </div>
@@ -343,8 +346,8 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
                                 </div>
                                 <div
                                     className={this.state.desktopNavMinimized === false
-                                        ? "eqx-dash--right-content-section"
-                                        : "eqx-dash--right-content-section-full-screen"
+                                        ? "dashboard--right-content-section"
+                                        : "dashboard--right-content-section-full-screen"
                                     }
                                     id="main"
                                 >

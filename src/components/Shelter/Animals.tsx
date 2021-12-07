@@ -27,7 +27,7 @@ export default class Animals extends PureComponent<Props, State> {
             device: ""
         } as State;
 
-        this.updateWindowDimensions.bind(this);
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.generateAnimalIcons = this.generateAnimalIcons.bind(this);
         this.getAnimals = this.getAnimals.bind(this);
     }
@@ -85,34 +85,34 @@ export default class Animals extends PureComponent<Props, State> {
                 icons.push(
                     <div key={i} className="row">
                         {animals[i]
-                            ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
+                            ? <div className={`col${this.state.colSize}-4 middle-align center-text`}>
                                 <Link to={`/dashboard/animals/animal-details?id=${animals[i]._id}`}>
-                                    <div className="animals-animal-icon">
+                                    <div className="animals--animal-icon">
                                         {animals[i].name}
                                     </div>
                                 </Link>
                             </div >
-                            : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
+                            : <div className={`col${this.state.colSize}-4 middle-align center-text`} />
                         }
                         {animals[i + 1]
-                            ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
-                                <div className="animals-animal-icon">
+                            ? <div className={`col${this.state.colSize}-4 middle-align center-text`}>
+                                <div className="animals--animal-icon">
                                     <Link to={`/dashboard/animals/animal-details?id=${animals[i + 1]._id}`}>
                                         {animals[i + 1].name}
                                     </Link>
                                 </div>
                             </div >
-                            : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
+                            : <div className={`col${this.state.colSize}-4 middle-align center-text`} />
                         }
                         {animals[i + 2]
-                            ? <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`}>
-                                <div className="animals-animal-icon">
+                            ? <div className={`col${this.state.colSize}-4 middle-align center-text`}>
+                                <div className="animals--animal-icon">
                                     <Link to={`/dashboard/animals/animal-details?id=${animals[i + 2]._id}`}>
                                         {animals[i + 2].name}
                                     </Link>
                                 </div>
                             </div >
-                            : <div className={`col${this.state.colSize}-4 eqx-middle-align center-text`} />
+                            : <div className={`col${this.state.colSize}-4 middle-align center-text`} />
                         }
                     </div>
                 );
@@ -141,7 +141,7 @@ export default class Animals extends PureComponent<Props, State> {
                         animals: animals,
                         featuredAnimal: animals[0]
                     }, (): void => {
-                        
+
                     });
                 }
             });
@@ -152,7 +152,7 @@ export default class Animals extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 id="landing-page-title-h1" className={`col${this.state.colSize}-12 center-text`}>Weclome</h1>
+                        <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Weclome</h1>
                     </div>
 
                     <div className="row">
@@ -182,7 +182,33 @@ export default class Animals extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <></>
+                <div className={`container container-${this.state.device}`}>
+                    <div className="row">
+                        <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Weclome</h1>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-12`}>
+                            <hr />
+                        </div>
+                    </div>
+
+                    {/* Featured animal */}
+                    <div className="row">
+                        <p className={`col${this.state.colSize}-6 middle-align`}>{this.state.featuredAnimal.name !== ""
+                            ? `Meet ${this.state.featuredAnimal.name}, the ${this.state.featuredAnimal.age}-year-old ${this.state.featuredAnimal.breed}!`
+                            : "Press the button to be assigned a pet"}
+                        </p>
+                    </div>
+
+                    {/* All animals */}
+                    <div className="row">
+                        {this.state.animals.length > 0
+                            ? this.generateAnimalIcons()
+                            : <p>No results found</p>
+                        }
+                    </div>
+                </div>
             );
         }
 
