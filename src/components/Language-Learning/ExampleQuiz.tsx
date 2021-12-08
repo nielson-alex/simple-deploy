@@ -10,12 +10,12 @@ import {
 import { Link } from "react-router-dom";
 import { BR } from "../functional-components/GlobalFC";
 import { Props } from "../../types/TGlobal";
-import { State, TCard } from "../../types/TQuiz";
+import { State, TCard } from "../../types/TExampleQuiz";
 import { generateMessage } from "../../helpers/functions";
 import "../../css/GlobalCSS.css";
 import "../../css/QuizCSS.css";
 
-export default class Quiz extends PureComponent<Props, State> {
+export default class ExampleQuiz extends PureComponent<Props, State> {
     _isMounted: boolean;
     answerRef: RefObject<HTMLInputElement>;
     answerStatusRef: RefObject<HTMLHeadingElement>;
@@ -29,7 +29,35 @@ export default class Quiz extends PureComponent<Props, State> {
                 correct: false,
                 text: ""
             },
-            cards: [] as TCard[],
+            cards: [
+                {
+                    _id: "exampleCard.1",
+                    chinese: "一",
+                    deckName: "Example Deck",
+                    english: "One",
+                    number: 1,
+                    pinyin: "The answer is \"one\"",
+                    timesAnsweredCorrectly: 0
+                },
+                {
+                    _id: "exampleCard.2",
+                    chinese: "二",
+                    deckName: "Example Deck",
+                    english: "Two",
+                    number: 2,
+                    pinyin: "The answer is \"two\"",
+                    timesAnsweredCorrectly: 0
+                },
+                {
+                    _id: "exampleCard.3",
+                    chinese: "三",
+                    deckName: "Example Deck",
+                    english: "Three",
+                    number: 3,
+                    pinyin: "The answer is \"three\"",
+                    timesAnsweredCorrectly: 0
+                }
+            ] as TCard[],
             currentCard: {
                 _id: "",
                 chinese: "",
@@ -56,7 +84,6 @@ export default class Quiz extends PureComponent<Props, State> {
         this.chineseToEnglishRef = createRef();
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
-        this.getCards = this.getCards.bind(this);
         this.getNextCard = this.getNextCard.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleCbChange = this.handleCbChange.bind(this);
@@ -72,7 +99,7 @@ export default class Quiz extends PureComponent<Props, State> {
         if (this._isMounted === true) {
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
-            this.getCards();
+            this.getNextCard();
         }
     }
 
@@ -314,35 +341,6 @@ export default class Quiz extends PureComponent<Props, State> {
         }
     }
 
-    async getCards(): Promise<void> {
-        const breakpoint: number = window.location.href.indexOf("?");
-        let url: string = window.location.href.substr(breakpoint + 4, window.location.href.length - 1);
-
-        await fetch(`/decks/get_cards_by_deck_id/${url}`)
-            .then((res: Response): Promise<Response> => res.json())
-            .then((res: any): any => res.data.cards)
-            .then((res: any): void => {
-                const cards: TCard[] = res.map((card: any): TCard => ({
-                    _id: card._id,
-                    deckName: card.deck_name,
-                    english: card.english,
-                    chinese: card.chinese,
-                    pinyin: card.pinyin,
-                    number: card.number,
-                    timesAnsweredCorrectly: 0
-                } as TCard));
-
-                if (this._isMounted === true) {
-                    this.setState({
-                        cards: cards,
-                        currentCard: cards[0]
-                    }, (): void => {
-                        this.getNextCard();
-                    });
-                }
-            });
-    }
-
     getNextCard(): void {
         const cards: TCard[] = [];
 
@@ -372,12 +370,19 @@ export default class Quiz extends PureComponent<Props, State> {
 
             });
         } else {
-            this.setState({
-                quizCompleted: true,
+            this.setState((prevState: State) => ({
+                ...prevState,
+                answer: {
+                    correct: false,
+                    text: ""
+                },
+                cycles: 1,
+                quizMode: 0,
+                quizCompleted: false,
                 quizStarted: false,
                 showAnswer: false,
                 showHint: false
-            }, (): void => {
+            }), (): void => {
                 generateMessage("success", "Congratulations! You have mastered all of the cards in this deck");
             });
         }
@@ -441,10 +446,19 @@ export default class Quiz extends PureComponent<Props, State> {
         })
 
         if (isComplete === true) {
-            this.setState({
-                quizCompleted: true,
-                quizStarted: false
-            }, (): void => {
+            this.setState((prevState: State) => ({
+                ...prevState,
+                answer: {
+                    correct: false,
+                    text: ""
+                },
+                cycles: 1,
+                quizMode: 0,
+                quizCompleted: false,
+                quizStarted: false,
+                showAnswer: false,
+                showHint: false
+            }), (): void => {
                 generateMessage("success", "Congratulations, you've mastered all the cards in this deck!");
             });
         }

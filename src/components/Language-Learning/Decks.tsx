@@ -113,6 +113,8 @@ export default class Decks extends PureComponent<Props, State> {
                         </div>
                     </div>
 
+                    <Link to="/dashboard/language-learning/example-quiz">Try example quiz without signing in</Link>
+
                     {this.state.decks.length > 0
                         ? (
                             <>
@@ -167,7 +169,9 @@ export default class Decks extends PureComponent<Props, State> {
                         </div>
                     </div>
 
-                    {this.props?.user?.decks?.length > 0
+                    <Link to="/dashboard/language-learning/example-quiz">Try example quiz without signing in</Link>
+
+                    {this.state.decks.length > 0
                         ? (
                             <>
                                 {this.state.decks.map((deck: TDeck): JSX.Element => (
