@@ -40,6 +40,7 @@ export default class Quiz extends PureComponent<Props, State> {
                 pinyin: "",
                 timesAnsweredCorrectly: -1
             } as TCard,
+            cycles: 1,
             quizMode: 0,
             quizCompleted: false,
             quizStarted: false,
@@ -174,6 +175,14 @@ export default class Quiz extends PureComponent<Props, State> {
                                 }
 
                                 this.answerStatusRef.current.innerHTML = "Correct!";
+
+                                setTimeout((): void => {
+                                    if (this.answerStatusRef !== null) {
+                                        if (this.answerStatusRef.current !== null) {
+                                            this.answerStatusRef.current.innerHTML = "";
+                                        }
+                                    }
+                                }, 750);
                             }
                         }
 
@@ -199,6 +208,14 @@ export default class Quiz extends PureComponent<Props, State> {
                             }
 
                             this.answerStatusRef.current.innerHTML = "Incorrect";
+
+                            setTimeout((): void => {
+                                if (this.answerStatusRef !== null) {
+                                    if (this.answerStatusRef.current !== null) {
+                                        this.answerStatusRef.current.innerHTML = "";
+                                    }
+                                }
+                            }, 750);
                         }
                     }
 
@@ -242,6 +259,14 @@ export default class Quiz extends PureComponent<Props, State> {
                                 }
 
                                 this.answerStatusRef.current.innerHTML = "Correct!";
+
+                                setTimeout((): void => {
+                                    if (this.answerStatusRef !== null) {
+                                        if (this.answerStatusRef.current !== null) {
+                                            this.answerStatusRef.current.innerHTML = "";
+                                        }
+                                    }
+                                }, 750);
                             }
                         }
 
@@ -267,6 +292,14 @@ export default class Quiz extends PureComponent<Props, State> {
                             }
 
                             this.answerStatusRef.current.innerHTML = "Incorrect";
+
+                            setTimeout((): void => {
+                                if (this.answerStatusRef !== null) {
+                                    if (this.answerStatusRef.current !== null) {
+                                        this.answerStatusRef.current.innerHTML = "";
+                                    }
+                                }
+                            }, 750);
                         }
                     }
 
@@ -315,7 +348,7 @@ export default class Quiz extends PureComponent<Props, State> {
         const cards: TCard[] = [];
 
         this.state.cards.forEach((card: TCard): void => {
-            if (card._id !== this.state.currentCard._id && parseInt(`${card.timesAnsweredCorrectly}`, 10) < 3) {
+            if (card._id !== this.state.currentCard._id && parseInt(`${card.timesAnsweredCorrectly}`, 10) < this.state.cycles) {
                 cards.push(card);
             }
         });
@@ -352,12 +385,22 @@ export default class Quiz extends PureComponent<Props, State> {
     }
 
     handleChange(e: ChangeEvent<HTMLInputElement>): void {
-        this.setState({
-            answer: {
-                ...this.state.answer,
-                text: e.currentTarget.value
-            }
-        });
+        const name: string = e.currentTarget.name;
+        const value: string | number = typeof (parseInt(e.currentTarget.value, 10)) === "number" ? parseInt(e.currentTarget.value, 10) : e.currentTarget.value;
+
+        if (name === "answer") {
+            this.setState({
+                answer: {
+                    ...this.state.answer,
+                    text: e.currentTarget.value
+                }
+            });
+        } else {
+            this.setState((prevState: State) => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
     }
 
     handleCbChange(e: ChangeEvent<HTMLInputElement>): void {
@@ -393,7 +436,7 @@ export default class Quiz extends PureComponent<Props, State> {
         const cards: TCard[] = this.state.cards.map((card: TCard): TCard => card);
 
         cards.forEach((card: TCard): void => {
-            if (parseInt(`${card.timesAnsweredCorrectly}`, 10) < 3) {
+            if (parseInt(`${card.timesAnsweredCorrectly}`, 10) < this.state.cycles) {
                 isComplete = false;
             }
         })
@@ -426,9 +469,18 @@ export default class Quiz extends PureComponent<Props, State> {
                         </div>
 
                         <div className="row">
-                            <p className={`col${this.state.colSize}-11 middle-align center-text`}>
-                                Complete the quiz by answering each question correctly 3 times. We recommend trying "Chinese to English"
-                            </p>
+                            <div className={`col${this.state.colSize}-12`}>
+                                <label htmlFor="tbCycles">
+                                    End quiz after answering each card correctly&nbsp;
+                                    <input
+                                        type="number"
+                                        id="tbCycles"
+                                        name="cycles"
+                                        defaultValue="1"
+                                        onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                                    /> times.
+                                </label>
+                            </div>
                         </div>
 
                         <BR colSize={this.state.colSize} />
@@ -506,6 +558,7 @@ export default class Quiz extends PureComponent<Props, State> {
                             <input
                                 type="text"
                                 className={`col${this.state.colSize}-11 middle-align`}
+                                name="answer"
                                 ref={this.answerRef}
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.checkAnswer() : null}
@@ -675,6 +728,7 @@ export default class Quiz extends PureComponent<Props, State> {
                             <input
                                 type="text"
                                 className={`col${this.state.colSize}-11 middle-align`}
+                                name="answer"
                                 ref={this.answerRef}
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.checkAnswer() : null}

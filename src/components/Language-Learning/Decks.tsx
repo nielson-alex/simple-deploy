@@ -16,7 +16,7 @@ export default class Decks extends PureComponent<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            decks: [] as TDeck[],
+            decks: this.props?.user?.decks?.sort((a: TDeck, b: TDeck): number => a.deckName > b.deckName ? 1 : -1) || [] as TDeck[],
             colSize: "",
             device: ""
         } as State;
@@ -113,10 +113,10 @@ export default class Decks extends PureComponent<Props, State> {
                         </div>
                     </div>
 
-                    {this.props?.user?.decks?.length > 0
+                    {this.state.decks.length > 0
                         ? (
                             <>
-                                {this.props?.user?.decks?.map((deck: TDeck): JSX.Element => (
+                                {this.state.decks.map((deck: TDeck): JSX.Element => (
                                     <div className="row" key={deck.deckName}>
                                         <h2 className={`col${this.state.colSize}-12 middle-align`}>
                                             {deck.deckName}
@@ -170,7 +170,7 @@ export default class Decks extends PureComponent<Props, State> {
                     {this.props?.user?.decks?.length > 0
                         ? (
                             <>
-                                {this.props?.user?.decks?.map((deck: TDeck): JSX.Element => (
+                                {this.state.decks.map((deck: TDeck): JSX.Element => (
                                     <div className="row" key={deck.deckName}>
                                         <h2 className={`col${this.state.colSize}-12 middle-align`}>
                                             {deck.deckName}

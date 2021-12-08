@@ -7,6 +7,7 @@ export interface IState {
     };
     cards: TCard[];
     currentCard: TCard;
+    cycles: number;
     quizMode: number;
     quizCompleted: boolean;
     quizStarted: boolean;
