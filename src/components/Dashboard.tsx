@@ -175,6 +175,17 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
     }
 
     signout: () => void = (): void => {
+        function get_cookie(name: string) {
+            return document.cookie.split(';').some(c => {
+                return c.trim().startsWith(name + '=');
+            });
+        }
+
+        if (get_cookie("agn.connect.session")) {
+            document.cookie = "agn.connect.session=" +
+                ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+        }
+
         localStorage.removeItem("eqxState");
         window.location.replace("/login");
         window.location.reload();

@@ -32,7 +32,7 @@ export default class ExampleQuiz extends PureComponent<Props, State> {
             cards: [
                 {
                     _id: "exampleCard.1",
-                    chinese: "一",
+                    chinese: "Uno",
                     deckName: "Example Deck",
                     english: "One",
                     number: 1,
@@ -41,7 +41,7 @@ export default class ExampleQuiz extends PureComponent<Props, State> {
                 },
                 {
                     _id: "exampleCard.2",
-                    chinese: "二",
+                    chinese: "Dos",
                     deckName: "Example Deck",
                     english: "Two",
                     number: 2,
@@ -50,7 +50,7 @@ export default class ExampleQuiz extends PureComponent<Props, State> {
                 },
                 {
                     _id: "exampleCard.3",
-                    chinese: "三",
+                    chinese: "Tres",
                     deckName: "Example Deck",
                     english: "Three",
                     number: 3,
