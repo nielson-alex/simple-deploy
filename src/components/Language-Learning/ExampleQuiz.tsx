@@ -491,6 +491,7 @@ export default class ExampleQuiz extends PureComponent<Props, State> {
                                         name="cycles"
                                         defaultValue="1"
                                         onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                                        onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
                                     /> times.
                                 </label>
                             </div>
@@ -506,6 +507,7 @@ export default class ExampleQuiz extends PureComponent<Props, State> {
                                     type="radio"
                                     id="rbEnglishToChinese"
                                     name="quizMode"
+                                    defaultChecked={true}
                                     ref={this.englishToChineseRef}
                                     onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleCbChange(e)}
                                 />
@@ -661,9 +663,19 @@ export default class ExampleQuiz extends PureComponent<Props, State> {
                         </div>
 
                         <div className="row">
-                            <p className={`col${this.state.colSize}-11 middle-align center-text`}>
-                                Complete the quiz by answering each question correctly 3 times. We recommend trying "Chinese to English"
-                            </p>
+                            <div className={`col${this.state.colSize}-12`}>
+                                <label htmlFor="tbCycles">
+                                    End quiz after answering each card correctly&nbsp;
+                                    <input
+                                        type="number"
+                                        id="tbCycles"
+                                        name="cycles"
+                                        defaultValue="1"
+                                        onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                                        onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
+                                    /> times.
+                                </label>
+                            </div>
                         </div>
 
                         <BR colSize={this.state.colSize} />
@@ -676,6 +688,7 @@ export default class ExampleQuiz extends PureComponent<Props, State> {
                                     type="radio"
                                     id="rbEnglishToChinese"
                                     name="quizMode"
+                                    defaultChecked={true}
                                     ref={this.englishToChineseRef}
                                     onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleCbChange(e)}
                                 />
