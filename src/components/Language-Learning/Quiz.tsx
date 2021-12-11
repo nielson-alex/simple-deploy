@@ -40,6 +40,7 @@ export default class Quiz extends PureComponent<Props, State> {
                 timesAnsweredCorrectly: -1
             } as TCard,
             cycles: 1,
+            lastRound: false,
             quizMode: 0,
             quizCompleted: false,
             quizStarted: false,
@@ -47,7 +48,7 @@ export default class Quiz extends PureComponent<Props, State> {
             showHint: false,
             colSize: "",
             device: ""
-        } as State;
+        };
 
         this._isMounted = true;
         this.answerRef = createRef();
@@ -344,13 +345,30 @@ export default class Quiz extends PureComponent<Props, State> {
     }
 
     getNextCard(): void {
-        const cards: TCard[] = [];
+        let cards: TCard[] = [];
+        let initializeLastRound: boolean = true;
 
         this.state.cards.forEach((card: TCard): void => {
-            if (card._id !== this.state.currentCard._id && parseInt(`${card.timesAnsweredCorrectly}`, 10) < this.state.cycles) {
-                cards.push(card);
+            if (card && card.timesAnsweredCorrectly) {
+                if (card.timesAnsweredCorrectly < this.state.cycles - 1) {
+                    initializeLastRound = false;
+                }
             }
         });
+
+        if (initializeLastRound === true) {
+            this.state.cards.forEach((card: TCard): void => {
+                if (card._id !== this.state.currentCard._id && parseInt(`${card.timesAnsweredCorrectly}`, 10) < this.state.cycles) {
+                    cards.push(card);
+                }
+            });
+        } else {
+            this.state.cards.forEach((card: TCard): void => {
+                if (card._id !== this.state.currentCard._id && parseInt(`${card.timesAnsweredCorrectly}`, 10) < this.state.cycles - 1) {
+                    cards.push(card);
+                }
+            });
+        }
 
         if (cards.length > 0) {
             let location1 = Math.floor((Math.random() * cards.length));
@@ -634,183 +652,183 @@ export default class Quiz extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return this.state.quizStarted === false
-            ? (
-                <div className={`container container-${this.state.device}`}>
-                    <div className="row">
-                        <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
-                    </div>
-
-                    <Link to="/dashboard/language-learning/decks">Back</Link>
-
-                    <div className="row">
-                        <div className={`col${this.state.colSize}-12`}>
-                            <hr />
+                ? (
+                    <div className={`container container-${this.state.device}`}>
+                        <div className="row">
+                            <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
                         </div>
-                    </div>
 
-                    <div className="row">
-                        <div className={`col${this.state.colSize}-12`}>
-                            <label htmlFor="tbCycles">
-                                End quiz after answering each card correctly&nbsp;
+                        <Link to="/dashboard/language-learning/decks">Back</Link>
+
+                        <div className="row">
+                            <div className={`col${this.state.colSize}-12`}>
+                                <hr />
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className={`col${this.state.colSize}-12`}>
+                                <label htmlFor="tbCycles">
+                                    End quiz after answering each card correctly&nbsp;
+                                    <input
+                                        type="number"
+                                        id="tbCycles"
+                                        name="cycles"
+                                        defaultValue="1"
+                                        onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                                        onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
+                                    /> times.
+                                </label>
+                            </div>
+                        </div>
+
+                        <BR colSize={this.state.colSize} />
+
+                        {/* Quiz mode checkbox */}
+                        <div className="row">
+                            <label htmlFor="rbEnglishToChinese" className={`col${this.state.colSize}-5 middle-align`}>
+                                English to Chinese &nbsp;&nbsp;&nbsp;
                                 <input
-                                    type="number"
-                                    id="tbCycles"
-                                    name="cycles"
-                                    defaultValue="1"
-                                    onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
-                                    onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
-                                /> times.
+                                    type="radio"
+                                    id="rbEnglishToChinese"
+                                    name="quizMode"
+                                    defaultChecked={true}
+                                    ref={this.englishToChineseRef}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleCbChange(e)}
+                                />
+                            </label>
+
+                            <label htmlFor="rbChineseToEnglish" className={`col${this.state.colSize}-5 middle-align`}>
+                                Chinese to English &nbsp;&nbsp;&nbsp;
+                                <input
+                                    type="radio"
+                                    id="rbChineseToEnglish"
+                                    name="quizMode"
+                                    ref={this.chineseToEnglishRef}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleCbChange(e)}
+                                />
                             </label>
                         </div>
-                    </div>
 
-                    <BR colSize={this.state.colSize} />
-
-                    {/* Quiz mode checkbox */}
-                    <div className="row">
-                        <label htmlFor="rbEnglishToChinese" className={`col${this.state.colSize}-5 middle-align`}>
-                            English to Chinese &nbsp;&nbsp;&nbsp;
-                            <input
-                                type="radio"
-                                id="rbEnglishToChinese"
-                                name="quizMode"
-                                defaultChecked={true}
-                                ref={this.englishToChineseRef}
-                                onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleCbChange(e)}
-                            />
-                        </label>
-
-                        <label htmlFor="rbChineseToEnglish" className={`col${this.state.colSize}-5 middle-align`}>
-                            Chinese to English &nbsp;&nbsp;&nbsp;
-                            <input
-                                type="radio"
-                                id="rbChineseToEnglish"
-                                name="quizMode"
-                                ref={this.chineseToEnglishRef}
-                                onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleCbChange(e)}
-                            />
-                        </label>
-                    </div>
-
-                    {/* Start quiz button */}
-                    <div className="row">
-                        <button
-                            className={`col${this.state.colSize}-11 middle-align`}
-                            onClick={(e: MouseEvent<HTMLButtonElement>): void => this.setState({ quizStarted: !this.state.quizStarted })}
-                        >Start</button>
-                    </div>
-                </div>
-            )
-            : (
-                <div className={`container container-${this.state.device}`}>
-                    <div className="row">
-                        <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
-                    </div>
-
-                    <div className="row">
-                        <div className={`col${this.state.colSize}-12`}>
-                            <hr />
+                        {/* Start quiz button */}
+                        <div className="row">
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                onClick={(e: MouseEvent<HTMLButtonElement>): void => this.setState({ quizStarted: !this.state.quizStarted })}
+                            >Start</button>
                         </div>
                     </div>
+                )
+                : (
+                    <div className={`container container-${this.state.device}`}>
+                        <div className="row">
+                            <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Quiz</h1>
+                        </div>
 
-                    {/* Current card */}
-                    <div className="row">
-                        {/* Card value */}
-                        {/* Answer status */}
-                        <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}>
-                            Times answered correctly: {this.state.currentCard.timesAnsweredCorrectly}
-                        </h3>
+                        <div className="row">
+                            <div className={`col${this.state.colSize}-12`}>
+                                <hr />
+                            </div>
+                        </div>
 
-                        <BR colSize={this.state.colSize} />
+                        {/* Current card */}
+                        <div className="row">
+                            {/* Card value */}
+                            {/* Answer status */}
+                            <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}>
+                                Times answered correctly: {this.state.currentCard.timesAnsweredCorrectly}
+                            </h3>
 
-                        <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}></h3>
+                            <BR colSize={this.state.colSize} />
 
-                        <BR colSize={this.state.colSize} />
+                            <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}></h3>
 
-                        <h2 className={`col${this.state.colSize}-11 middle-align center-text`}>
-                            {this.state.quizMode === 0
-                                ? this.state.currentCard.english
-                                : this.state.currentCard.chinese
-                            }
-                        </h2>
+                            <BR colSize={this.state.colSize} />
 
-                        <BR colSize={this.state.colSize} />
-
-                        {/* Answer */}
-                        <input
-                            type="text"
-                            className={`col${this.state.colSize}-11 middle-align`}
-                            name="answer"
-                            ref={this.answerRef}
-                            onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
-                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.checkAnswer() : null}
-                            onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
-                        />
-
-                        <BR colSize={this.state.colSize} />
-
-                        {/* Submit answer button */}
-                        <button
-                            className={`col${this.state.colSize}-11 middle-align btn btn-primary`}
-                            onClick={this.checkAnswer}
-                        >Submit</button>
-
-                        <BR colSize={this.state.colSize} />
-
-                        {/* Skip button */}
-                        <button
-                            className={`col${this.state.colSize}-11 middle-align`}
-                            onClick={this.getNextCard}
-                        >Skip</button>
-
-                        <BR colSize={this.state.colSize} />
-
-                        {/* Show hint button */}
-                        <button
-                            className={`col${this.state.colSize}-11 middle-align`}
-                            onClick={this.toggleHint}
-                        >{this.state.showHint === false
-                            ? "Show Hint"
-                            : "Hide Hint"
-                            }
-                        </button>
-
-                        <BR colSize={this.state.colSize} />
-
-                        {/* Hint */}
-                        {this.state.showHint === true
-                            ? <p className={`col${this.state.colSize}-11 middle-align`}>{this.state.currentCard.pinyin}</p>
-                            : <></>
-                        }
-
-                        <BR colSize={this.state.colSize} />
-
-                        {/* Show answer button */}
-
-                        <button
-                            className={`col${this.state.colSize}-11 middle-align`}
-                            onClick={this.toggleAnswer}
-                        >{this.state.showAnswer !== true
-                            ? "Show Answer"
-                            : "Hide Answer"
-                            }
-                        </button>
-
-                        <BR colSize={this.state.colSize} />
-
-                        {/* Card answer */}
-                        {this.state.showAnswer === true
-                            ? <p className={`col${this.state.colSize}-11 middle-align center-text`}>
+                            <h2 className={`col${this.state.colSize}-11 middle-align center-text`}>
                                 {this.state.quizMode === 0
-                                    ? this.state.currentCard.chinese
-                                    : this.state.currentCard.english
+                                    ? this.state.currentCard.english
+                                    : this.state.currentCard.chinese
                                 }
-                            </p>
-                            : <></>
-                        }
+                            </h2>
+
+                            <BR colSize={this.state.colSize} />
+
+                            {/* Answer */}
+                            <input
+                                type="text"
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                name="answer"
+                                ref={this.answerRef}
+                                onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
+                                onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.checkAnswer() : null}
+                                onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
+                            />
+
+                            <BR colSize={this.state.colSize} />
+
+                            {/* Submit answer button */}
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align btn btn-primary`}
+                                onClick={this.checkAnswer}
+                            >Submit</button>
+
+                            <BR colSize={this.state.colSize} />
+
+                            {/* Skip button */}
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                onClick={this.getNextCard}
+                            >Skip</button>
+
+                            <BR colSize={this.state.colSize} />
+
+                            {/* Show hint button */}
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                onClick={this.toggleHint}
+                            >{this.state.showHint === false
+                                ? "Show Hint"
+                                : "Hide Hint"
+                                }
+                            </button>
+
+                            <BR colSize={this.state.colSize} />
+
+                            {/* Hint */}
+                            {this.state.showHint === true
+                                ? <p className={`col${this.state.colSize}-11 middle-align`}>{this.state.currentCard.pinyin}</p>
+                                : <></>
+                            }
+
+                            <BR colSize={this.state.colSize} />
+
+                            {/* Show answer button */}
+
+                            <button
+                                className={`col${this.state.colSize}-11 middle-align`}
+                                onClick={this.toggleAnswer}
+                            >{this.state.showAnswer !== true
+                                ? "Show Answer"
+                                : "Hide Answer"
+                                }
+                            </button>
+
+                            <BR colSize={this.state.colSize} />
+
+                            {/* Card answer */}
+                            {this.state.showAnswer === true
+                                ? <p className={`col${this.state.colSize}-11 middle-align center-text`}>
+                                    {this.state.quizMode === 0
+                                        ? this.state.currentCard.chinese
+                                        : this.state.currentCard.english
+                                    }
+                                </p>
+                                : <></>
+                            }
+                        </div>
                     </div>
-                </div>
-            );
+                );
         }
 
         return this.state.device === "mobile"
