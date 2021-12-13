@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { TCard, TDeck } from "./types/TDecks";
 import Dashboard from "./components/Dashboard";
+import Decks from "./components/Language-Learning/Decks";
 import Home from "./components/Home";
 
 const HR = () => {
@@ -115,7 +116,7 @@ const HR = () => {
     useEffect(() => { console.log("dog:", dog); }, [dog]);
     return (
         <Switch>
-            <Route exact path="/" component={() => <Home user={dog} />} />
+            <Route exact path="/" component={() => <Decks user={dog} />} />
             <Route path="/dashboard" component={() => <Dashboard user={dog} />} />
         </Switch>
     );

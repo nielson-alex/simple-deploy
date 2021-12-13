@@ -31,6 +31,8 @@ export default class Login extends PureComponent<Props, State> {
     componentDidMount(): void {
         this._isMounted = true;
 
+        console.log("uh");
+        
         if (this._isMounted === true) {
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
@@ -140,7 +142,9 @@ export default class Login extends PureComponent<Props, State> {
                             </h1>
                         </div>
 
-                        <BR colSize={this.state.colSize} />
+                        <Link to="/dashboard">Back</Link>
+
+                        <HR colSize={this.state.colSize} />
 
                         {/* Email */}
                         <div className="row">
@@ -170,6 +174,8 @@ export default class Login extends PureComponent<Props, State> {
                             />
                         </div>
 
+                        <BR colSize={this.state.colSize} />
+
                         {/* Submit button */}
                         <div className="row">
                             <button
@@ -177,6 +183,8 @@ export default class Login extends PureComponent<Props, State> {
                                 onClick={this.submit}
                             >Submit</button>
                         </div>
+
+                        <BR colSize={this.state.colSize} />
 
                         {/* Clear button */}
                         <div className="row">
@@ -188,10 +196,10 @@ export default class Login extends PureComponent<Props, State> {
 
                         <HR colSize={this.state.colSize} />
 
-                        <p>Don't have an account? <Link to="/dashboard/signup">Click here to create an account </Link></p>
+                        <p className="center-text">Don't have an account? <Link to="/dashboard/signup">Click here to create an account </Link></p>
                     </div>
                 )
-                : <Redirect to="/dashboard/landing-page" />
+                : <Redirect to="/dashboard" />
         }
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
@@ -204,7 +212,9 @@ export default class Login extends PureComponent<Props, State> {
                             </h1>
                         </div>
 
-                        <BR colSize={this.state.colSize} />
+                        <Link to="/dashboard">Back</Link>
+
+                        <HR colSize={this.state.colSize} />
 
                         {/* Email */}
                         <div className="row">
@@ -234,6 +244,8 @@ export default class Login extends PureComponent<Props, State> {
                             />
                         </div>
 
+                        <BR colSize={this.state.colSize} />
+
                         {/* Submit button */}
                         <div className="row">
                             <button
@@ -241,6 +253,8 @@ export default class Login extends PureComponent<Props, State> {
                                 onClick={this.submit}
                             >Submit</button>
                         </div>
+
+                        <BR colSize={this.state.colSize} />
 
                         {/* Clear button */}
                         <div className="row">
@@ -252,10 +266,10 @@ export default class Login extends PureComponent<Props, State> {
 
                         <HR colSize={this.state.colSize} />
 
-                        <p>Don't have an account? <Link to="/dashboard/signup">Click here to create an account </Link></p>
+                        <p className="center-text">Don't have an account? <Link to="/dashboard/signup">Click here to create an account </Link></p>
                     </div>
                 )
-                : <Redirect to="/dashboard/landing-page" />
+                : <Redirect to="/dashboard" />
         }
 
         return this.state.device === "mobile"

@@ -15,6 +15,7 @@ import {
     TCard,
     TNewCard
 } from "../../types/TEditDeck";
+import { BR, HR } from "../functional-components/GlobalFC";
 import "../../css/GlobalCSS.css";
 import "../../css/EditDeckCSS.css";
 import { generateMessage } from "../../helpers/functions";
@@ -468,16 +469,22 @@ export default class EditDeck extends PureComponent<Props, State> {
                             <br />
 
                             {/* Clear fields button */}
-                            <button
-                                className={`col${this.state.colSize}-11 middle-align`}
-                                onClick={this.clearNewCardFields}
-                            >Clear Fields</button>
+                            <div className="row">
+                                <button
+                                    className={`col${this.state.colSize}-6 middle-align`}
+                                    onClick={this.clearNewCardFields}
+                                >Clear Fields</button>
+                            </div>
+
+                            <BR colSize={this.state.colSize} />
 
                             {/* Add card to deck button */}
-                            <button
-                                className={`col${this.state.colSize}-11 middle-align`}
-                                onClick={this.addCardToDeck}
-                            >Add Card to Deck</button>
+                            <div className="row">
+                                <button
+                                    className={`col${this.state.colSize}-6 middle-align`}
+                                    onClick={this.addCardToDeck}
+                                >Add Card to Deck</button>
+                            </div>
                         </div>
                         : <></>
                     }

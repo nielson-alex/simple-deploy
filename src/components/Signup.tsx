@@ -1,7 +1,8 @@
 import { PureComponent, ChangeEvent, FocusEvent } from "react";
+import { Link } from "react-router-dom";
 import { Props } from "../types/TGlobal";
 import { State } from "../types/TSignup";
-import { BR } from "../components/functional-components/GlobalFC";
+import { BR, HR } from "../components/functional-components/GlobalFC";
 import "../css/GlobalCSS.css";
 import "../css/SignupCSS.css";
 import { generateMessage } from "../helpers/functions";
@@ -149,7 +150,9 @@ export default class Signup extends PureComponent<Props, State> {
                         </h1>
                     </div>
 
-                    <BR colSize={this.state.colSize} />
+                    <Link to="/dashboard/login">Back</Link>
+
+                    <HR colSize={this.state.colSize} />
 
                     {/* First Name */}
                     <div className="row">
@@ -203,12 +206,24 @@ export default class Signup extends PureComponent<Props, State> {
                         />
                     </div>
 
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11`}>
+                            <br />
+                        </div>
+                    </div>
+
                     {/* Submit button */}
                     <div className="row">
                         <button
                             className={`col${this.state.colSize}-5 middle-align`}
                             onClick={this.submit}
                         >Submit</button>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11`}>
+                            <br />
+                        </div>
                     </div>
 
                     {/* Clear button */}
@@ -231,7 +246,9 @@ export default class Signup extends PureComponent<Props, State> {
                         </h1>
                     </div>
 
-                    <BR colSize={this.state.colSize} />
+                    <Link to="/dashboard/login">Back</Link>
+
+                    <HR colSize={this.state.colSize} />
 
                     {/* First Name */}
                     <div className="row">
@@ -285,12 +302,24 @@ export default class Signup extends PureComponent<Props, State> {
                         />
                     </div>
 
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11`}>
+                            <br />
+                        </div>
+                    </div>
+
                     {/* Submit button */}
                     <div className="row">
                         <button
                             className={`col${this.state.colSize}-5 middle-align`}
                             onClick={this.submit}
                         >Submit</button>
+                    </div>
+
+                    <div className="row">
+                        <div className={`col${this.state.colSize}-11`}>
+                            <br />
+                        </div>
                     </div>
 
                     {/* Clear button */}

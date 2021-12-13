@@ -23,6 +23,8 @@ export default class Decks extends PureComponent<Props, State> {
 
         this._isMounted = true;
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.redirectToLanding = this.redirectToLanding.bind(this);
+        this.signout = this.signout.bind(this);
     }
 
     componentDidMount(): void {
@@ -31,6 +33,7 @@ export default class Decks extends PureComponent<Props, State> {
         if (this._isMounted === true) {
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
+            console.log("this.props:", this.props);
         }
     }
 
@@ -68,6 +71,30 @@ export default class Decks extends PureComponent<Props, State> {
         }
     }
 
+    redirectToLanding: () => any = (): any => {
+        // if (this.state.redirectToLanding) {
+        // return <Redirect to="/dashboard" />;
+        // }
+    }
+
+    signout: () => void = (): void => {
+        function get_cookie(name: string) {
+            return document.cookie.split(';').some(c => {
+                return c.trim().startsWith(name + '=');
+            });
+        }
+
+        if (get_cookie("agn.connect.session")) {
+            document.cookie = "agn.connect.session=" +
+                ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+        }
+
+        localStorage.removeItem("eqxState");
+        window.location.replace("/login");
+        window.location.reload();
+        this.redirectToLanding();
+    }
+
     async getDecks(): Promise<void> {
         await fetch("/decks/get_all_decks")
             .then((res: Response): Promise<Response> => res.json())
@@ -99,8 +126,16 @@ export default class Decks extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>Deck Collection</h1>
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>{this.props?.user?.first_name}'s Decks</h1>
                     </div>
+
+                    {this.props?.user?._id === "" || !this.props?.user?._id
+                        ? <>
+                            <Link to="/dashboard/login">Sign In</Link>
+                            <br />
+                        </>
+                        : <p id={`dashboard--nav-option-text-${this.state.device}`} onClick={this.signout}>Logout</p>
+                    }
 
                     {this.props?.user?._id !== ""
                         ? <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
@@ -113,22 +148,20 @@ export default class Decks extends PureComponent<Props, State> {
                         </div>
                     </div>
 
-                    <Link to="/dashboard/language-learning/example-quiz">Try example quiz without signing in</Link>
-
                     {this.state.decks.length > 0
                         ? (
                             <>
                                 {this.state.decks.map((deck: TDeck): JSX.Element => (
                                     <div className="row" key={deck.deckName}>
-                                        <h2 className={`col${this.state.colSize}-12 middle-align`}>
+                                        <h4 className={`col${this.state.colSize}-12 center-text middle-align`}>
                                             {deck.deckName}
-                                        </h2>
+                                        </h4>
 
-                                        <Link to={`/dashboard/language-learning/quiz?id=${deck._id}`} className={`col${this.state.colSize}-5 middle-align`}>
+                                        <Link to={`/dashboard/language-learning/quiz?id=${deck._id}`} className={`col${this.state.colSize}-7 middle-align center-text`}>
                                             Study
                                         </Link>
 
-                                        <Link to={`/dashboard/language-learning/edit?id=${deck._id}`} className={`col${this.state.colSize}-5 middle-align`}>
+                                        <Link to={`/dashboard/language-learning/edit?id=${deck._id}`} className={`col${this.state.colSize}-7 middle-align center-text`}>
                                             Edit Deck
                                         </Link>
 
@@ -142,7 +175,7 @@ export default class Decks extends PureComponent<Props, State> {
                         : (
                             <div className="row">
                                 <p className={`col${this.state.colSize}-11 middle-align center-text`}>
-                                    You must be signed in to view decks other than the sample deck
+                                    You must be signed in to view your created decks
                                 </p>
                             </div>
                         )
@@ -155,8 +188,16 @@ export default class Decks extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>Deck Collection</h1>
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>{this.props?.user?.first_name}'s Decks</h1>
                     </div>
+
+                    {this.props?.user?._id === "" || !this.props?.user?._id
+                        ? <>
+                            <Link to="/dashboard/login">Sign In</Link>
+                            <br />
+                        </>
+                        : <p id={`dashboard--nav-option-text-${this.state.device}`} onClick={this.signout}>Logout</p>
+                    }
 
                     {this.props?.user?._id !== ""
                         ? <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
@@ -169,22 +210,20 @@ export default class Decks extends PureComponent<Props, State> {
                         </div>
                     </div>
 
-                    <Link to="/dashboard/language-learning/example-quiz">Try example quiz without signing in</Link>
-
                     {this.state.decks.length > 0
                         ? (
                             <>
                                 {this.state.decks.map((deck: TDeck): JSX.Element => (
                                     <div className="row" key={deck.deckName}>
-                                        <h2 className={`col${this.state.colSize}-12 middle-align`}>
+                                        <h4 className={`col${this.state.colSize}-12 center-text middle-align`}>
                                             {deck.deckName}
-                                        </h2>
+                                        </h4>
 
-                                        <Link to={`/dashboard/language-learning/quiz?id=${deck._id}`} className={`col${this.state.colSize}-5 middle-align`}>
+                                        <Link to={`/dashboard/language-learning/quiz?id=${deck._id}`} className={`col${this.state.colSize}-7 middle-align center-text`}>
                                             Study
                                         </Link>
 
-                                        <Link to={`/dashboard/language-learning/edit?id=${deck._id}`} className={`col${this.state.colSize}-5 middle-align`}>
+                                        <Link to={`/dashboard/language-learning/edit?id=${deck._id}`} className={`col${this.state.colSize}-7 middle-align center-text`}>
                                             Edit Deck
                                         </Link>
 
@@ -198,7 +237,7 @@ export default class Decks extends PureComponent<Props, State> {
                         : (
                             <div className="row">
                                 <p className={`col${this.state.colSize}-11 middle-align center-text`}>
-                                    You must be signed in to view decks other than the sample deck
+                                    You must be signed in to view your created decks
                                 </p>
                             </div>
                         )
