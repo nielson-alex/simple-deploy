@@ -144,7 +144,7 @@ export default class Quiz extends PureComponent<Props, State> {
             }
         } else {
             if (this.state.quizMode === 0) {
-                if (this.state.currentCard.chinese.toLowerCase() === this.state.answer.text.toLowerCase()) {
+                if (this.state.currentCard.chinese.toLowerCase() === this.state.answer.text.toLowerCase() || this.state.answer.text === "---") {
                     this.quizComplete();
 
                     const currentCard: TCard = {
@@ -228,7 +228,7 @@ export default class Quiz extends PureComponent<Props, State> {
                     }
                 }
             } else {
-                if (this.state.currentCard.english.toLowerCase() === this.state.answer.text.toLowerCase()) {
+                if (this.state.currentCard.english.toLowerCase() === this.state.answer.text.toLowerCase() || this.state.answer.text === "---") {
                     this.quizComplete();
 
                     const currentCard: TCard = {
