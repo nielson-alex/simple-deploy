@@ -36,18 +36,18 @@
 }
 
 .dashboard--hide-nav-options-cont-mobile {
-    display: none;
+    display: block;
 }
 
 .dashboard--hide-nav-options-cont-desktop {
-    display: none;
+    display: block;
 }
 
 .dashboard--left-nav-section {
     background: rgb(12,20,39);
     padding: 0 0 0 0.6em;
     height: 100vh;
-    /* width: 12%; */
+    width: 12%;
     width: 17em;
     float: left;
     overflow-y: auto;

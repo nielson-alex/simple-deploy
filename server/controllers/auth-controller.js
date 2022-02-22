@@ -32,6 +32,9 @@ exports.postLogin = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
+    console.log("email:", email);
+    console.log("password:", password);
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(422).send({ "status": "No accounts found" });
@@ -39,6 +42,8 @@ exports.postLogin = (req, res, next) => {
 
     User.findOne({ email: email })
         .then(user => {
+            console.log("user:", user);
+
             if (!user) {
                 res.status(422).send({ "status": "No user found" });
             }
@@ -49,7 +54,11 @@ exports.postLogin = (req, res, next) => {
                     const expiration = new Date(today)
                     expiration.setDate(expiration.getDate() + 1)
 
+                    console.log("bcrypt");
+
                     if (doMatch) {
+                        console.log("matches");
+                        
                         req.session.isLoggedIn = true;
                         req.session.user = user;
 

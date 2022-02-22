@@ -272,9 +272,34 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
         //     return <Redirect to="/login" />;
         // } else {
 
-        return this.state.user._id !== ""
-            ? createContainer()
-            : <></>;
-        // }
+        // return this.state.user._id !== ""
+        //     ? createContainer()
+        //     : <></>;
+        // // }
+
+        return <div>
+            <div className="dashboard--right-content-section">
+                {dashboardRoutes(this.props.user)}
+            </div>
+            <div className="dashboard--left-nav-section">
+                <div className="accordion">
+                    {/* Home */}
+                    <GroupFC keyNum="0" text="Home" device={this.state.device}>
+
+                        {/* Home */}
+                        <LinkFC text="Sign In" to="login" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
+                    </GroupFC>
+
+                    {/* Language Learning Main */}
+                    <GroupFC keyNum="0" text="Language Learning" device={this.state.device}>
+                        {/* Decks */}
+                        <LinkFC text="Decks" to="language-learning/decks" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
+
+                        {/* Create Deck */}
+                        <LinkFC text="Create Deck" to="language-learning/create-deck" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
+                    </GroupFC>
+                </div>
+            </div>
+        </div>
     }
 }

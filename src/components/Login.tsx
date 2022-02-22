@@ -98,7 +98,9 @@ export default class Login extends PureComponent<Props, State> {
 
     submit(): void {
         let url: string = "#/dashboard/login";
-
+        console.log("email:", this.state.email);
+        console.log("password", this.state.password);
+        
         fetch("/auth/login", {
             method: "POST",
             headers: {

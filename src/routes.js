@@ -139,4 +139,4 @@ const routes = (user) => {
 
 
 
-export default HR;
+export default routes // HR;
