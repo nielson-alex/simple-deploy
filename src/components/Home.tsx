@@ -209,6 +209,11 @@ class Home extends PureComponent<Props, State> {
 
         }
 
+        /*
+            Making pancakes making bacon pancakes that's what I wanna make bacon pancaaaAAAAkes
+            
+        */
+
         return this.state.device === "mobile"
             ? mobileRender()
             : desktopRender();

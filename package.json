@@ -35,7 +35,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "react-scripts build",
-    "s": "concurrently \"npm run build\" \"react-scripts start\" \"node server.js\"",
+    "s": "concurrently \"npm run build\" \"react-scripts --openssl-legacy-provider start\" \"node server.js\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postinstall": "npm run build tsc"

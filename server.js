@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const csrf = require("csurf");
 const flash = require("connect-flash");
-const MONGODB_URI = 'mongodb+srv://NewEggHome:a@cluster0.ysadg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const MONGODB_URI = 'mongodb+srv://agnielson:HkUp\'9L%3ArD&$ngj%60Q26h@cluster0.notmgra.mongodb.net/test';
 const mongoose = require("mongoose");
 const multer = require("multer");
 const path = require("path");

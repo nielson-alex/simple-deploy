@@ -27,13 +27,13 @@ export default class Decks extends PureComponent<Props, State> {
         this.signout = this.signout.bind(this);
     }
 
-    componentDidMount(): void {
+    async componentDidMount(): Promise<void> {
         this._isMounted = true;
 
         if (this._isMounted === true) {
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
-            console.log("this.props:", this.props);
+            await this.getDecks();
         }
     }
 

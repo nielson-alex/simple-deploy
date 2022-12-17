@@ -16,6 +16,7 @@ import "../../css/CreateDeckCSS.css";
 export default class Decks extends PureComponent<Props, State> {
     _isMounted: boolean;
     decksLinkRef: RefObject<HTMLAnchorElement>;
+    deckNameRef: RefObject<HTMLInputElement>;
     englishRef: RefObject<HTMLInputElement>;
     chineseRef: RefObject<HTMLInputElement>;
     pinyinRef: RefObject<HTMLInputElement>;
@@ -32,6 +33,7 @@ export default class Decks extends PureComponent<Props, State> {
                 number: -1,
                 pinyin: ""
             },
+            deckName: "",
             diacritics: {
                 a: ["ā", "á", "ǎ", "à"],
                 e: ["ē", "é", "ě", "è"],
@@ -41,13 +43,13 @@ export default class Decks extends PureComponent<Props, State> {
                 v: ["ǖ", "ǘ", "ǚ", "ǜ", "ü"]
             },
             redirect: false,
-            deckName: "",
             colSize: "",
             device: ""
         };
 
         this._isMounted = true;
         this.decksLinkRef = createRef();
+        this.deckNameRef = createRef();
         this.englishRef = createRef();
         this.chineseRef = createRef();
         this.pinyinRef = createRef();
@@ -110,43 +112,50 @@ export default class Decks extends PureComponent<Props, State> {
 
         if (this.cardIsValid()) {
             cards.push(this.state.currentCard);
+            
+            this.setState((prevState: State) => ({
+                ...prevState,
+                cards: cards,
+                cardNum: this.state.cardNum + 1,
+                currentCard: {
+                    deckName: this.state.deckName,
+                    english: "",
+                    chinese: "",
+                    pinyin: "",
+                    number: this.state.cardNum
+                }
+            }), (): void => {
+                if (this.englishRef?.current !== null) {
+                    this.englishRef.current.value = "";
+                    this.englishRef.current.select();
+                }
+    
+                if (this.chineseRef?.current !== null) {
+                    this.chineseRef.current.value = "";
+                }
+    
+                if (this.pinyinRef?.current !== null) {
+                    this.pinyinRef.current.value = "";
+                }
+            });
         }
-
-        this.setState({
-            cards: cards,
-            cardNum: this.state.cardNum + 1,
-            currentCard: {
-                deckName: this.state.deckName,
-                english: "",
-                chinese: "",
-                pinyin: "",
-                number: this.state.cardNum
-            }
-        }, (): void => {
-            if (this.englishRef?.current !== null) {
-                this.englishRef.current.value = "";
-                this.englishRef.current.select();
-            }
-
-            if (this.chineseRef?.current !== null) {
-                this.chineseRef.current.value = "";
-            }
-
-            if (this.pinyinRef?.current !== null) {
-                this.pinyinRef.current.value = "";
-            }
-        });
     }
 
     cardIsValid(): boolean {
         let isValid: boolean = true;
 
-        if (this.state.currentCard.english === "") {
+        if (this.state.deckName === "") {
+            generateMessage("error", "Please add deck name before adding cards");
+            isValid = false;
+            this.deckNameRef.current?.select();
+        } else if (this.state.currentCard.english === "") {
             generateMessage("error", "Please add English definition before adding card to deck");
             isValid = false;
+            this.englishRef.current?.select();
         } else if (this.state.currentCard.chinese === "") {
             generateMessage("error", "Please add Chinese definition before adding card to deck");
             isValid = false;
+            this.chineseRef.current?.select();
         }
 
         return isValid;
@@ -246,8 +255,6 @@ export default class Decks extends PureComponent<Props, State> {
 
             val = pinyin;
 
-            console.log("val:", val);
-
             e.currentTarget.value = val;
             return val;
         }
@@ -275,11 +282,11 @@ export default class Decks extends PureComponent<Props, State> {
                 .then((): void => {
                     generateMessage("success", "Deck successfully created");
 
-                    this.setState({
-                        redirect: true
-                    }, (): void => {
-                        window.location.reload();
-                    });
+                    // this.setState({
+                    //     redirect: true
+                    // }, (): void => {
+                    //     window.location.reload();
+                    // });
                 });
         }
     }

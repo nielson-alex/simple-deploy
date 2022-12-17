@@ -58,11 +58,9 @@ exports.postAddDeck = function (request, response, next) {
         } else if (cards.length < 1) {
             errorMessage = "Deck must have at least one card";
         }
-
-        response.send({ "status": "New entry successfully added" });
     } else {
         const deck = new Deck({
-            creator: creator,
+            creator: 'agnielson',
             deck_name: deck_name,
             cards: cards
         });
