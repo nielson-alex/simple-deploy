@@ -21,11 +21,11 @@ const deckSchema = mongoose.Schema({
             },
             chinese: {
                 type: String,
-                required: false
+                required: true
             },
             pinyin: {
                 type: String,
-                required: true
+                required: false
             },
             number: {
                 type: Number,
