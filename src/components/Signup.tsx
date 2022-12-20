@@ -17,12 +17,9 @@ export default class Signup extends PureComponent<Props, State> {
             firstName: "Alex",
             lastName: "Nielson",
             password: "123456",
-            colSize: "",
-            device: ""
         };
 
         this._isMounted = true;
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.allFieldsValid = this.allFieldsValid.bind(this);
         this.clear = this.clear.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -31,44 +28,37 @@ export default class Signup extends PureComponent<Props, State> {
 
     componentDidMount(): void {
         this._isMounted = true;
-
-        if (this._isMounted === true) {
-            window.addEventListener("resize", this.updateWindowDimensions);
-            this.updateWindowDimensions();
-        }
     }
 
     componentWillUnmount(): void {
-        window.removeEventListener("resize", this.updateWindowDimensions);
         this._isMounted = false;
     }
 
-    updateWindowDimensions(): void {
-        if (window.innerWidth < 576) {
-            this.setState({
-                colSize: "",
-                device: "mobile"
-            });
-        } else if (window.innerWidth >= 576 && window.innerWidth < 768) {
-            this.setState({
-                colSize: "-sm",
-                device: "mobile"
-            });
+    _determineColSize(): string {
+        if (window.innerWidth >= 576 && window.innerWidth < 768) {
+            return "-sm";
         } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
-            this.setState({
-                colSize: "-md",
-                device: "desktop"
-            });
+            return "-md";
         } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
-            this.setState({
-                colSize: "-lg",
-                device: "desktop"
-            });
+            return "-lg";
         } else if (window.innerWidth >= 1200) {
-            this.setState({
-                colSize: "-xl",
-                device: "desktop"
-            });
+            return "-xl";
+        } else {
+            return "";
+        }
+    }
+
+    _determineDevice(): string {
+        if (window.innerWidth >= 576 && window.innerWidth < 768) {
+            return "mobile";
+        } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
+            return "mobile";
+        } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
+            return "desktop";
+        } else if (window.innerWidth >= 1200) {
+            return "desktop";
+        } else {
+            return "mobile";
         }
     }
 
@@ -97,9 +87,7 @@ export default class Signup extends PureComponent<Props, State> {
             email: "",
             firstName: "",
             lastName: "",
-            password: "",
-            colSize: "",
-            device: ""
+            password: ""
         });
     }
 
@@ -143,24 +131,24 @@ export default class Signup extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className={`container container-${this.state.device}`}>
+                <div className={`container container-${this._determineDevice()}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}>
+                        <h1 className={`col${this._determineColSize()}-12 page-title-h1-${this._determineDevice()} center-text`}>
                             Create Account
                         </h1>
                     </div>
 
                     <Link to="/dashboard/login">Back</Link>
 
-                    <HR colSize={this.state.colSize} />
+                    <HR colSize={this._determineColSize()} />
 
                     {/* First Name */}
                     <div className="row">
-                        <label htmlFor="tbFirstName" className={`col${this.state.colSize}-11 middle-align`}>First Name:</label>
+                        <label htmlFor="tbFirstName" className={`col${this._determineColSize()}-11 middle-align`}>First Name:</label>
                         <input
                             type="text"
                             id="tbFirstName"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this._determineColSize()}-11 middle-align`}
                             name="firstName"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                             onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
@@ -169,11 +157,11 @@ export default class Signup extends PureComponent<Props, State> {
 
                     {/* Last Name */}
                     <div className="row">
-                        <label htmlFor="tbLastName" className={`col${this.state.colSize}-11 middle-align`}>Last Name:</label>
+                        <label htmlFor="tbLastName" className={`col${this._determineColSize()}-11 middle-align`}>Last Name:</label>
                         <input
                             type="text"
                             id="tbLastName"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this._determineColSize()}-11 middle-align`}
                             name="lastName"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                             onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
@@ -182,11 +170,11 @@ export default class Signup extends PureComponent<Props, State> {
 
                     {/* Email */}
                     <div className="row">
-                        <label htmlFor="tbEmail" className={`col${this.state.colSize}-11 middle-align`}>Email:</label>
+                        <label htmlFor="tbEmail" className={`col${this._determineColSize()}-11 middle-align`}>Email:</label>
                         <input
                             type="text"
                             id="tbEmail"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this._determineColSize()}-11 middle-align`}
                             name="email"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                             onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
@@ -195,11 +183,11 @@ export default class Signup extends PureComponent<Props, State> {
 
                     {/* Password */}
                     <div className="row">
-                        <label htmlFor="tbPassword" className={`col${this.state.colSize}-11 middle-align`}>Password:</label>
+                        <label htmlFor="tbPassword" className={`col${this._determineColSize()}-11 middle-align`}>Password:</label>
                         <input
                             type="text"
                             id="tbPassword"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this._determineColSize()}-11 middle-align`}
                             name="password"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                             onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
@@ -207,7 +195,7 @@ export default class Signup extends PureComponent<Props, State> {
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11`}>
+                        <div className={`col${this._determineColSize()}-11`}>
                             <br />
                         </div>
                     </div>
@@ -215,13 +203,13 @@ export default class Signup extends PureComponent<Props, State> {
                     {/* Submit button */}
                     <div className="row">
                         <button
-                            className={`col${this.state.colSize}-5 middle-align`}
+                            className={`col${this._determineColSize()}-5 middle-align`}
                             onClick={this.submit}
                         >Submit</button>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11`}>
+                        <div className={`col${this._determineColSize()}-11`}>
                             <br />
                         </div>
                     </div>
@@ -229,7 +217,7 @@ export default class Signup extends PureComponent<Props, State> {
                     {/* Clear button */}
                     <div className="row">
                         <button
-                            className={`col${this.state.colSize}-5 middle-align`}
+                            className={`col${this._determineColSize()}-5 middle-align`}
                             onClick={this.clear}
                         >Clear Fields</button>
                     </div>
@@ -239,24 +227,24 @@ export default class Signup extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className={`container container-${this.state.device}`}>
+                <div className={`container container-${this._determineDevice()}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}>
+                        <h1 className={`col${this._determineColSize()}-12 page-title-h1-${this._determineDevice()} center-text`}>
                             Create Account
                         </h1>
                     </div>
 
                     <Link to="/dashboard/login">Back</Link>
 
-                    <HR colSize={this.state.colSize} />
+                    <HR colSize={this._determineColSize()} />
 
                     {/* First Name */}
                     <div className="row">
-                        <label htmlFor="tbFirstName" className={`col${this.state.colSize}-11 middle-align`}>First Name:</label>
+                        <label htmlFor="tbFirstName" className={`col${this._determineColSize()}-11 middle-align`}>First Name:</label>
                         <input
                             type="text"
                             id="tbFirstName"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this._determineColSize()}-11 middle-align`}
                             name="firstName"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                             onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
@@ -265,11 +253,11 @@ export default class Signup extends PureComponent<Props, State> {
 
                     {/* Last Name */}
                     <div className="row">
-                        <label htmlFor="tbLastName" className={`col${this.state.colSize}-11 middle-align`}>Last Name:</label>
+                        <label htmlFor="tbLastName" className={`col${this._determineColSize()}-11 middle-align`}>Last Name:</label>
                         <input
                             type="text"
                             id="tbLastName"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this._determineColSize()}-11 middle-align`}
                             name="lastName"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                             onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
@@ -278,11 +266,11 @@ export default class Signup extends PureComponent<Props, State> {
 
                     {/* Email */}
                     <div className="row">
-                        <label htmlFor="tbEmail" className={`col${this.state.colSize}-11 middle-align`}>Email:</label>
+                        <label htmlFor="tbEmail" className={`col${this._determineColSize()}-11 middle-align`}>Email:</label>
                         <input
                             type="text"
                             id="tbEmail"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this._determineColSize()}-11 middle-align`}
                             name="email"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                             onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
@@ -291,11 +279,11 @@ export default class Signup extends PureComponent<Props, State> {
 
                     {/* Password */}
                     <div className="row">
-                        <label htmlFor="tbPassword" className={`col${this.state.colSize}-11 middle-align`}>Password:</label>
+                        <label htmlFor="tbPassword" className={`col${this._determineColSize()}-11 middle-align`}>Password:</label>
                         <input
                             type="text"
                             id="tbPassword"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this._determineColSize()}-11 middle-align`}
                             name="password"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                             onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
@@ -303,7 +291,7 @@ export default class Signup extends PureComponent<Props, State> {
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11`}>
+                        <div className={`col${this._determineColSize()}-11`}>
                             <br />
                         </div>
                     </div>
@@ -311,13 +299,13 @@ export default class Signup extends PureComponent<Props, State> {
                     {/* Submit button */}
                     <div className="row">
                         <button
-                            className={`col${this.state.colSize}-5 middle-align`}
+                            className={`col${this._determineColSize()}-5 middle-align`}
                             onClick={this.submit}
                         >Submit</button>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11`}>
+                        <div className={`col${this._determineColSize()}-11`}>
                             <br />
                         </div>
                     </div>
@@ -325,7 +313,7 @@ export default class Signup extends PureComponent<Props, State> {
                     {/* Clear button */}
                     <div className="row">
                         <button
-                            className={`col${this.state.colSize}-5 middle-align`}
+                            className={`col${this._determineColSize()}-5 middle-align`}
                             onClick={this.clear}
                         >Clear Fields</button>
                     </div>
@@ -333,7 +321,7 @@ export default class Signup extends PureComponent<Props, State> {
             );
         }
 
-        return this.state.device === "mobile"
+        return this._determineDevice() === "mobile"
             ? mobileRender()
             : desktopRender();
     }

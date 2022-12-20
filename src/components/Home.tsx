@@ -14,22 +14,18 @@ class Home extends PureComponent<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            showWarning: window.innerWidth >= 768 ? true : false,
-            colSize: "",
-            device: ""
+            showWarning: window.innerWidth >= 768 ? true : false
         } as State;
 
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this._determineColSize = this._determineColSize.bind(this);
+        this._determineDevice = this._determineDevice.bind(this);
     }
 
     componentDidMount(): void {
         this._isMounted = true;
 
         if (this._isMounted === true) {
-            window.addEventListener("resize", this.updateWindowDimensions);
-            this.updateWindowDimensions();
-
-            if (this.state.device === "desktop") {
+            if (this._determineDevice() === "desktop") {
                 this.setState({
                     showWarning: true
                 });
@@ -38,60 +34,58 @@ class Home extends PureComponent<Props, State> {
     }
 
     componentWillUnmount(): void {
-        window.removeEventListener("resize", this.updateWindowDimensions);
         this._isMounted = false;
     }
 
 
-    updateWindowDimensions(): void {
-        if (window.innerWidth < 576) {
-            this.setState({
-                colSize: "",
-                device: "mobile"
-            });
-        } else if (window.innerWidth >= 576 && window.innerWidth < 768) {
-            this.setState({
-                colSize: "-sm",
-                device: "mobile"
-            });
+    _determineColSize(): string {
+        if (window.innerWidth >= 576 && window.innerWidth < 768) {
+            return "-sm";
         } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
-            this.setState({
-                colSize: "-md",
-                device: "desktop"
-            });
+            return "-md";
         } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
-            this.setState({
-                colSize: "-lg",
-                device: "desktop"
-            });
+            return "-lg";
         } else if (window.innerWidth >= 1200) {
-            this.setState({
-                colSize: "-xl",
-                device: "desktop"
-            });
+            return "-xl";
+        } else {
+            return "";
+        }
+    }
+
+    _determineDevice(): string {
+        if (window.innerWidth >= 576 && window.innerWidth < 768) {
+            return "mobile";
+        } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
+            return "mobile";
+        } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
+            return "desktop";
+        } else if (window.innerWidth >= 1200) {
+            return "desktop";
+        } else {
+            return "mobile";
         }
     }
 
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className={`container container-${this.state.device}`}>
+                <div className={`container container-${this._determineDevice()}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}>
+                        <h1 className={`col${this._determineColSize()}-12 page-title-h1-${this._determineDevice()} center-text`}>
                             Info About This App
                         </h1>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11`}>
+                        <div className={`col${this._determineColSize()}-11`}>
                             <Link to="/dashboard/landing-page">Enter Webapp</Link>
                         </div>
 
-                        <div className={`col${this.state.colSize}-11`}>
+                        <div className={`col${this._determineColSize()}-11`}>
                             <Link to="/dashboard/login">Sign In</Link>
                         </div>
 
-                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
+                        <div className={`col${this._determineColSize()}-11 card custom-card middle-align`}>
                             <h4>Frontend Technologies</h4>
                             <ul>
                                 <li>TypeScript</li>
@@ -104,7 +98,7 @@ class Home extends PureComponent<Props, State> {
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
+                        <div className={`col${this._determineColSize()}-11 card custom-card middle-align`}>
                             <h4>Backend Technologies</h4>
                             <ul>
                                 <li>Node.js</li>
@@ -116,7 +110,7 @@ class Home extends PureComponent<Props, State> {
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
+                        <div className={`col${this._determineColSize()}-11 card custom-card middle-align`}>
                             <h4>Deployment</h4>
                             <ul>
                                 <li>Heroku</li>
@@ -132,47 +126,47 @@ class Home extends PureComponent<Props, State> {
             return this.state.showWarning === true
                 ? <div style={{ margin: "0 auto", padding: "1rem 0", width: "98%", height: "100vh" }}>
 
-                    <h4 className={`col${this.state.colSize}-9 middle-align center-text`}>This webapp is designed for mobile devices.</h4>
+                    <h4 className={`col${this._determineColSize()}-9 middle-align center-text`}>This webapp is designed for mobile devices.</h4>
 
-                    <BR colSize={this.state.colSize} />
+                    <BR colSize={this._determineColSize()} />
 
-                    <h4 className={`col${this.state.colSize}-9 middle-align center-text`}>
+                    <h4 className={`col${this._determineColSize()}-9 middle-align center-text`}>
                         If you're viewing this app on a laptop or
                         desktop computer and would like the optimal viewing experience, enable mobile view in your browser
                         by pressing the F12 key and making sure the circled items in the image below are selected.
                     </h4>
 
-                    <BR colSize={this.state.colSize} />
+                    <BR colSize={this._determineColSize()} />
 
-                    <img className={`col${this.state.colSize}-11 middle-align center-text`} src={instructions} alt="Instructions" />
+                    <img className={`col${this._determineColSize()}-11 middle-align center-text`} src={instructions} alt="Instructions" />
 
-                    <BR colSize={this.state.colSize} />
+                    <BR colSize={this._determineColSize()} />
 
-                    <h4 className={`col${this.state.colSize}-9 middle-align center-text`}>
+                    <h4 className={`col${this._determineColSize()}-9 middle-align center-text`}>
                         You can still view the site on a computer without enabling mobile view, but understand the styling will not be optimized.
                     </h4>
 
-                    <BR colSize={this.state.colSize} />
+                    <BR colSize={this._determineColSize()} />
 
                     {/* Continue button */}
                     <button
-                        className={`col${this.state.colSize}-3 middle-align center-text`}
+                        className={`col${this._determineColSize()}-3 middle-align center-text`}
                         onClick={(): void => this.setState({ showWarning: !this.state.showWarning })}
                     >Continue</button>
                 </div>
-                : <div className={`container container-${this.state.device}`}>
+                : <div className={`container container-${this._determineDevice()}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}>
+                        <h1 className={`col${this._determineColSize()}-12 page-title-h1-${this._determineDevice()} center-text`}>
                             Info About This App
                         </h1>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11`}>
+                        <div className={`col${this._determineColSize()}-11`}>
                             <Link to="/dashboard/landing-page">Enter Webapp</Link>
                         </div>
 
-                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
+                        <div className={`col${this._determineColSize()}-11 card custom-card middle-align`}>
                             <h4>Frontend Technologies</h4>
                             <ul>
                                 <li>TypeScript</li>
@@ -185,7 +179,7 @@ class Home extends PureComponent<Props, State> {
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
+                        <div className={`col${this._determineColSize()}-11 card custom-card middle-align`}>
                             <h4>Backend Technologies</h4>
                             <ul>
                                 <li>Node.js</li>
@@ -197,7 +191,7 @@ class Home extends PureComponent<Props, State> {
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11 card custom-card middle-align`}>
+                        <div className={`col${this._determineColSize()}-11 card custom-card middle-align`}>
                             <h4>Deployment</h4>
                             <ul>
                                 <li>Heroku</li>
@@ -206,15 +200,9 @@ class Home extends PureComponent<Props, State> {
                         </div>
                     </div>
                 </div>
-
         }
 
-        /*
-            Making pancakes making bacon pancakes that's what I wanna make bacon pancaaaAAAAkes
-            
-        */
-
-        return this.state.device === "mobile"
+        return this._determineDevice() === "mobile"
             ? mobileRender()
             : desktopRender();
     }

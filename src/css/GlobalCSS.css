@@ -83,6 +83,10 @@
     width: 99.9%;
 }
 
+.no-link {
+    color: black !important;
+}
+
 .page-link-mobile {
     background-color: #55AF86;
     border-radius: 25px;

@@ -416,7 +416,7 @@ export default class Decks extends PureComponent<Props, State> {
                                         <li key={`${card.number}-pinyin`}>Pinyin: {card.pinyin}</li>
                                     </ul>
                                 </div>
-                            );
+                        )
                         })
                         : <></>
                     }
@@ -437,6 +437,12 @@ export default class Decks extends PureComponent<Props, State> {
                         <div className={`col${this.state.colSize}-11 middle-align`}>
                             <hr />
                         </div>
+                    </div>
+
+                    {/* Cards made */}
+                    <div className="row">
+                        <label htmlFor="cardsMade" className={`col${this.state.colSize}-1`}>Cards created: </label>
+                        <p id="cardsMade">{this.state.cardNum - 1 }</p>
                     </div>
 
                     {/* Deck name */}

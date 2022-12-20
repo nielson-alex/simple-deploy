@@ -6,63 +6,28 @@ import { TWorkExperience } from "../../types/TResume";
 import "../../css/GlobalCSS.css";
 import "../../css/ResumeCSS.css";
 
-export default class Resume extends PureComponent<Props, State> {
+export default class Resume extends PureComponent<any, State> {
     _isMounted: boolean = false;
 
     constructor(props: Props) {
         super(props);
         this.state = {
-            workExperience: [] as TWorkExperience[],
-            colSize: "",
-            device: ""
-        } as State;
+            workExperience: [] as TWorkExperience[]
+        };
 
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.getWorkExperience = this.getWorkExperience.bind(this);
     }
 
-    componentDidMount(): void {
+    async componentDidMount(): Promise<void> {
         this._isMounted = true;
 
         if (this._isMounted === true) {
-            window.addEventListener("resize", this.updateWindowDimensions);
-            this.updateWindowDimensions();
-            this.getWorkExperience();
+            await this.getWorkExperience();
         }
     }
 
     componentWillUnmount(): void {
-        window.removeEventListener("resize", this.updateWindowDimensions);
         this._isMounted = false;
-    }
-
-    updateWindowDimensions(): void {
-        if (window.innerWidth < 576) {
-            this.setState({
-                colSize: "",
-                device: "mobile"
-            });
-        } else if (window.innerWidth >= 576 && window.innerWidth < 768) {
-            this.setState({
-                colSize: "-sm",
-                device: "mobile"
-            });
-        } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
-            this.setState({
-                colSize: "-md",
-                device: "desktop"
-            });
-        } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
-            this.setState({
-                colSize: "-lg",
-                device: "desktop"
-            });
-        } else if (window.innerWidth >= 1200) {
-            this.setState({
-                colSize: "-xl",
-                device: "desktop"
-            });
-        }
     }
 
     async getWorkExperience(): Promise<void> {
@@ -94,26 +59,26 @@ export default class Resume extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className={`container container-${this.state.device}`}>
+                <div className={`container container-${this.props._device()}`}>
                     <div className="row">
-                        <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Resume</h1>
+                        <h1 id={`page-title-h1-${this.props._device()}`} className={`col${this.props._colSize()}-12 center-text`}>Resume</h1>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-12`}>
+                        <div className={`col${this.props._colSize()}-12`}>
                             <hr />
                         </div>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-12 App2`}>
+                        <div className={`col${this.props._colSize()}-12 App2`}>
                             <div className="accordion">
                                 {this.state.workExperience.length > 0
                                     ? this.state.workExperience.map((entry: TWorkExperience): JSX.Element => {
 
                                         return (
-                                            <AccordionFC title={entry.companyName} device={this.state.device}>
-                                                <div className={`col${this.state.colSize}-11 card custom-card-2 middle-align`}>
+                                            <AccordionFC title={entry.companyName} device={this.props._device()}>
+                                                <div className={`col${this.props._colSize()}-11 middle-align`}>
                                                     <p>{entry.title}</p>
                                                     <p>{entry.startMMMM} {entry.startYYYY}</p>
                                                     <div>{entry.responsibilities.length > 0
@@ -124,7 +89,7 @@ export default class Resume extends PureComponent<Props, State> {
                                             </AccordionFC>
                                         )
                                     })
-                                    : <p className={`col${this.state.colSize}-12`}>
+                                    : <p className={`col${this.props._colSize()}-12`}>
                                         No work experience found
                                     </p>
                                 }
@@ -137,26 +102,26 @@ export default class Resume extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className={`container container-${this.state.device}`}>
+                <div className={`container container-${this.props._device()}`}>
                     <div className="row">
-                        <h1 id={`page-title-h1-${this.state.device}`} className={`col${this.state.colSize}-12 center-text`}>Resume</h1>
+                        <h1 id={`page-title-h1-${this.props._device()}`} className={`col${this.props._colSize()}-12 center-text`}>Resume</h1>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-12`}>
+                        <div className={`col${this.props._colSize()}-12`}>
                             <hr />
                         </div>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-12 App2`}>
+                        <div className={`col${this.props._colSize()}-12 App2`}>
                             <div className="accordion">
                                 {this.state.workExperience.length > 0
                                     ? this.state.workExperience.map((entry: TWorkExperience): JSX.Element => {
 
                                         return (
-                                            <AccordionFC title={entry.companyName} device={this.state.device}>
-                                                <div className={`col${this.state.colSize}-11 card custom-card-2 middle-align`}>
+                                            <AccordionFC title={entry.companyName} device={this.props._device()} className="no-link">
+                                                <div className={`col${this.props._colSize()}-11 middle-align`}>
                                                     <p>{entry.companyName}</p>
                                                     <p>{entry.title}</p>
                                                     <p>{entry.startMMMM} {entry.startYYYY}</p>
@@ -168,7 +133,7 @@ export default class Resume extends PureComponent<Props, State> {
                                             </AccordionFC>
                                         )
                                     })
-                                    : <p className={`col${this.state.colSize}-12`}>
+                                    : <p className={`col${this.props._colSize()}-12`}>
                                         No work experience found
                                     </p>
                                 }
@@ -179,7 +144,7 @@ export default class Resume extends PureComponent<Props, State> {
             );
         }
 
-        return this.state.device === "mobile"
+        return this.props._device() === "mobile"
             ? mobileRender()
             : desktopRender();
     }

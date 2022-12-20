@@ -1,9 +1,7 @@
 import { TWorkExperience } from "../types/TResume";
 
 export interface IState {
-    workExperience: TWorkExperience[],
-    colSize: string;
-    device: string;
+    workExperience: TWorkExperience[];
 }
 
 export interface IWorkExperience {

@@ -56,11 +56,10 @@ export const AccordionFC: FC<IAccordion> = ({ children, className, id, title, de
 
     if (device === "mobile") {
         return (
-            <div id={id} className={`card ${className}`}>
-                <div className="card-header">
-                    <h2 className="mb-0">
+            <div id={id}>
+                <div>
+                    <h2>
                         <button
-                            className="btn btn-link w100"
                             type="button"
                             aria-expanded="true"
                             onClick={() => setIsOpen(!isOpen)}
@@ -79,7 +78,6 @@ export const AccordionFC: FC<IAccordion> = ({ children, className, id, title, de
                         }
                     }}>
                     <div
-                        // className="card-body"
                         onClick={(): void => {
                             setIsOpen(!isOpen);
 
@@ -108,7 +106,7 @@ export const AccordionFC: FC<IAccordion> = ({ children, className, id, title, de
                 <div className="card-header">
                     <h2 className="mb-0">
                         <button
-                            className={`btn btn-link w100 accordion--header-button-${device}`}
+                            className={`btn btn-link ${className} w100 accordion--header-button-${device}`}
                             type="button"
                             aria-expanded="true"
                             onClick={() => setIsOpen(!isOpen)}

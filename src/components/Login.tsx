@@ -15,12 +15,11 @@ export default class Login extends PureComponent<Props, State> {
             email: "",
             password: "",
             redirect: false,
-            colSize: "",
-            device: ""
         };
 
         this._isMounted = true;
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this._determineColSize = this._determineColSize.bind(this);
+        this._determineDevice = this._determineDevice.bind(this);
         this.clear = this.clear.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
@@ -30,55 +29,44 @@ export default class Login extends PureComponent<Props, State> {
 
     componentDidMount(): void {
         this._isMounted = true;
-
-        console.log("uh");
-        
-        if (this._isMounted === true) {
-            window.addEventListener("resize", this.updateWindowDimensions);
-            this.updateWindowDimensions();
-        }
     }
 
     componentWillUnmount(): void {
-        window.removeEventListener("resize", this.updateWindowDimensions);
         this._isMounted = false;
     }
 
-    updateWindowDimensions(): void {
-        if (window.innerWidth < 576) {
-            this.setState({
-                colSize: "",
-                device: "mobile"
-            });
-        } else if (window.innerWidth >= 576 && window.innerWidth < 768) {
-            this.setState({
-                colSize: "-sm",
-                device: "mobile"
-            });
+    _determineColSize(): string {
+        if (window.innerWidth >= 576 && window.innerWidth < 768) {
+            return "-sm";
         } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
-            this.setState({
-                colSize: "-md",
-                device: "desktop"
-            });
+            return "-md";
         } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
-            this.setState({
-                colSize: "-lg",
-                device: "desktop"
-            });
+            return "-lg";
         } else if (window.innerWidth >= 1200) {
-            this.setState({
-                colSize: "-xl",
-                device: "desktop"
-            });
+            return "-xl";
+        } else {
+            return "";
+        }
+    }
+
+    _determineDevice(): string {
+        if (window.innerWidth >= 576 && window.innerWidth < 768) {
+            return "mobile";
+        } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
+            return "mobile";
+        } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
+            return "desktop";
+        } else if (window.innerWidth >= 1200) {
+            return "desktop";
+        } else {
+            return "mobile";
         }
     }
 
     clear(): void {
         this.setState({
             email: "",
-            password: "",
-            colSize: "",
-            device: ""
+            password: ""
         });
     }
 
@@ -137,24 +125,24 @@ export default class Login extends PureComponent<Props, State> {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return this.state.redirect !== true
                 ? (
-                    <div className={`container container-${this.state.device}`}>
+                    <div className={`container container-${this._determineDevice()}`}>
                         <div className="row">
-                            <h1 className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}>
+                            <h1 className={`col${this._determineColSize()}-12 page-title-h1-${this._determineDevice()} center-text`}>
                                 Sign In
                             </h1>
                         </div>
 
                         <Link to="/dashboard">Back</Link>
 
-                        <HR colSize={this.state.colSize} />
+                        <HR colSize={this._determineColSize()} />
 
                         {/* Email */}
                         <div className="row">
-                            <label htmlFor="tbEmail" className={`col${this.state.colSize}-11 middle-align`}>Email:</label>
+                            <label htmlFor="tbEmail" className={`col${this._determineColSize()}-11 middle-align`}>Email:</label>
                             <input
                                 type="email"
                                 id="tbEmail"
-                                className={`col${this.state.colSize}-11 middle-align`}
+                                className={`col${this._determineColSize()}-11 middle-align`}
                                 name="email"
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
@@ -164,11 +152,11 @@ export default class Login extends PureComponent<Props, State> {
 
                         {/* Password */}
                         <div className="row">
-                            <label htmlFor="tbPassword" className={`col${this.state.colSize}-11 middle-align`}>Password:</label>
+                            <label htmlFor="tbPassword" className={`col${this._determineColSize()}-11 middle-align`}>Password:</label>
                             <input
                                 type="password"
                                 id="tbPassword"
-                                className={`col${this.state.colSize}-11 middle-align`}
+                                className={`col${this._determineColSize()}-11 middle-align`}
                                 name="password"
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
@@ -176,27 +164,27 @@ export default class Login extends PureComponent<Props, State> {
                             />
                         </div>
 
-                        <BR colSize={this.state.colSize} />
+                        <BR colSize={this._determineColSize()} />
 
                         {/* Submit button */}
                         <div className="row">
                             <button
-                                className={`col${this.state.colSize}-5 middle-align`}
+                                className={`col${this._determineColSize()}-5 middle-align`}
                                 onClick={this.submit}
                             >Submit</button>
                         </div>
 
-                        <BR colSize={this.state.colSize} />
+                        <BR colSize={this._determineColSize()} />
 
                         {/* Clear button */}
                         <div className="row">
                             <button
-                                className={`col${this.state.colSize}-5 middle-align`}
+                                className={`col${this._determineColSize()}-5 middle-align`}
                                 onClick={this.clear}
                             >Clear Fields</button>
                         </div>
 
-                        <HR colSize={this.state.colSize} />
+                        <HR colSize={this._determineColSize()} />
 
                         <p className="center-text">Don't have an account? <Link to="/dashboard/signup">Click here to create an account </Link></p>
                     </div>
@@ -207,24 +195,24 @@ export default class Login extends PureComponent<Props, State> {
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return this.state.redirect !== true
                 ? (
-                    <div className={`container container-${this.state.device}`}>
+                    <div className={`container container-${this._determineDevice()}`}>
                         <div className="row">
-                            <h1 className={`col${this.state.colSize}-12 page-title-h1-${this.state.device} center-text`}>
+                            <h1 className={`col${this._determineColSize()}-12 page-title-h1-${this._determineDevice()} center-text`}>
                                 Sign In
                             </h1>
                         </div>
 
                         <Link to="/dashboard">Back</Link>
 
-                        <HR colSize={this.state.colSize} />
+                        <HR colSize={this._determineColSize()} />
 
                         {/* Email */}
                         <div className="row">
-                            <label htmlFor="tbEmail" className={`col${this.state.colSize}-11 middle-align`}>Email:</label>
+                            <label htmlFor="tbEmail" className={`col${this._determineColSize()}-11 middle-align`}>Email:</label>
                             <input
                                 type="email"
                                 id="tbEmail"
-                                className={`col${this.state.colSize}-11 middle-align`}
+                                className={`col${this._determineColSize()}-11 middle-align`}
                                 name="email"
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
@@ -234,11 +222,11 @@ export default class Login extends PureComponent<Props, State> {
 
                         {/* Password */}
                         <div className="row">
-                            <label htmlFor="tbPassword" className={`col${this.state.colSize}-11 middle-align`}>Password:</label>
+                            <label htmlFor="tbPassword" className={`col${this._determineColSize()}-11 middle-align`}>Password:</label>
                             <input
                                 type="password"
                                 id="tbPassword"
-                                className={`col${this.state.colSize}-11 middle-align`}
+                                className={`col${this._determineColSize()}-11 middle-align`}
                                 name="password"
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
@@ -246,27 +234,27 @@ export default class Login extends PureComponent<Props, State> {
                             />
                         </div>
 
-                        <BR colSize={this.state.colSize} />
+                        <BR colSize={this._determineColSize()} />
 
                         {/* Submit button */}
                         <div className="row">
                             <button
-                                className={`col${this.state.colSize}-5 middle-align`}
+                                className={`col${this._determineColSize()}-5 middle-align`}
                                 onClick={this.submit}
                             >Submit</button>
                         </div>
 
-                        <BR colSize={this.state.colSize} />
+                        <BR colSize={this._determineColSize()} />
 
                         {/* Clear button */}
                         <div className="row">
                             <button
-                                className={`col${this.state.colSize}-5 middle-align`}
+                                className={`col${this._determineColSize()}-5 middle-align`}
                                 onClick={this.clear}
                             >Clear Fields</button>
                         </div>
 
-                        <HR colSize={this.state.colSize} />
+                        <HR colSize={this._determineColSize()} />
 
                         <p className="center-text">Don't have an account? <Link to="/dashboard/signup">Click here to create an account </Link></p>
                     </div>
@@ -274,7 +262,7 @@ export default class Login extends PureComponent<Props, State> {
                 : <Redirect to="/dashboard" />
         }
 
-        return this.state.device === "mobile"
+        return this._determineDevice() === "mobile"
             ? mobileRender()
             : desktopRender();
     }

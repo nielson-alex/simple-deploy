@@ -1,6 +1,8 @@
 export interface IState {
     companyName: string;
     currentResponsibility: string;
+    endMonth: string;
+    endYear: string;
     firstName: string;
     lastName: string;
     responsibilities: string[];
@@ -8,6 +10,4 @@ export interface IState {
     startMonth: string;
     startYear: number;
     title: string;
-    colSize: string;
-    device: string;
 }

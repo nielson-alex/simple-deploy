@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-const Animal = require("../models/Animals");
 const WorkExperience = require("../models/WorkExperience");
 
 /* GET */

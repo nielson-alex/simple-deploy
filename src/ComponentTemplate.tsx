@@ -1,10 +1,10 @@
 import { PureComponent } from "react";
 import { Props } from "./types/TGlobal";
-import { State } from "./types/TAddWorkExperience";
+import { State } from "./types/TComponentTemplate";
 import { BR } from "./components/functional-components/GlobalFC";
 import "../css/GlobalCSS.css";
 
-export default class AddWorkExperience extends PureComponent<Props, State> {
+export default class ComponentTemplate extends PureComponent<Props, State> {
     _isMounted: boolean;
 
     constructor(props: Props) {

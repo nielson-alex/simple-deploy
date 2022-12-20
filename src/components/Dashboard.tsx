@@ -44,8 +44,6 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
             redirectToLanding: false,
             redirectToLogin: false,
             user: {},
-            colSize: "",
-            device: ""
         } as State;
 
         // if (props?.user) {
@@ -55,56 +53,47 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
         // }
 
         this._isMounted = false;
+        this._determineColSize = this._determineColSize.bind(this);
+        this._determineDevice = this._determineDevice.bind(this);
         this.mobileMenuIcon = createRef()
         this.navOptionsRowCont = createRef();
         this.mobileMenuIcon = createRef()
         this.navOptionsRowCont = createRef();
-
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
     componentDidMount(): void {
         this._isMounted = true;
-
-        if (this._isMounted === true) {
-            window.addEventListener("resize", this.updateWindowDimensions);
-            this.updateWindowDimensions();
-
-        }
     }
 
     componentWillUnmount(): void {
-        window.removeEventListener("resize", this.updateWindowDimensions);
         this._isMounted = false;
     }
 
-    // Conditional rendering functions
-    updateWindowDimensions: () => void = (): void => {
-        if (window.innerWidth < 576) {
-            this.setState({
-                colSize: "",
-                device: "mobile"
-            });
-        } else if (window.innerWidth >= 576 && window.innerWidth < 768) {
-            this.setState({
-                colSize: "-sm",
-                device: "mobile"
-            });
+    _determineColSize(): string {
+        if (window.innerWidth >= 576 && window.innerWidth < 768) {
+            return "-sm";
         } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
-            this.setState({
-                colSize: "-md",
-                device: "desktop"
-            });
+            return "-md";
         } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
-            this.setState({
-                colSize: "-lg",
-                device: "desktop"
-            });
+            return "-lg";
         } else if (window.innerWidth >= 1200) {
-            this.setState({
-                colSize: "-xl",
-                device: "desktop"
-            });
+            return "-xl";
+        } else {
+            return "";
+        }
+    }
+
+    _determineDevice(): string {
+        if (window.innerWidth >= 576 && window.innerWidth < 768) {
+            return "mobile";
+        } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
+            return "mobile";
+        } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
+            return "desktop";
+        } else if (window.innerWidth >= 1200) {
+            return "desktop";
+        } else {
+            return "mobile";
         }
     }
 
@@ -166,8 +155,8 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
         if (this.state.navMenuOpen === false) {
             this.setState({ navMenuOpen: false });
         } else {
-            current.classList.add(`dashboard--hide-nav-options-cont-${this.state.device}`);
-            current.classList.remove(`dashboard--nav-options-cont-${this.state.device}`);
+            current.classList.add(`dashboard--hide-nav-options-cont-${this._determineDevice()}`);
+            current.classList.remove(`dashboard--nav-options-cont-${this._determineDevice()}`);
             setTimeout(() => {
                 this.setState({ navMenuOpen: false });
             }, 100);
@@ -200,15 +189,15 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
         // });
 
         if (this.state.navMenuOpen === false) {
-            current.classList.add(`dashboard--nav-options-cont-${this.state.device}`);
-            current.classList.remove(`dashboard--hide-nav-options-cont-${this.state.device}`);
+            current.classList.add(`dashboard--nav-options-cont-${this._determineDevice()}`);
+            current.classList.remove(`dashboard--hide-nav-options-cont-${this._determineDevice()}`);
 
             this.setState({
                 navMenuOpen: !this.state.navMenuOpen
             });
         } else {
-            current.classList.add(`dashboard--hide-nav-options-cont-${this.state.device}`);
-            current.classList.remove(`dashboard--nav-options-cont-${this.state.device}`);
+            current.classList.add(`dashboard--hide-nav-options-cont-${this._determineDevice()}`);
+            current.classList.remove(`dashboard--nav-options-cont-${this._determineDevice()}`);
 
             this.setState({
                 navMenuOpen: !this.state.navMenuOpen
@@ -233,39 +222,28 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
             return (
                 <div className="accordion">
                     {/* Home */}
-                    <GroupFC keyNum="0" text="Home" device={this.state.device}>
+                    <GroupFC keyNum="0" text="Home" device={this._determineDevice()}>
 
                         {/* Home */}
-                        <LinkFC text="Sign In" to="login" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
+                        <LinkFC text="Sign In" to="login" handleClick={this.menuClick} colSize={this._determineColSize()} device={this._determineDevice()} />
+                    </GroupFC>
+
+                    {/* Resume */}
+                    <GroupFC keyNum="1" text="Resume" device={this._determineDevice()}>
+                        <LinkFC text="Resume" to="resume" handleClick={this.menuClick} colSize={this._determineColSize()} device={this._determineDevice()} />
+                        <LinkFC text="Add work experience" to="resume/add-work-experience" handleClick={this.menuClick} colSize={this._determineColSize()} device={this._determineDevice()} />
                     </GroupFC>
 
                     {/* Language Learning Main */}
-                    <GroupFC keyNum="0" text="Language Learning" device={this.state.device}>
+                    <GroupFC keyNum="2" text="Language Learning" device={this._determineDevice()}>
                         {/* Decks */}
-                        <LinkFC text="Decks" to="language-learning/decks" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
+                        <LinkFC text="Decks" to="language-learning/decks" handleClick={this.menuClick} colSize={this._determineColSize()} device={this._determineDevice()} />
 
                         {/* Create Deck */}
-                        <LinkFC text="Create Deck" to="language-learning/create-deck" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
+                        <LinkFC text="Create Deck" to="language-learning/create-deck" handleClick={this.menuClick} colSize={this._determineColSize()} device={this._determineDevice()} />
                     </GroupFC>
                 </div>
             );
-        }
-
-        const createContainer: () => JSX.Element = (): JSX.Element => {
-            if (this.state.device === "mobile") {
-                return (
-                    <div>
-                        {dashboardRoutes(this.props.user)}
-                    </div>
-                )
-            } else {
-                return (
-                    <div>
-                        {dashboardRoutes(this.props.user)}
-
-                    </div>
-                );
-            }
         }
 
         // if (!user || user === undefined || user === null || user?.id < 0) {
@@ -277,29 +255,17 @@ export default class DashboardTSClass extends PureComponent<Props, State> {
         //     : <></>;
         // // }
 
-        return <div>
-            <div className="dashboard--right-content-section">
-                {dashboardRoutes(this.props.user)}
-            </div>
-            <div className="dashboard--left-nav-section">
-                <div className="accordion">
-                    {/* Home */}
-                    <GroupFC keyNum="0" text="Home" device={this.state.device}>
-
-                        {/* Home */}
-                        <LinkFC text="Sign In" to="login" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
-                    </GroupFC>
-
-                    {/* Language Learning Main */}
-                    <GroupFC keyNum="0" text="Language Learning" device={this.state.device}>
-                        {/* Decks */}
-                        <LinkFC text="Decks" to="language-learning/decks" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
-
-                        {/* Create Deck */}
-                        <LinkFC text="Create Deck" to="language-learning/create-deck" handleClick={this.menuClick} colSize={this.state.colSize} device={this.state.device} />
-                    </GroupFC>
+        return (
+            <div>
+                <div className="dashboard--right-content-section">
+                    {dashboardRoutes(this.props.user)}
+                </div>
+                <div className="dashboard--left-nav-section">
+                    <div className="accordion">
+                        {createGroups()}
+                    </div>
                 </div>
             </div>
-        </div>
+        );
     }
 }

@@ -1,32 +1,38 @@
-import { PureComponent, ChangeEvent, MouseEvent } from "react";
+import {
+    PureComponent,
+    createRef,
+    RefObject,
+    ChangeEvent,
+    MouseEvent
+} from "react";
 import { Props } from "../../types/TGlobal";
 import { State } from "../../types/TAddWorkExperience";
 import { generateMessage } from "../../helpers/functions";
 import "../../css/GlobalCSS.css";
 import "../../css/AddWorkExperienceCSS.css";
-import { NumericTypes } from "mongoose";
 
 export default class AddWorkExperience extends PureComponent<Props, State> {
     _isMounted: boolean;
+    textAreaRef: RefObject<HTMLTextAreaElement>;
 
     constructor(props: Props) {
         super(props);
         this.state = {
             companyName: "",
             currentResponsibility: "",
+            endMonth: "",
+            endYear: "",
             firstName: "",
             lastName: "",
             responsibilities: [] as string[],
             showStartDateExact: null,
             startMonth: "",
             startYear: -1,
-            title: "",
-            colSize: "",
-            device: ""
-        } as State;
+            title: ""
+        };
 
         this._isMounted = true;
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.textAreaRef = createRef();
         this.addResponsibility = this.addResponsibility.bind(this);
         this.allFieldsValid = this.allFieldsValid.bind(this);
         this.generateYearOptions = this.generateYearOptions.bind(this);
@@ -41,59 +47,28 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
         this._isMounted = true;
 
         if (this._isMounted === true) {
-            window.addEventListener("resize", this.updateWindowDimensions);
-            this.updateWindowDimensions();
             this.generateYearOptions();
         }
     }
 
     componentWillUnmount(): void {
-        window.removeEventListener("resize", this.updateWindowDimensions);
         this._isMounted = false;
     }
 
-    updateWindowDimensions(): void {
-        if (window.innerWidth < 576) {
-            this.setState({
-                colSize: "",
-                device: "mobile"
-            });
-        } else if (window.innerWidth >= 576 && window.innerWidth < 768) {
-            this.setState({
-                colSize: "-sm",
-                device: "mobile"
-            });
-        } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
-            this.setState({
-                colSize: "-md",
-                device: "desktop"
-            });
-        } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
-            this.setState({
-                colSize: "-lg",
-                device: "desktop"
-            });
-        } else if (window.innerWidth >= 1200) {
-            this.setState({
-                colSize: "-xl",
-                device: "desktop"
-            });
-        }
-    }
-
     addResponsibility(): void {
-        const taResponsibility: HTMLElement | null = document.getElementById("taResponsibility");
         const responsibilities: string[] = this.state.responsibilities.map((responsibility: string): string => responsibility);
         responsibilities.push(this.state.currentResponsibility);
 
-        if (taResponsibility !== null) {
-            taResponsibility.innerHTML = "";
+        if (this.textAreaRef !== null && this.textAreaRef.current !== null) {
+            this.textAreaRef.current.select();
+            this.textAreaRef.current.value = "";
         }
 
-        this.setState({
+        this.setState((prevState: State) => ({
+            ...prevState,
             currentResponsibility: "",
             responsibilities: responsibilities
-        });
+        }));
     }
 
     allFieldsValid(): boolean {
@@ -133,8 +108,8 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
         const options: JSX.Element[] = [] as JSX.Element[];
         const currentYear: number = new Date().getFullYear();
 
-        for (let i: number = currentYear; i > 1899; i--) {
-            options.push(<option value={i}>{i}</option>)
+        for (let i: number = currentYear; i > 1949; i--) {
+            options.push(<option key={i} value={i}>{i}</option>)
         }
 
         return options;
@@ -175,7 +150,9 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
         this.setState((prevState: State) => ({
             ...prevState,
             [name]: value
-        }));
+        }), (): void => {
+            console.log(this.state);
+        });
     }
 
     handleDdlChange(e: MouseEvent<HTMLSelectElement>): void {
@@ -215,24 +192,24 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
     render(): JSX.Element {
         const mobileRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className={`container container-${this.state.device}`}>
+                <div className={`container container-${this.props._device()}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>Add Work Experience</h1>
+                        <h1 className={`col${this.props._colSize()}-12 center-text`}>Add Work Experience</h1>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11 middle-align`}>
+                        <div className={`col${this.props._colSize()}-11 middle-align`}>
                             <hr />
                         </div>
                     </div>
 
                     {/* First Name */}
                     <div className="row">
-                        <label htmlFor="firstName" className={`col${this.state.colSize}-11 middle-align`}>First Name:</label>
+                        <label htmlFor="firstName" className={`col${this.props._colSize()}-11 middle-align`}>First Name:</label>
                         <input
                             type="text"
                             id="firstName"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this.props._colSize()}-11 middle-align`}
                             name="firstName"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                         />
@@ -240,11 +217,11 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
 
                     {/* Last Name */}
                     <div className="row">
-                        <label htmlFor="lastName" className={`col${this.state.colSize}-11 middle-align`}>Last Name:</label>
+                        <label htmlFor="lastName" className={`col${this.props._colSize()}-11 middle-align`}>Last Name:</label>
                         <input
                             type="text"
                             id="lastName"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this.props._colSize()}-11 middle-align`}
                             name="lastName"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                         />
@@ -252,11 +229,11 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
 
                     {/* Company name */}
                     <div className="row">
-                        <label htmlFor="companyName" className={`col${this.state.colSize}-11 middle-align`}>Company Name:</label>
+                        <label htmlFor="companyName" className={`col${this.props._colSize()}-11 middle-align`}>Company Name:</label>
                         <input
                             type="text"
                             id="companyName"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this.props._colSize()}-11 middle-align`}
                             name="companyName"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                         />
@@ -264,11 +241,11 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
 
                     {/* Title */}
                     <div className="row">
-                        <label htmlFor="title" className={`col${this.state.colSize}-11 middle-align`}>Title:</label>
+                        <label htmlFor="title" className={`col${this.props._colSize()}-11 middle-align`}>Title:</label>
                         <input
                             type="text"
                             id="title"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this.props._colSize()}-11 middle-align`}
                             name="title"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                         />
@@ -277,11 +254,11 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
                     {/* Toggle start date exact buttons */}
                     {/* <div className="row">
                         <button
-                            className={`col${this.state.colSize}-5 middle-align btn btn-seconary`}
+                            className={`col${this.props._colSize()}-5 middle-align btn btn-seconary`}
                             onClick={(): void => this.toggleShowStartDateExact(true)}
                         >I know the exact start date</button>
                         <button
-                            className={`col${this.state.colSize}-5 middle-align btn btn-seconary`}
+                            className={`col${this.props._colSize()}-5 middle-align btn btn-seconary`}
                             onClick={(): void => this.toggleShowStartDateExact(false)}
                         >I do not know the exact start date</button>
                     </div> */}
@@ -290,10 +267,10 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
                         ? <>
                             {/* Exact start date /}
                             <div className="row">
-                                <label className={`col${this.state.colSize}-3`}>Start Date:</label>
+                                <label className={`col${this.props._colSize()}-3`}>Start Date:</label>
                                 <input
                                     type="date"
-                                    className={`col${this.state.colSize}-8`}
+                                    className={`col${this.props._colSize()}-8`}
                                     name="title"
                                     onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 />
@@ -302,9 +279,9 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
                     : <> */}
                     {/* Start month and year only */}
                     <div className="row">
-                        <label className={`col${this.state.colSize}-11 middle-align`}>Start month:</label>
+                        <label className={`col${this.props._colSize()}-11 middle-align`}>Start month:</label>
                         <select
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this.props._colSize()}-11 middle-align`}
                             name="startMonth"
                             onClick={(e: MouseEvent<HTMLSelectElement>): void => this.handleDdlChange(e)}
                         >
@@ -322,9 +299,9 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
                             <option value="December">12 December</option>
                         </select>
 
-                        <label className={`col${this.state.colSize}-11 middle-align`}>Start month:</label>
+                        <label className={`col${this.props._colSize()}-11 middle-align`}>Start month:</label>
                         <select
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this.props._colSize()}-11 middle-align`}
                             name="startYear"
                             onClick={(e: MouseEvent<HTMLSelectElement>): void => this.handleDdlChange(e)}
                         >
@@ -336,26 +313,31 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
 
                     {/* Responsibilities */}
                     <div className="row">
-                        <label className={`col${this.state.colSize}-4`}>Job responsibilities:</label>
+                        <label className={`col${this.props._colSize()}-4`}>Job responsibilities:</label>
                         <textarea
                             id="taResponsibility"
-                            className={`col${this.state.colSize}-7`}
+                            ref={this.textAreaRef}
+                            className={`col${this.props._colSize()}-7`}
                             name="currentResponsibility"
                             onChange={(e: ChangeEvent<HTMLTextAreaElement>): void => this.handleChange(e)}
                         ></textarea>
 
                         {/* Save responsibility button */}
                         <button
-                            className={`col${this.state.colSize}-8 middle-align`}
+                            className={`col${this.props._colSize()}-8 middle-align`}
                             onClick={this.addResponsibility}
                         >Add Job Responsibility</button>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-4`} />
+                        <div className={`col${this.props._colSize()}-4`} />
                         {this.state.responsibilities.length > 0
                             ? <ul>
-                                {this.state.responsibilities.map((responsibility: string): JSX.Element => <li key={responsibility}>{responsibility}</li>)}
+                                {this.state.responsibilities.map((responsibility: string): JSX.Element =>
+                                    <li key={`${Math.random()}`}>
+                                        {responsibility}
+                                    </li>
+                                )}
                             </ul>
                             : <></>
                         }
@@ -364,7 +346,7 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
                     {/* Save work experience button */}
                     <div className="row">
                         <button
-                            className={`col${this.state.colSize}-8 middle-align`}
+                            className={`col${this.props._colSize()}-8 middle-align`}
                             onClick={this.handleAddWorkExperience}
                         >Save Work Experience</button>
                     </div>
@@ -374,24 +356,24 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
 
         const desktopRender: () => JSX.Element = (): JSX.Element => {
             return (
-                <div className={`container container-${this.state.device}`}>
+                <div className={`container container-${this.props._device()}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>Add Work Experience</h1>
+                        <h1 className={`col${this.props._colSize()}-12 center-text`}>Add Work Experience</h1>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-11 middle-align`}>
+                        <div className={`col${this.props._colSize()}-11 middle-align`}>
                             <hr />
                         </div>
                     </div>
 
                     {/* First Name */}
                     <div className="row">
-                        <label htmlFor="firstName" className={`col${this.state.colSize}-11 middle-align`}>First Name:</label>
+                        <label htmlFor="firstName" className={`col${this.props._colSize()}-11 middle-align`}>First Name:</label>
                         <input
                             type="text"
                             id="firstName"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this.props._colSize()}-11 middle-align`}
                             name="firstName"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                         />
@@ -399,11 +381,11 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
 
                     {/* Last Name */}
                     <div className="row">
-                        <label htmlFor="lastName" className={`col${this.state.colSize}-11 middle-align`}>Last Name:</label>
+                        <label htmlFor="lastName" className={`col${this.props._colSize()}-11 middle-align`}>Last Name:</label>
                         <input
                             type="text"
                             id="lastName"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this.props._colSize()}-11 middle-align`}
                             name="lastName"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                         />
@@ -411,11 +393,11 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
 
                     {/* Company name */}
                     <div className="row">
-                        <label htmlFor="companyName" className={`col${this.state.colSize}-11 middle-align`}>Company Name:</label>
+                        <label htmlFor="companyName" className={`col${this.props._colSize()}-11 middle-align`}>Company Name:</label>
                         <input
                             type="text"
                             id="companyName"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this.props._colSize()}-11 middle-align`}
                             name="companyName"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                         />
@@ -423,11 +405,11 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
 
                     {/* Title */}
                     <div className="row">
-                        <label htmlFor="title" className={`col${this.state.colSize}-11 middle-align`}>Title:</label>
+                        <label htmlFor="title" className={`col${this.props._colSize()}-11 middle-align`}>Title:</label>
                         <input
                             type="text"
                             id="title"
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this.props._colSize()}-11 middle-align`}
                             name="title"
                             onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                         />
@@ -436,11 +418,11 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
                     {/* Toggle start date exact buttons */}
                     {/* <div className="row">
                         <button
-                            className={`col${this.state.colSize}-5 middle-align btn btn-seconary`}
+                            className={`col${this.props._colSize()}-5 middle-align btn btn-seconary`}
                             onClick={(): void => this.toggleShowStartDateExact(true)}
                         >I know the exact start date</button>
                         <button
-                            className={`col${this.state.colSize}-5 middle-align btn btn-seconary`}
+                            className={`col${this.props._colSize()}-5 middle-align btn btn-seconary`}
                             onClick={(): void => this.toggleShowStartDateExact(false)}
                         >I do not know the exact start date</button>
                     </div> */}
@@ -449,72 +431,108 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
                         ? <>
                             {/* Exact start date /}
                             <div className="row">
-                                <label className={`col${this.state.colSize}-3`}>Start Date:</label>
+                                <label className={`col${this.props._colSize()}-3`}>Start Date:</label>
                                 <input
                                     type="date"
-                                    className={`col${this.state.colSize}-8`}
+                                    className={`col${this.props._colSize()}-8`}
                                     name="title"
                                     onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
                                 />
                             </div>
                         </>
                     : <> */}
+
                     {/* Start month and year only */}
                     <div className="row">
-                        <label className={`col${this.state.colSize}-11 middle-align`}>Start month:</label>
+                        <label className={`col${this.props._colSize()}-11 middle-align`}>Start month:</label>
                         <select
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this.props._colSize()}-11 middle-align`}
                             name="startMonth"
                             onClick={(e: MouseEvent<HTMLSelectElement>): void => this.handleDdlChange(e)}
                         >
-                            <option value="January">01 January</option>
-                            <option value="February">02 February</option>
-                            <option value="March">03 March</option>
-                            <option value="April">04 April</option>
-                            <option value="May">05 May</option>
-                            <option value="June">06 June</option>
-                            <option value="July">07 July</option>
-                            <option value="August">08 August</option>
-                            <option value="September">09 September</option>
-                            <option value="October">10 October</option>
-                            <option value="November">11 November</option>
-                            <option value="December">12 December</option>
+                            <option key="01-jan-start" value="January">1 January</option>
+                            <option key="02-feb-start" value="February">2 February</option>
+                            <option key="03-mar-start" value="March">3 March</option>
+                            <option key="04-apr-start" value="April">4 April</option>
+                            <option key="05-may-start" value="May">5 May</option>
+                            <option key="06-jun-start" value="June">6 June</option>
+                            <option key="07-jul-start" value="July">7 July</option>
+                            <option key="08-oct-start" value="August">8 August</option>
+                            <option key="09-sep-start" value="September">9 September</option>
+                            <option key="10-oct-start" value="October">10 October</option>
+                            <option key="11-nov-start" value="November">11 November</option>
+                            <option key="12-dec-start" value="December">12 December</option>
                         </select>
 
-                        <label className={`col${this.state.colSize}-11 middle-align`}>Start month:</label>
+                        <label className={`col${this.props._colSize()}-11 middle-align`}>Start year:</label>
                         <select
-                            className={`col${this.state.colSize}-11 middle-align`}
+                            className={`col${this.props._colSize()}-11 middle-align`}
                             name="startYear"
                             onClick={(e: MouseEvent<HTMLSelectElement>): void => this.handleDdlChange(e)}
                         >
                             {this.generateYearOptions()}
                         </select>
                     </div>
-                    {/*//     </>
-                    // */}
+
+                    {/* End month and year only */}
+                    <div className="row">
+                        <label className={`col${this.props._colSize()}-11 middle-align`}>End month:</label>
+                        <select
+                            className={`col${this.props._colSize()}-11 middle-align`}
+                            name="endMonth"
+                            onClick={(e: MouseEvent<HTMLSelectElement>): void => this.handleDdlChange(e)}
+                        >
+                            <option key="01-jan-end" value="January">1 January</option>
+                            <option key="02-feb-end" value="February">2 February</option>
+                            <option key="03-mar-end" value="March">3 March</option>
+                            <option key="04-apr-end" value="April">4 April</option>
+                            <option key="05-may-end" value="May">5 May</option>
+                            <option key="06-jun-end" value="June">6 June</option>
+                            <option key="07-jul-end" value="July">7 July</option>
+                            <option key="08-oct-end" value="August">8 August</option>
+                            <option key="09-sep-end" value="September">9 September</option>
+                            <option key="10-oct-end" value="October">10 October</option>
+                            <option key="11-nov-end" value="November">11 November</option>
+                            <option key="12-dec-end" value="December">12 December</option>
+                        </select>
+
+                        <label className={`col${this.props._colSize()}-11 middle-align`}>End year:</label>
+                        <select
+                            className={`col${this.props._colSize()}-11 middle-align`}
+                            name="startYear"
+                            onClick={(e: MouseEvent<HTMLSelectElement>): void => this.handleDdlChange(e)}
+                        >
+                            {this.generateYearOptions()}
+                        </select>
+                    </div>
 
                     {/* Responsibilities */}
                     <div className="row">
-                        <label className={`col${this.state.colSize}-4`}>Job responsibilities:</label>
+                        <label className={`col${this.props._colSize()}-4`}>Job responsibilities:</label>
                         <textarea
                             id="taResponsibility"
-                            className={`col${this.state.colSize}-7`}
+                            ref={this.textAreaRef}
+                            className={`col${this.props._colSize()}-7`}
                             name="currentResponsibility"
                             onChange={(e: ChangeEvent<HTMLTextAreaElement>): void => this.handleChange(e)}
                         ></textarea>
 
                         {/* Save responsibility button */}
                         <button
-                            className={`col${this.state.colSize}-8 middle-align`}
+                            className={`col${this.props._colSize()}-8 middle-align`}
                             onClick={this.addResponsibility}
                         >Add Job Responsibility</button>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-4`} />
+                        <div className={`col${this.props._colSize()}-4`} />
                         {this.state.responsibilities.length > 0
                             ? <ul>
-                                {this.state.responsibilities.map((responsibility: string): JSX.Element => <li key={responsibility}>{responsibility}</li>)}
+                                {this.state.responsibilities.map((responsibility: string): JSX.Element => (
+                                    <li key={`${Math.random()}`}>
+                                        {responsibility}
+                                    </li>
+                                ))}
                             </ul>
                             : <></>
                         }
@@ -523,7 +541,7 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
                     {/* Save work experience button */}
                     <div className="row">
                         <button
-                            className={`col${this.state.colSize}-8 middle-align`}
+                            className={`col${this.props._colSize()}-8 middle-align`}
                             onClick={this.handleAddWorkExperience}
                         >Save Work Experience</button>
                     </div>
@@ -531,8 +549,6 @@ export default class AddWorkExperience extends PureComponent<Props, State> {
             );
         }
 
-        return this.state.device === "mobile"
-            ? mobileRender()
-            : desktopRender();
+        return desktopRender();
     }
 }

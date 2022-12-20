@@ -3,6 +3,4 @@ export interface IState {
     firstName: string;
     lastName: string;
     password: string;
-    colSize: string;
-    device: string;
 }

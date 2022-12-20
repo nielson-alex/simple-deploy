@@ -11,56 +11,46 @@ class Scanner extends PureComponent<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            count: 0,
-            colSize: "",
-            device: ""
+            count: 0
         } as State;
 
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.decrement = this.decrement.bind(this);
         this.increment = this.increment.bind(this);
     }
 
     componentDidMount(): void {
         this._isMounted = true;
-
-        if (this._isMounted === true) {
-            window.addEventListener("resize", this.updateWindowDimensions);
-            this.updateWindowDimensions();
-        }
     }
 
     componentWillUnmount(): void {
-        window.removeEventListener("resize", this.updateWindowDimensions);
         this._isMounted = false;
     }
 
-    updateWindowDimensions(): void {
-        if (window.innerWidth < 576) {
-            this.setState({
-                colSize: "",
-                device: "mobile"
-            });
-        } else if (window.innerWidth >= 576 && window.innerWidth < 768) {
-            this.setState({
-                colSize: "-sm",
-                device: "mobile"
-            });
+    _determineColSize(): string {
+        if (window.innerWidth >= 576 && window.innerWidth < 768) {
+            return "-sm";
         } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
-            this.setState({
-                colSize: "-md",
-                device: "desktop"
-            });
+            return "-md";
         } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
-            this.setState({
-                colSize: "-lg",
-                device: "desktop"
-            });
+            return "-lg";
         } else if (window.innerWidth >= 1200) {
-            this.setState({
-                colSize: "-xl",
-                device: "desktop"
-            });
+            return "-xl";
+        } else {
+            return "";
+        }
+    }
+
+    _determineDevice(): string {
+        if (window.innerWidth >= 576 && window.innerWidth < 768) {
+            return "mobile";
+        } else if (window.innerWidth >= 768 && window.innerWidth < 992) {
+            return "mobile";
+        } else if (window.innerWidth >= 992 && window.innerWidth < 1200) {
+            return "desktop";
+        } else if (window.innerWidth >= 1200) {
+            return "desktop";
+        } else {
+            return "mobile";
         }
     }
 
@@ -88,17 +78,17 @@ class Scanner extends PureComponent<Props, State> {
             return (
                 <div className="container">
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>Counter</h1>
+                        <h1 className={`col${this._determineColSize()}-12 center-text`}>Counter</h1>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-12`}>
+                        <div className={`col${this._determineColSize()}-12`}>
                             <hr />
                         </div>
                     </div>
 
                     <QrReader
-                        className={`labor-tracking--qr-${this.state.device}`}
+                        className={`labor-tracking--qr-${this._determineDevice()}`}
                         delay={300}
                         facingMode="user" // user or environment
                         onError={(): null => null}
@@ -111,12 +101,12 @@ class Scanner extends PureComponent<Props, State> {
 
                     <div className="row">
                         <button
-                            className={`col${this.state.colSize}-3 middle-align btn btn-secondary`}
+                            className={`col${this._determineColSize()}-3 middle-align btn btn-secondary`}
                             onClick={(e: MouseEvent<HTMLButtonElement>): void => this.decrement(e)}
                         >-</button>
-                        <label className={`col${this.state.colSize}-1`}>{this.state.count}</label>
+                        <label className={`col${this._determineColSize()}-1`}>{this.state.count}</label>
                         <button
-                            className={`col${this.state.colSize}-3 middle-align btn btn-secondary`}
+                            className={`col${this._determineColSize()}-3 middle-align btn btn-secondary`}
                             onClick={(e: MouseEvent<HTMLButtonElement>): void => this.increment(e)}
                         >+</button>
                     </div>
@@ -128,17 +118,17 @@ class Scanner extends PureComponent<Props, State> {
             return (
                 <div className="container">
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>Counter</h1>
+                        <h1 className={`col${this._determineColSize()}-12 center-text`}>Counter</h1>
                     </div>
 
                     <div className="row">
-                        <div className={`col${this.state.colSize}-12`}>
+                        <div className={`col${this._determineColSize()}-12`}>
                             <hr />
                         </div>
                     </div>
 
                     <QrReader
-                        className={`labor-tracking--qr-${this.state.device}`}
+                        className={`labor-tracking--qr-${this._determineDevice()}`}
                         delay={300}
                         facingMode="user" // user or environment
                         onError={(): null => null}
@@ -151,12 +141,12 @@ class Scanner extends PureComponent<Props, State> {
 
                     <div className="row">
                         <button
-                            className={`col${this.state.colSize}-3 middle-align btn btn-secondary`}
+                            className={`col${this._determineColSize()}-3 middle-align btn btn-secondary`}
                             onClick={(e: MouseEvent<HTMLButtonElement>): void => this.decrement(e)}
                         >-</button>
-                        <label className={`col${this.state.colSize}-1`}>{this.state.count}</label>
+                        <label className={`col${this._determineColSize()}-1`}>{this.state.count}</label>
                         <button
-                            className={`col${this.state.colSize}-3 middle-align btn btn-secondary`}
+                            className={`col${this._determineColSize()}-3 middle-align btn btn-secondary`}
                             onClick={(e: MouseEvent<HTMLButtonElement>): void => this.increment(e)}
                         >+</button>
                     </div>
@@ -164,7 +154,7 @@ class Scanner extends PureComponent<Props, State> {
             )
         }
 
-        return this.state.device === "mobile"
+        return this._determineDevice() === "mobile"
             ? mobileRender()
             : desktopRender();
     }

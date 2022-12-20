@@ -2,6 +2,8 @@ import { User } from "../types/TGlobal";
 import { TDeck } from "../types/TDecks";
 
 export interface IProps {
+    _colSize: () => string;
+    _device: () => string;
     user: User
 }
 

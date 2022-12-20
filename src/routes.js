@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
-import { TCard, TDeck } from "./types/TDecks";
 import Dashboard from "./components/Dashboard";
 import Decks from "./components/Language-Learning/Decks";
 import Home from "./components/Home";
@@ -136,7 +135,5 @@ const routes = (user) => {
         </Switch>
     )
 }
-
-
 
 export default HR;

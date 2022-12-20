@@ -7,8 +7,6 @@ export interface IState {
     redirectToLanding: boolean;
     redirectToLogin: boolean;
     user: any;
-    colSize: string;
-    device: string;
 }
 
 export interface IRenderable {
