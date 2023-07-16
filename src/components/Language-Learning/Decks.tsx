@@ -31,6 +31,7 @@ export default class Decks extends PureComponent<Props, State> {
         this._isMounted = true;
 
         if (this._isMounted === true) {
+            console.log('this.state.decks:', this.state.decks);
             window.addEventListener("resize", this.updateWindowDimensions);
             this.updateWindowDimensions();
             await this.getDecks();
@@ -111,7 +112,8 @@ export default class Decks extends PureComponent<Props, State> {
                         pinyin: card.pinyin,
                         number: card.number
                     } as TCard))
-                } as TDeck));
+                } as TDeck))
+                    .sort((a: TDeck, b: TDeck) => a.deckName > b.deckName ? 1 : -1);
 
                 if (this._isMounted === true) {
                     this.setState({

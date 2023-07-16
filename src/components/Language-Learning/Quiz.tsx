@@ -59,9 +59,11 @@ export default class Quiz extends PureComponent<Props, State> {
         this.checkAnswer = this.checkAnswer.bind(this);
         this.getCards = this.getCards.bind(this);
         this.getNextCard = this.getNextCard.bind(this);
+        this.getRemainingCards = this.getRemainingCards.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleCbChange = this.handleCbChange.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
         this.toggleAnswer = this.toggleAnswer.bind(this);
         this.toggleHint = this.toggleHint.bind(this);
         this.quizComplete = this.quizComplete.bind(this);
@@ -391,13 +393,52 @@ export default class Quiz extends PureComponent<Props, State> {
             });
         } else {
             this.setState({
+                answer: {
+                    correct: false,
+                    text: ""
+                },
+                currentCard: {
+                    _id: "",
+                    chinese: "",
+                    deckName: "",
+                    english: "",
+                    number: -1,
+                    pinyin: "",
+                    timesAnsweredCorrectly: -1
+                } as TCard,
+                cycles: 1,
+                lastRound: false,
+                quizMode: 0,
                 quizCompleted: true,
                 quizStarted: false,
                 showAnswer: false,
-                showHint: false
+                showHint: false,
+                colSize: "",
+                device: ""
             }, (): void => {
                 generateMessage("success", "Congratulations! You have mastered all of the cards in this deck");
             });
+        }
+    }
+
+    getRemainingCards(): number {
+        if (this.state.cards.length > 0) {
+            let cardsLeft: number = 0;
+            console.log(this.state.cards.length);
+    
+            this.state.cards.forEach((card: TCard) =>{
+                if (card) {
+                    if (card.timesAnsweredCorrectly) {
+                        if (card.timesAnsweredCorrectly < this.state.cycles) {
+                            cardsLeft++;
+                        }
+                    }
+                }
+            });
+                
+            return cardsLeft;
+        } else {
+            return 0;
         }
     }
 
@@ -434,6 +475,12 @@ export default class Quiz extends PureComponent<Props, State> {
 
     handleFocus(e: FocusEvent<HTMLInputElement>): void {
         e.currentTarget.select();
+    }
+
+    handleKeyUp(e: KeyboardEvent<HTMLInputElement>): void {
+        if (e.key === "Enter") {
+            this.checkAnswer();
+        }
     }
 
     toggleAnswer(): void {
@@ -533,7 +580,15 @@ export default class Quiz extends PureComponent<Props, State> {
                         <div className="row">
                             <button
                                 className={`col${this.state.colSize}-11 middle-align`}
-                                onClick={(e: MouseEvent<HTMLButtonElement>): void => this.setState({ quizStarted: !this.state.quizStarted })}
+                                onClick={(e: MouseEvent<HTMLButtonElement>): void => {
+                                    this.setState({
+                                        quizStarted: !this.state.quizStarted
+                                    }, (): void => {
+                                        if (this.answerRef && this.answerRef.current) {
+                                            this.answerRef.current.select();
+                                        }
+                                    })
+                                }}
                             >Start</button>
                         </div>
                     </div>
@@ -556,6 +611,7 @@ export default class Quiz extends PureComponent<Props, State> {
                             {/* Answer status */}
                             <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}>
                                 Times answered correctly: {this.state.currentCard.timesAnsweredCorrectly}
+                                Cards left: {this.state.cards.length}
                             </h3>
 
                             <BR colSize={this.state.colSize} />
@@ -580,7 +636,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                 name="answer"
                                 ref={this.answerRef}
                                 onChange={(e: ChangeEvent<HTMLInputElement>): void => this.handleChange(e)}
-                                onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void | null => e.key === "Enter" ? this.checkAnswer() : null}
+                                onKeyUp={(e: KeyboardEvent<HTMLInputElement>): void => this.handleKeyUp(e)}
                                 onFocus={(e: FocusEvent<HTMLInputElement>): void => this.handleFocus(e)}
                             />
 
@@ -598,6 +654,7 @@ export default class Quiz extends PureComponent<Props, State> {
                             <button
                                 className={`col${this.state.colSize}-11 middle-align`}
                                 onClick={this.getNextCard}
+                                disabled={this.state.cards.length < 2 ? true : false}
                             >Skip</button>
 
                             <BR colSize={this.state.colSize} />
@@ -714,7 +771,15 @@ export default class Quiz extends PureComponent<Props, State> {
                         <div className="row">
                             <button
                                 className={`col${this.state.colSize}-11 middle-align`}
-                                onClick={(e: MouseEvent<HTMLButtonElement>): void => this.setState({ quizStarted: !this.state.quizStarted })}
+                                onClick={(e: MouseEvent<HTMLButtonElement>): void => {
+                                    this.setState({
+                                        quizStarted: !this.state.quizStarted
+                                    }, (): void => {
+                                        if (this.answerRef && this.answerRef.current) {
+                                            this.answerRef.current.select();
+                                        }
+                                    })
+                                }}
                             >Start</button>
                         </div>
                     </div>
@@ -738,10 +803,9 @@ export default class Quiz extends PureComponent<Props, State> {
                             <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}>
                                 Times answered correctly: {this.state.currentCard.timesAnsweredCorrectly}
                             </h3>
-
-                            <BR colSize={this.state.colSize} />
-
-                            <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}></h3>
+                            <h3 className={`col${this.state.colSize}-11 middle-align center-text`}>
+                                Cards left: {this.getRemainingCards()}
+                            </h3>
 
                             <BR colSize={this.state.colSize} />
 
@@ -779,6 +843,7 @@ export default class Quiz extends PureComponent<Props, State> {
                             <button
                                 className={`col${this.state.colSize}-11 middle-align`}
                                 onClick={this.getNextCard}
+                                disabled={this.state.cards.length < 2 ? true : false}
                             >Skip</button>
 
                             <BR colSize={this.state.colSize} />

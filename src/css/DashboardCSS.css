@@ -143,9 +143,9 @@
 }
 
 .dashboard--nav-option-text-desktop a {
-    font-size: 8px !important;
-        text-decoration: none;
-    }
+    font-size: 14px !important;
+    text-decoration: none;
+}
 
     .dashboard--nav-option-text-desktop:hover {
         color: #0dcaf0;
