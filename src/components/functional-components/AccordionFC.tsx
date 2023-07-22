@@ -27,7 +27,6 @@ interface IAccordion {
 // Accordion component
 export const AccordionFC: FC<IAccordion> = ({ children, className, id, title, device, menuClick }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [height, setHeight] = useState<number>(0);
     const bodyRef = useRef(null);
 
     // Get the collapsed body height

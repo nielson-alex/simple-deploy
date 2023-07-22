@@ -410,8 +410,6 @@ export default class ExampleQuiz extends PureComponent<Props, State> {
     handleCbChange(e: ChangeEvent<HTMLInputElement>): void {
         const id: string = e.currentTarget.id;
         const name: string = e.currentTarget.name;
-        const value: any = e.currentTarget.value;
-        const checked: boolean = e.currentTarget.checked;
 
         this.setState((prevState: State) => ({
             ...prevState,
@@ -556,7 +554,7 @@ export default class ExampleQuiz extends PureComponent<Props, State> {
 
                             <BR colSize={this.state.colSize} />
 
-                            <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}></h3>
+                            <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}>&nbsp;</h3>
 
                             <BR colSize={this.state.colSize} />
 
@@ -737,7 +735,7 @@ export default class ExampleQuiz extends PureComponent<Props, State> {
 
                             <BR colSize={this.state.colSize} />
 
-                            <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}></h3>
+                            <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}>&nbsp;</h3>
 
                             <BR colSize={this.state.colSize} />
 

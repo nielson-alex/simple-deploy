@@ -7,7 +7,7 @@ import {
 } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Props } from "../../types/TGlobal";
-import { State, TCard, TDiacritics } from "../../types/TCreateDeck";
+import { State, TCard } from "../../types/TCreateDeck";
 import { BR } from "../functional-components/GlobalFC";
 import { generateMessage } from "../../helpers/functions";
 import "../../css/GlobalCSS.css";

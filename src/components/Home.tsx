@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { BR } from "./functional-components/GlobalFC";
 import { Props } from "../types/TGlobal";
 import { State } from "../types/THome";
-import logo from "../logo.svg";
 import instructions from "../media/images/instructions.png";
 import "../css/GlobalCSS.css";
 import "../css/HomeCSS.css";

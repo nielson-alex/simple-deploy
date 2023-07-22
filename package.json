@@ -14,6 +14,7 @@
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "*",
+    "caniuse-lite": "^1.0.30001517",
     "concurrently": "^6.4.0",
     "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^3.1.1",

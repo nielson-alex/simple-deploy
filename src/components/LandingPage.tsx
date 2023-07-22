@@ -19,10 +19,6 @@ class LandingPage extends PureComponent<Props, State> {
 
     componentDidMount(): void {
         this._isMounted = true;
-
-        if (this._isMounted === true) {
-            console.log("this.props:", this.props);
-        }
     }
 
     componentWillUnmount(): void {

@@ -15,7 +15,7 @@ import {
     TCard,
     TNewCard
 } from "../../types/TEditDeck";
-import { BR, HR } from "../functional-components/GlobalFC";
+import { BR } from "../functional-components/GlobalFC";
 import "../../css/GlobalCSS.css";
 import "../../css/EditDeckCSS.css";
 import { generateMessage } from "../../helpers/functions";

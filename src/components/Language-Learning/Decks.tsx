@@ -1,7 +1,6 @@
 import { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { Props } from "../../types/TGlobal";
-import { HR } from "../functional-components/GlobalFC";
 import {
     State,
     TDeck,
@@ -23,8 +22,6 @@ export default class Decks extends PureComponent<Props, State> {
 
         this._isMounted = true;
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-        this.redirectToLanding = this.redirectToLanding.bind(this);
-        this.signout = this.signout.bind(this);
     }
 
     async componentDidMount(): Promise<void> {
@@ -71,30 +68,6 @@ export default class Decks extends PureComponent<Props, State> {
         }
     }
 
-    redirectToLanding: () => any = (): any => {
-        // if (this.state.redirectToLanding) {
-        // return <Redirect to="/dashboard" />;
-        // }
-    }
-
-    signout: () => void = (): void => {
-        function get_cookie(name: string) {
-            return document.cookie.split(';').some(c => {
-                return c.trim().startsWith(name + '=');
-            });
-        }
-
-        if (get_cookie("agn.connect.session")) {
-            document.cookie = "agn.connect.session=" +
-                ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
-        }
-
-        localStorage.removeItem("eqxState");
-        window.location.replace("/login");
-        window.location.reload();
-        this.redirectToLanding();
-    }
-
     async getDecks(): Promise<void> {
         await fetch("/decks/get_all_decks")
             .then((res: Response): Promise<Response> => res.json())
@@ -128,14 +101,6 @@ export default class Decks extends PureComponent<Props, State> {
                     <div className="row">
                         <h1 className={`col${this.state.colSize}-12 center-text`}>{this.props?.user?.first_name}'s Decks</h1>
                     </div>
-
-                    {this.props?.user?._id === "" || !this.props?.user?._id
-                        ? <>
-                            <Link to="/dashboard/login">Sign In</Link>
-                            <br />
-                        </>
-                        : <p id={`dashboard--nav-option-text-${this.state.device}`} onClick={this.signout}>Logout</p>
-                    }
 
                     {this.props?.user?._id !== ""
                         ? <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>
@@ -190,14 +155,6 @@ export default class Decks extends PureComponent<Props, State> {
                     <div className="row">
                         <h1 className={`col${this.state.colSize}-12 center-text`}>{this.props?.user?.first_name}'s Decks</h1>
                     </div>
-
-                    {this.props?.user?._id === "" || !this.props?.user?._id
-                        ? <>
-                            <Link to="/dashboard/login">Sign In</Link>
-                            <br />
-                        </>
-                        : <p id={`dashboard--nav-option-text-${this.state.device}`} onClick={this.signout}>Logout</p>
-                    }
 
                     {this.props?.user?._id !== ""
                         ? <Link to="/dashboard/language-learning/create-deck">Create Deck</Link>

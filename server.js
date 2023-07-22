@@ -3,17 +3,12 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const MONGODB_URI = 'mongodb+srv://agnielson:HkUp\'9L%3ArD&$ngj%60Q26h@cluster0.notmgra.mongodb.net/test';
+const MONGODB_URI = 'mongodb+srv://agnielson:P4nd4n0sePris0ner24601@cluster0.notmgra.mongodb.net/test';
 const mongoose = require("mongoose");
 const path = require("path");
 const PORT = process.env.PORT || 5001;
-const animalRoutes = require("./server/routes/animal-routes");
-const authRoutes = require("./server/routes/auth-routes");
 const deckRoutes = require("./server/routes/deck-routes");
-const environmentTestingRoutes = require("./server/routes/environment-testing-routes");
-const resumeRoutes = require("./server/routes/resume-routes");
 const corsOptions = {
-    // origin: "https://date-planning-app.herokuapp.com/",
     origin: "*",
     methods: "GET, POST, PUT, PATCH, DELETE, OPTIONS",
     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Authorization", "Accept", "Accept-Language", "X-Authorization"],
@@ -28,11 +23,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use((err, req, res, next) => {
     res.status(500).send(err);
 });
-app.use("/animals", animalRoutes);
-app.use("/auth", authRoutes);
 app.use("/decks", deckRoutes);
-app.use("/environment_testing", environmentTestingRoutes);
-app.use("/resume", resumeRoutes);
 
 const options = {
     useUnifiedTopology: true,

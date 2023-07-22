@@ -9,8 +9,8 @@ exports.getAllDecks = function (request, response, next) {
     // Deck.find({ creator: "Alex Nielson" })
     Deck.find()
         .countDocuments()
-        .then(numProducts => {
-            totalItems = numProducts;
+        .then(numDecks => {
+            totalItems = numDecks;
             return Deck.find();
         })
         .then(decks => {
