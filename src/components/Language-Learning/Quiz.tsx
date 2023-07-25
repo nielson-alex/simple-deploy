@@ -5,7 +5,8 @@ import {
     KeyboardEvent,
     MouseEvent,
     RefObject,
-    createRef
+    createRef,
+    Fragment
 } from "react";
 import { Link } from "react-router-dom";
 import { BR } from "../functional-components/GlobalFC";
@@ -599,6 +600,7 @@ export default class Quiz extends PureComponent<Props, State> {
                             >Skip</button>
 
                             <BR colSize={this.state.colSize} />
+                            <BR colSize={this.state.colSize} />
 
                             {/* Show hint button */}
                             <button
@@ -611,6 +613,7 @@ export default class Quiz extends PureComponent<Props, State> {
                             </button>
 
                             <BR colSize={this.state.colSize} />
+                            <BR colSize={this.state.colSize} />
 
                             {/* Hint */}
                             {this.state.showHint === true
@@ -618,6 +621,7 @@ export default class Quiz extends PureComponent<Props, State> {
                                 : <></>
                             }
 
+                            <BR colSize={this.state.colSize} />
                             <BR colSize={this.state.colSize} />
 
                             {/* Show answer button */}
@@ -734,14 +738,10 @@ export default class Quiz extends PureComponent<Props, State> {
                             {/* Card value */}
                             {/* Answer status */}
                             <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}>
-                                Times answered correctly: {this.state.currentCard.timesAnsweredCorrectly}
+                                This card has been answered correctly {this.state.currentCard.timesAnsweredCorrectly} times
                             </h3>
 
-                            <BR colSize={this.state.colSize} />
-
                             <h3 className={`col${this.state.colSize}-11 middle-align center-text`} ref={this.answerStatusRef}>&nbsp;</h3>
-
-                            <BR colSize={this.state.colSize} />
 
                             <h2 className={`col${this.state.colSize}-11 middle-align center-text`}>
                                 {this.state.quizMode === 0
@@ -767,7 +767,7 @@ export default class Quiz extends PureComponent<Props, State> {
 
                             {/* Submit answer button */}
                             <button
-                                className={`col${this.state.colSize}-11 middle-align btn btn-primary`}
+                                className={`col${this.state.colSize}-6 middle-align btn btn-primary`}
                                 onClick={this.checkAnswer}
                             >Submit</button>
 
@@ -775,7 +775,7 @@ export default class Quiz extends PureComponent<Props, State> {
 
                             {/* Skip button */}
                             <button
-                                className={`col${this.state.colSize}-11 middle-align`}
+                                className={`col${this.state.colSize}-6 middle-align`}
                                 onClick={this.getNextCard}
                             >Skip</button>
 
@@ -783,7 +783,7 @@ export default class Quiz extends PureComponent<Props, State> {
 
                             {/* Show hint button */}
                             <button
-                                className={`col${this.state.colSize}-11 middle-align`}
+                                className={`col${this.state.colSize}-6 middle-align`}
                                 onClick={this.toggleHint}
                             >{this.state.showHint === false
                                 ? "Show Hint"
@@ -791,28 +791,26 @@ export default class Quiz extends PureComponent<Props, State> {
                                 }
                             </button>
 
-                            <BR colSize={this.state.colSize} />
-
                             {/* Hint */}
                             {this.state.showHint === true
-                                ? <p className={`col${this.state.colSize}-11 middle-align`}>{this.state.currentCard.pinyin}</p>
+                                ? <>
+                                    <p className={`col${this.state.colSize}-11 middle-align`}>{this.state.currentCard.pinyin}</p>
+                                </>
                                 : <></>
                             }
 
-                            <BR colSize={this.state.colSize} />
-
                             {/* Show answer button */}
-
-                            <button
-                                className={`col${this.state.colSize}-11 middle-align`}
-                                onClick={this.toggleAnswer}
-                            >{this.state.showAnswer !== true
-                                ? "Show Answer"
-                                : "Hide Answer"
-                                }
-                            </button>
-
-                            <BR colSize={this.state.colSize} />
+                            <Fragment>
+                                <BR colSize={this.state.colSize} />
+                                <button
+                                    className={`col${this.state.colSize}-6 middle-align`}
+                                    onClick={this.toggleAnswer}
+                                >{this.state.showAnswer !== true
+                                    ? "Show Answer"
+                                    : "Hide Answer"
+                                    }
+                                </button>
+                            </Fragment>
 
                             {/* Card answer */}
                             {this.state.showAnswer === true

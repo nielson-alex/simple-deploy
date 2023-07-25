@@ -287,11 +287,11 @@ export default class Decks extends PureComponent<Props, State> {
                 .then((): void => {
                     generateMessage("success", "Deck successfully created");
 
-                    // this.setState({
-                    //     redirect: true
-                    // }, (): void => {
-                    //     window.location.reload();
-                    // });
+                    this.setState({
+                        redirect: true
+                    }, (): void => {
+                        window.location.reload();
+                    });
                 });
         }
     }

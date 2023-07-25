@@ -22,6 +22,7 @@ export default class Decks extends PureComponent<Props, State> {
 
         this._isMounted = true;
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.deleteDeck = this.deleteDeck.bind(this);
     }
 
     async componentDidMount(): Promise<void> {
@@ -68,6 +69,16 @@ export default class Decks extends PureComponent<Props, State> {
         }
     }
 
+    deleteDeck(id: any) {
+        fetch("/decks/post_delete_deck", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/JSON"
+            },
+            body: JSON.stringify({id: id})
+        });
+    }
+
     async getDecks(): Promise<void> {
         await fetch("/decks/get_all_decks")
             .then((res: Response): Promise<Response> => res.json())
@@ -99,7 +110,7 @@ export default class Decks extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>{this.props?.user?.first_name}'s Decks</h1>
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>Decks</h1>
                     </div>
 
                     {this.props?.user?._id !== ""
@@ -153,7 +164,7 @@ export default class Decks extends PureComponent<Props, State> {
             return (
                 <div className={`container container-${this.state.device}`}>
                     <div className="row">
-                        <h1 className={`col${this.state.colSize}-12 center-text`}>{this.props?.user?.first_name}'s Decks</h1>
+                        <h1 className={`col${this.state.colSize}-12 center-text`}>Decks</h1>
                     </div>
 
                     {this.props?.user?._id !== ""
@@ -184,6 +195,10 @@ export default class Decks extends PureComponent<Props, State> {
                                             Edit Deck
                                         </Link>
 
+                                        <a href="/#" className={`col${this.state.colSize}-7 middle-align center-text`} onClick={() => this.deleteDeck(deck._id)}>
+                                            Delete Deck
+                                        </a>
+                                        
                                         <div className={`col${this.state.colSize}-12`}>
                                             <hr />
                                         </div>

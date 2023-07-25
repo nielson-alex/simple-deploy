@@ -77,6 +77,18 @@ exports.postAddDeck = function (request, response, next) {
     }
 }
 
+exports.postDeleteDeck = function (request, response, next) {
+    const _id = request.body.id;
+    console.log("_id:", _id);
+    Deck.remove({_id: mongoose.Types.ObjectId(_id)})
+        .then(() => {
+            response.send({ "status": "Successful" });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
 exports.postEditDeck = function (request, response, next) {
     const _id = request.body._id;
     const deck_name = request.body.deck_name;

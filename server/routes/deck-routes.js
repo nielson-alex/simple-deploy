@@ -9,6 +9,7 @@ router.get('/get_decks_by_user_id', deckController.getDecksByUserId);
 
 /* POST */
 router.post("/add_deck", deckController.postAddDeck);
+router.post("/post_delete_deck", deckController.postDeleteDeck);
 router.post("/edit_deck", deckController.postEditDeck);
 
 module.exports = router;
